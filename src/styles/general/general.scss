@@ -1,0 +1,31 @@
+@import "size";
+
+@each $key, $schema in $schemas {
+  $values: map-get($schema, values);
+
+  @each $class-modifier, $value in $values {
+    $properties: map-get($schema, property);
+    $property-class-prefix: map-get($schema, class);
+    $property-class-prefix-hyphen: if(
+        $property-class-prefix== '',
+        $property-class-prefix,
+        $property-class-prefix + '-'
+    );
+
+    @if type-of($properties) == 'string' {
+      $properties: append((), $properties);
+    }
+
+    $mm: #{$property-class-prefix-hyphen + $class-modifier};
+
+    //@debug $mm, $value;
+
+    .#{$property-class-prefix-hyphen + $class-modifier} {
+      @each $property in $properties {
+        #{$property}: $value !important;
+      }
+    }
+  }
+
+}
+

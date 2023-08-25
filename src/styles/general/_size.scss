@@ -1,0 +1,19 @@
+// ==================================================
+// WIDTH & HEIGHT
+// ==================================================
+@import "spacing";
+
+$size: (
+  'width': (
+    property: width,
+    class: w,
+    values: $size
+  ),
+  'height': (
+    property: height,
+    class: h,
+    values: $size
+  )
+);
+
+$schemas: map-merge($size, $schemas)

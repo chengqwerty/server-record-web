@@ -1,0 +1,80 @@
+@import "variables";
+
+$margin-auto: (
+  auto: auto
+);
+
+$spacing: (
+  'margin': (
+    property: margin,
+    class: m,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'margin-x': (
+    property: margin-left margin-right,
+    class: m-x,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'margin-y': (
+    property: margin-top margin-bottom,
+    class: m-y,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'margin-top': (
+    property: margin-top,
+    class: m-t,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'margin-right': (
+    property: margin-right,
+    class: m-r,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'margin-bottom': (
+    property: margin-bottom,
+    class: m-b,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'margin-left': (
+    property: margin-left,
+    class: m-l,
+    values: map-merge($spacers, $margin-auto)
+  ),
+  'padding': (
+    property: padding,
+    class: p,
+    values: $spacers
+  ),
+  'padding-x': (
+    property: padding-left padding-right,
+    class: p-x,
+    values: $spacers
+  ),
+  'padding-y': (
+    property: padding-top padding-bottom,
+    class: p-y,
+    values: $spacers
+  ),
+  'padding-top': (
+    property: padding-top,
+    class: p-t,
+    values: $spacers
+  ),
+  'padding-right': (
+    property: padding-right,
+    class: p-r,
+    values: $spacers
+  ),
+  'padding-bottom': (
+    property: padding-bottom,
+    class: p-b,
+    values: $spacers
+  ),
+  'padding-left': (
+    property: padding-left,
+    class: p-l,
+    values: $spacers
+  )
+);
+
+$schemas: map-merge($spacing, $schemas)
