@@ -1,0 +1,21 @@
+//mat-toolbar {
+//    min-height: 64px;
+//}
+
+.art-header-item {
+    font-size: 14px;
+    padding: 0 2px;
+    margin-left: 8px;
+    margin-top: 6px;
+    line-height: 26px;
+    align-items: center;
+}
+
+.art-header-svg-container {
+    height: 32px;
+    width: 32px;
+}
+
+.art-header-item:hover {
+    cursor: pointer;
+}

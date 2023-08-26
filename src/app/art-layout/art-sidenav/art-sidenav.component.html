@@ -1,0 +1,22 @@
+<ng-template #ulMenu let-menus="menus">
+    <ul *ngFor="let menu of menus">
+        <li>
+            <a class="art-menu-a flex-row p-x-8" style="align-items: center" >
+                <mat-icon class="art-menu-icon" [svgIcon]="menu.icon"></mat-icon>
+                <span>{{menu.name}}</span>
+                <span style="flex: 1 1 auto"></span>
+                <mat-icon *ngIf="menu.children" svgIcon="up"></mat-icon>
+            </a>
+            <div class="p-l-32">
+                <ng-container *ngIf="menu.children && menu.opend">
+                    <ng-template [ngTemplateOutlet]="ulMenu" [ngTemplateOutletContext]="{menus: menu.children}"></ng-template>
+                </ng-container>
+            </div>
+
+        </li>
+    </ul>
+</ng-template>
+
+<ng-container *ngIf="menus">
+    <ng-template [ngTemplateOutlet]="ulMenu" [ngTemplateOutletContext]="{menus: menus}"></ng-template>
+</ng-container>

@@ -8,11 +8,19 @@ import { SharedModule }             from './shared/shared.module';
 import { ServerNamespaceComponent } from './server-namespace/server-namespace.component';
 import { SystemModule }             from './system/system.module';
 import { ExtensionsModule }         from './extensions/extensions.module';
+import { ArtLayoutComponent } from './art-layout/art-layout.component';
+import { ArtHeaderComponent } from './art-layout/art-header/art-header.component';
+import { ArtSidenavComponent } from './art-layout/art-sidenav/art-sidenav.component';
+import { ReuseTabsComponent } from './art-layout/reuse-tab/reuse-tabs.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        ServerNamespaceComponent
+        ServerNamespaceComponent,
+        ArtLayoutComponent,
+        ArtHeaderComponent,
+        ArtSidenavComponent,
+        ReuseTabsComponent
     ],
     imports: [
         BrowserModule,

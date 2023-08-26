@@ -1,0 +1,17 @@
+<div class="art-layout-container w-full h-full">
+    <app-art-header *ngIf="option.showHeader && option.headerPosition === 'above'"></app-art-header>
+    <mat-sidenav-container class="art-container" autosize="true">
+        <mat-sidenav mode="side" [opened]="option.showSidenav">
+            <app-art-sidenav></app-art-sidenav>
+        </mat-sidenav>
+        <mat-sidenav-content class="p-l-16">
+            <app-art-header *ngIf="option.showHeader && (option.headerPosition === 'fixed' || option.headerPosition === 'static')"></app-art-header>
+            <div class="section-container w-full h-full">
+                <app-reuse-tabs></app-reuse-tabs>
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+<!--    <app-option></app-option>-->
+</div>

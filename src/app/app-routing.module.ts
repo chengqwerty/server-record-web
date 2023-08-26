@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ServerNamespaceComponent } from "./server-namespace/server-namespace.component";
+import { ArtLayoutComponent } from "@/app/art-layout/art-layout.component";
 
 const routes: Routes = [
-  {
-    path: 'sys',
-    loadChildren: () => import('./system/system.module').then(module => module.SystemModule)
-  },
-  {
-    path: 'sns',
-    component: ServerNamespaceComponent
-  }
+    {
+        path: '',
+        component: ArtLayoutComponent,
+        children:[
+            {
+                path: 'sys',
+                loadChildren: () => import('./system/system.module').then(module => module.SystemModule)
+            },
+        ]
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
