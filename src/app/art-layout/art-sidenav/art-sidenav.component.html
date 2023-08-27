@@ -1,13 +1,14 @@
 <ng-template #ulMenu let-menus="menus">
     <ul *ngFor="let menu of menus">
         <li>
-            <span *ngIf="!menu.link" class="art-menu-a flex-row p-x-8" style="align-items: center" >
+            <span *ngIf="menu.type === 'group'" class="art-menu flex-row p-x-8" [ngClass]="menu.opened ? 'art-menu-open': ''" style="align-items: center" >
                 <mat-icon class="art-menu-icon" [svgIcon]="menu.icon"></mat-icon>
                 <span>{{menu.name}}</span>
                 <span style="flex: 1 1 auto; margin-left: 8px"></span>
-                <mat-icon *ngIf="menu.children" svgIcon="up"></mat-icon>
+                <mat-icon *ngIf="menu.children && !menu.opened" svgIcon="up"></mat-icon>
+                <mat-icon *ngIf="menu.children && menu.opened" svgIcon="down"></mat-icon>
             </span>
-            <span *ngIf="menu.link" class="art-menu-a flex-row p-x-8" style="align-items: center" [routerLink]="menu.link">
+            <span *ngIf="menu.type === 'menu'" class="art-menu flex-row p-x-8" style="align-items: center" [routerLink]="menu.link">
                 <mat-icon class="art-menu-icon" [svgIcon]="menu.icon"></mat-icon>
                 <span>{{menu.name}}</span>
                 <span style="flex: 1 1 auto; margin-left: 8px"></span>
@@ -18,7 +19,6 @@
                     <ng-template [ngTemplateOutlet]="ulMenu" [ngTemplateOutletContext]="{menus: menu.children}"></ng-template>
                 </ng-container>
             </div>
-
         </li>
     </ul>
 </ng-template>

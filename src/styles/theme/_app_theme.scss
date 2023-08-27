@@ -2,6 +2,7 @@
 @use 'official_theme' as official;
 @use '../../app/app-theme.component' as app;
 @use '../../app/art-layout/art-layout-theme.component' as artLayout;
+@use '../../app/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
 @use '../../app/extensions/reply-dialog/reply-dialog-theme.component'  as replyDialog;
 @use '../../app/system/area/area-tree/area-tree-theme.component' as areaTree;
 @use "sass:map";
@@ -9,6 +10,7 @@
 
 @include app.theme(official.$app-theme);
 @include artLayout.theme(official.$app-theme);
+@include artSidenav.theme(official.$app-theme);
 @include replyDialog.theme(official.$app-theme);
 @include areaTree.theme(official.$app-theme);
 

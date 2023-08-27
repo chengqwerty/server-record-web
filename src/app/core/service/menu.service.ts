@@ -21,29 +21,32 @@ export class MenuService {
 
     private menus: Menu[] = [
         {
-            name: '控制面板',
+            name: '系统管理',
             icon: 'set',
             opened: true,
+            type: 'group',
             children: [
                 {
-                    name: '颜色',
+                    name: '区域管理',
                     icon: 'set',
                     opened: true,
-                    type: 'group',
-                    children: [
-                        {
-                            name: 'area',
-                            icon: 'set',
-                            closable: true,
-                            link: 'sys/area'
-                        },
-                        {
-                            name: 'depart',
-                            icon: 'set',
-                            link: 'sys/depart'
-                        }
-                    ]
+                    type: 'menu',
+                    link: 'sys/area'
                 },
+                {
+                    name: '部门管理',
+                    icon: 'set',
+                    opened: true,
+                    type: 'menu',
+                    link: 'sys/depart'
+                },
+                {
+                    name: '菜单管理',
+                    icon: 'set',
+                    opened: true,
+                    type: 'menu',
+                    link: 'sys/menu'
+                }
 
             ]
         }
