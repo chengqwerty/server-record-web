@@ -14,28 +14,38 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
     }
 
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
-        return this.reuseTabService.retrieve(route);
-        // return null;
+        console.log("==================retrieve");
+        const a = this.reuseTabService.retrieve(route);
+        console.log("==================retrieve" + a);
+        return a;
     }
 
     shouldAttach(route: ActivatedRouteSnapshot): boolean {
-        return this.reuseTabService.shouldAttach(route);
-        // return false;
+        console.log(route.url + "==================shouldAttach");
+        const a = this.reuseTabService.shouldAttach(route);
+        console.log(route.url + "==================shouldAttach" + a);
+        return a;
     }
 
     /**
      * 是否允许复用路由
      */
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        return this.reuseTabService.shouldDetach(route);
+        console.log("==================shouldDetach");
+        const a = this.reuseTabService.shouldDetach(route);
+        console.log("==================shouldDetach" + a);
+        return a;
     }
 
     shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-        return this.reuseTabService.shouldReuseRoute(future, curr);
-        // return future.routeConfig === curr.routeConfig;
+        console.log("==================shouldReuseRoute");
+        const a = this.reuseTabService.shouldReuseRoute(future, curr);
+        console.log("==================shouldReuseRoute" + a);
+        return a;
     }
 
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
+        console.log("==================store");
         this.reuseTabService.store(route, handle);
     }
 

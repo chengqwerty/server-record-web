@@ -8,6 +8,11 @@ const routes: Routes = [
         component: ArtLayoutComponent,
         children:[
             {
+                path: '',
+                redirectTo: 'sys/area',
+                pathMatch: 'full'
+            },
+            {
                 path: 'sys',
                 loadChildren: () => import('./system/system.module').then(module => module.SystemModule)
             },

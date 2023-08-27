@@ -7,6 +7,7 @@ export interface Menu {
     target?: string;
     icon?: string;
     link?: string;
+    closable?: boolean,
     type?: 'group' | 'menu';
     opened?: boolean;
     children?: Menu[];
@@ -31,9 +32,15 @@ export class MenuService {
                     type: 'group',
                     children: [
                         {
-                            name: '主题颜色',
+                            name: 'area',
                             icon: 'set',
-                            link: 'config/color'
+                            closable: true,
+                            link: 'sys/area'
+                        },
+                        {
+                            name: 'depart',
+                            icon: 'set',
+                            link: 'sys/depart'
                         }
                     ]
                 },

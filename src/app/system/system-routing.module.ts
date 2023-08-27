@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: 'area',
         component: AreaComponent,
-        data: { title: '系统区域'}
+        data: { title: '系统区域' }
     },
     {
         path: 'depart',

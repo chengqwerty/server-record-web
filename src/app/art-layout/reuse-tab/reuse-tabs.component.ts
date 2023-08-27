@@ -130,6 +130,7 @@ export class ReuseTabsComponent implements OnInit {
             ls[0].closable = false;
         }
         this.list = ls;
+        console.log(ls);
         this.cdr.detectChanges();
         this.updatePos$.next();
     }

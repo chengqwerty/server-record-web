@@ -12,6 +12,8 @@ import { ArtLayoutComponent } from './art-layout/art-layout.component';
 import { ArtHeaderComponent } from './art-layout/art-header/art-header.component';
 import { ArtSidenavComponent } from './art-layout/art-sidenav/art-sidenav.component';
 import { ReuseTabsComponent } from './art-layout/reuse-tab/reuse-tabs.component';
+import { RouteReuseStrategy } from "@angular/router";
+import { ReuseTabStrategy } from "@/app/art-layout/reuse-tab/reuse-tabs.strategy";
 
 @NgModule({
     declarations: [
@@ -30,7 +32,9 @@ import { ReuseTabsComponent } from './art-layout/reuse-tab/reuse-tabs.component'
         ExtensionsModule,
         SystemModule
     ],
-    providers: [],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: ReuseTabStrategy }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
