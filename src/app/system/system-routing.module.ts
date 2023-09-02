@@ -2,6 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DepartComponent }      from '@/app/system/depart/depart.component';
 import { AreaComponent }        from '@/app/system/area/area.component';
+import { MenuComponent }        from '@/app/system/menu/menu.component';
 
 const routes: Routes = [
     {
@@ -12,7 +13,12 @@ const routes: Routes = [
     {
         path: 'depart',
         component: DepartComponent,
-        data: { title: '系统部门'}
+        data: { title: '系统部门' }
+    },
+    {
+        path: 'menu',
+        component: MenuComponent,
+        data: { title: '菜单管理' }
     }
 ];
 

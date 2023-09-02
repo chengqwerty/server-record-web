@@ -7,6 +7,8 @@ import { AreaDialogComponent } from './area/area-dialog/area-dialog.component';
 import { AreaTreeComponent }   from './area/area-tree/area-tree.component';
 import { ExtensionsModule }    from '@/app/extensions/extensions.module';
 import { DepartComponent } from './depart/depart.component';
+import { MenuComponent } from './menu/menu.component';
+import { MenuTreeComponent } from './menu/menu-tree/menu-tree.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { DepartComponent } from './depart/depart.component';
         AreaComponent,
         AreaDialogComponent,
         AreaTreeComponent,
-        DepartComponent
+        DepartComponent,
+        MenuComponent,
+        MenuTreeComponent
     ],
     imports: [
         SharedModule,
