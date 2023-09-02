@@ -26,6 +26,7 @@ $is-dark-theme: map.get($color-config, 'is-dark');
 
 .section-container {
     background-color: mat.get-color-from-palette($background-palette, 'card');
+    padding: 8px;
 }
 
 a {
