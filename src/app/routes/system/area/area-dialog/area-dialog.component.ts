@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit }                from '@angular/core';
 import { FormBuilder, FormGroup, Validators }       from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient }                               from "@angular/common/http";
-import { HttpCollections }                          from "../../../../environments/environment";
-import { ResultBean }                               from "../../../common/result.bean";
 import { MatSnackBar }                              from "@angular/material/snack-bar";
-import { ReplyDialogService }                       from "../../../extensions/reply-dialog/reply-dialog.service";
 import { SysArea }                                  from '../area.component';
+import { ReplyDialogService }                       from '@/app/extensions/reply-dialog/reply-dialog.service';
+import { HttpCollections }                          from '@/environments/environment';
+import { ResultBean }                               from '@/app/common/result.bean';
 
 @Component({
     selector: 'app-area-dialog',

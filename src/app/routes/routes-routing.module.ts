@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ArtLayoutComponent } from "@/app/art-layout/art-layout.component";
+import { NgModule }             from '@angular/core';
+import { ArtLayoutComponent }   from '@/app/routes/art-layout/art-layout.component';
 
 const routes: Routes = [
     {
@@ -24,5 +24,5 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule {
+export class RoutesRoutingModule {
 }

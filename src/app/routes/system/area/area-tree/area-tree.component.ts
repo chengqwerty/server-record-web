@@ -1,11 +1,10 @@
 import { Component, EventEmitter, OnInit, Output }       from '@angular/core';
-import { HttpCollections }                               from '../../../../environments/environment';
-import { ResultBean }                                    from '../../../common/result.bean';
 import { HttpClient }                                    from '@angular/common/http';
 import { CollectionViewer, DataSource, SelectionChange } from '@angular/cdk/collections';
 import { BehaviorSubject, map, merge, Observable }       from 'rxjs';
 import { FlatTreeControl }                               from '@angular/cdk/tree';
-import { SysArea }                                       from "../area.component";
+import { HttpCollections }                               from '@/environments/environment';
+import { ResultBean }                                    from '@/app/common/result.bean';
 
 // tree node数据结构
 export class AreaFlatNode {

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 
 import { SystemRoutingModule } from './system-routing.module';
-import { SharedModule }        from '../shared/shared.module';
 import { AreaComponent }       from './area/area.component';
 import { AreaDialogComponent } from './area/area-dialog/area-dialog.component';
 import { AreaTreeComponent }   from './area/area-tree/area-tree.component';
 import { ExtensionsModule }    from '@/app/extensions/extensions.module';
-import { DepartComponent } from './depart/depart.component';
-import { MenuComponent } from './menu/menu.component';
-import { MenuTreeComponent } from './menu/menu-tree/menu-tree.component';
+import { DepartComponent }     from './depart/depart.component';
+import { MenuComponent }       from './menu/menu.component';
+import { MenuTreeComponent }   from './menu/menu-tree/menu-tree.component';
+import { SharedModule }        from '@/app/shared/shared.module';
 
 
 @NgModule({
@@ -21,8 +21,8 @@ import { MenuTreeComponent } from './menu/menu-tree/menu-tree.component';
         MenuTreeComponent
     ],
     imports: [
-        SharedModule,
         SystemRoutingModule,
+        SharedModule,
         ExtensionsModule
     ]
 })

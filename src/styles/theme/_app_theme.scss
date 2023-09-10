@@ -1,10 +1,10 @@
 // 使用官方主题编译自己的组件主题
 @use 'official_theme' as official;
 @use '../../app/app-theme.component' as app;
-@use '../../app/art-layout/art-layout-theme.component' as artLayout;
-@use '../../app/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
+@use '../../app/routes/art-layout/art-layout-theme.component' as artLayout;
+@use '../../app/routes/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
 @use '../../app/extensions/reply-dialog/reply-dialog-theme.component'  as replyDialog;
-@use '../../app/system/area/area-tree/area-tree-theme.component' as areaTree;
+@use '../../app/routes/system/area/area-tree/area-tree-theme.component' as areaTree;
 @use "sass:map";
 @use "@angular/material" as mat;
 

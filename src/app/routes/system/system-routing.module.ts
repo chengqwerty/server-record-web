@@ -1,8 +1,8 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DepartComponent }      from '@/app/system/depart/depart.component';
-import { AreaComponent }        from '@/app/system/area/area.component';
-import { MenuComponent }        from '@/app/system/menu/menu.component';
+import { AreaComponent }        from '@/app/routes/system/area/area.component';
+import { DepartComponent }      from '@/app/routes/system/depart/depart.component';
+import { MenuComponent }        from '@/app/routes/system/menu/menu.component';
 
 const routes: Routes = [
     {

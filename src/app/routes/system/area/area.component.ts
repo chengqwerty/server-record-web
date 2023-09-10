@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild }       from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog }                          from '@angular/material/dialog';
 import { AreaDialogComponent }                from './area-dialog/area-dialog.component';
 import { AreaFlatNode, AreaTreeComponent }    from './area-tree/area-tree.component';
 import { CollectionViewer, DataSource }       from '@angular/cdk/collections';
 import { BehaviorSubject, Observable }        from 'rxjs';
-import { ResultBean }                         from '../../common/result.bean';
 import { HttpCollections }                    from '@/environments/environment';
 import { HttpClient }                         from '@angular/common/http';
+import { ResultBean }                         from '@/app/common/result.bean';
 
 export interface SysArea {
     areaCode: string,

@@ -1,17 +1,17 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import {
-    ReuseItem,
-    ReuseTabCached,
-    ReuseTabNotify,
-    ReuseTitle
-}                                                      from '@/app/art-layout/reuse-tab/reuse-tabs.interfaces';
 import { debounceTime, Subject } from 'rxjs';
 import { FormControl }           from '@angular/forms';
 import { ActivatedRoute, Router }              from '@angular/router';
 import { DomSanitizer }                        from '@angular/platform-browser';
 import { MatIconRegistry }                     from '@angular/material/icon';
-import { ReuseTabService }                     from '@/app/art-layout/reuse-tab/reuse-tabs.service';
 import { MatTabChangeEvent }                   from '@angular/material/tabs';
+import { ReuseTabService }                       from '@/app/routes/art-layout/reuse-tab/reuse-tabs.service';
+import {
+    ReuseItem,
+    ReuseTabCached,
+    ReuseTabNotify,
+    ReuseTitle
+} from '@/app/routes/art-layout/reuse-tab/reuse-tabs.interfaces';
 
 @Component({
     selector: 'app-reuse-tabs',
