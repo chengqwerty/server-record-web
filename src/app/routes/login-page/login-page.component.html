@@ -1,0 +1,26 @@
+<div class="login-container w-full h-full flex-row">
+    <div class="login-form section-container">
+        <h2>欢迎回来</h2>
+        <form [formGroup]="loginForm" (submit)="login()">
+            <p>
+                <mat-form-field class="mat-form-field-fill" appearance="outline">
+                    <mat-label>用户名</mat-label>
+                    <input matInput formControlName="loginName">
+                    <mat-icon matSuffix fontIcon="person"></mat-icon>
+                    <mat-error *ngIf="loginForm.get('loginName')?.invalid">用户名不能为空</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="mat-form-field-fill" appearance="outline">
+                    <mat-label>密码</mat-label>
+                    <input matInput formControlName="password" type="password">
+                    <mat-icon matSuffix fontIcon="lock"></mat-icon>
+                    <mat-error *ngIf="loginForm.get('password')?.invalid">用户名不能为空</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <button class="login-button" mat-raised-button color="primary" type="submit">登    录</button>
+            </p>
+        </form>
+    </div>
+</div>
