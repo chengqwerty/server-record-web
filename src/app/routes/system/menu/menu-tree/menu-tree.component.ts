@@ -1,8 +1,8 @@
 import { Component }                                     from '@angular/core';
 import { CollectionViewer, DataSource, SelectionChange } from '@angular/cdk/collections';
-import { BehaviorSubject, map, merge, Observable }       from 'rxjs';
-import { FlatTreeControl }                               from '@angular/cdk/tree';
-import { HttpClient }                   from '@angular/common/http';
+import { BehaviorSubject, map, merge, Observable } from 'rxjs';
+import { FlatTreeControl, NestedTreeControl }      from '@angular/cdk/tree';
+import { HttpClient }                              from '@angular/common/http';
 import { ResultBean }                                    from '@/app/common/result.bean';
 import { HttpCollections }                               from '@/environments/environment';
 
@@ -10,19 +10,22 @@ import { HttpCollections }                               from '@/environments/en
 // tree node数据结构
 export class MenuTreeNode {
     constructor(
-        public areaCode: string,
-        public areaParentCode: string | null,
-        public expandCode: string,
-        public areaName: string,
-        public level = 1,
-        public expandable = false,
-        public isLoading = false,
-    ) {
+        public menuId: string,
+        public menuCode: string,
+        public menuName: string,
+        public menuDescription: string,
+        public menuType: number,
+        public menuLink: string,
+        public menuIcon: string,
+        public parentId: string,
+        public menuVisible: number,
+        public children: number
+) {
     }
 }
 
 // tree datasource
-export class AreaFlatNodeDataSource implements DataSource<MenuTreeNode> {
+export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
     dataChange = new BehaviorSubject<MenuTreeNode[]>([]);
 
@@ -35,76 +38,25 @@ export class AreaFlatNodeDataSource implements DataSource<MenuTreeNode> {
         this.dataChange.next(value);
     }
 
-    constructor(private _treeControl: FlatTreeControl<MenuTreeNode>,
+    constructor(private _treeControl: NestedTreeControl<MenuTreeNode>,
                 private httpClient: HttpClient) {
     }
 
     // 初始化数据
-    initialData(): AreaFlatNodeDataSource {
-        // this._treeControl.dataNodes = [new AreaFlatNode("0", null, "0", "区域", 1, true, false)];
-        // this.data = this._treeControl.dataNodes;
-        this.data = [new MenuTreeNode("0", null, "0", "区域", 1, true, false)];
-        return this;
+    initialData(): MenuTreeNode[] {
+        return [];
     }
 
     connect(collectionViewer: CollectionViewer): Observable<any[]> {
-        this._treeControl.expansionModel.changed.subscribe(change => {
-            if (
-                (change as SelectionChange<MenuTreeNode>).added ||
-                (change as SelectionChange<MenuTreeNode>).removed
-            ) {
-                this.handleTreeControl(change as SelectionChange<MenuTreeNode>);
-            }
-        });
-        return merge(collectionViewer.viewChange, this.dataChange).pipe(map(() => {
-            console.log(this.data);
-            return this.data;
-        }));
+        return new Observable<any[]>();
     }
 
     disconnect(collectionViewer: CollectionViewer): void {
     }
 
-    // 控制展开和折叠
-    handleTreeControl(change: SelectionChange<MenuTreeNode>) {
-        if (change.added) {
-            change.added.forEach(node => this.toggleNode(node, true));
-        }
-        if (change.removed) {
-            change.removed
-                .slice()
-                .reverse()
-                .forEach(node => this.toggleNode(node, false));
-        }
-    }
+}
 
-    toggleNode(node: MenuTreeNode, expand: boolean) {
-        const index = this.data.indexOf(node);
-        if (expand) {
-            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {areaParentCode: node.areaCode}})
-                .subscribe((response) => {
-                    let areas = response.data as any[];
-                    if (areas.length === 0) {
-                        node.expandable = false;
-                        this.data[index] = new MenuTreeNode(node.areaCode, node.areaParentCode, node.expandCode, node.areaName, node.level, false);
-                    } else {
-                        areas = areas.map((area) => new MenuTreeNode(area.areaCode, area.areaParentCode, area.expandCode, area.areaName, node.level + 1));
-                        this.data.splice(index + 1, 0, ...areas);
-                    }
-                    this.dataChange.next([...this.data]);
-                });
-        } else {
-            let count = 0;
-            for (let i = index + 1; i < this.data.length && this.data[i].level > node.level; i++) {
-                count++
-            }
-            console.log(this.data.length);
-            this.data.splice(index + 1, count);
-            console.log(this.data.length);
-            this.dataChange.next(this.data);
-        }
-    }
-
+class DynamicDatabase {
 }
 
 @Component({
@@ -114,4 +66,15 @@ export class AreaFlatNodeDataSource implements DataSource<MenuTreeNode> {
 })
 export class MenuTreeComponent {
 
+    public treeControl: NestedTreeControl<any>;
+    public dataSource: MenuTreeDataSource;
+
+    constructor(private httpClient: HttpClient) {
+        this.treeControl = new NestedTreeControl<MenuTreeNode>(this.getChildren);
+        this.dataSource = new MenuTreeDataSource(this.treeControl, httpClient);
+    }
+
+    getChildren(node: MenuTreeNode): Observable<MenuTreeNode[]> {
+        return new Observable<MenuTreeNode[]>();
+    }
 }
