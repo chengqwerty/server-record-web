@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule }             from '@angular/core';
 import { ArtLayoutComponent }   from '@/app/routes/art-layout/art-layout.component';
 import { LoginPageComponent }   from '@/app/routes/login-page/login-page.component';
+import { authGuard }            from '@/app/routes/guard/auth.guard';
 
 const routes: Routes = [
     {
@@ -16,6 +17,7 @@ const routes: Routes = [
     {
         path: 'bus',
         component: ArtLayoutComponent,
+        canActivate: [authGuard],
         children:[
             {
                 path: '',
