@@ -12,8 +12,12 @@
     $background-palette: map.get($color-config, 'background');
     $is-dark-theme: map.get($color-config, 'is-dark');
 
+
     .art-menu-open {
         background: mat.get-color-from-palette($background-palette, 'hover');
+    }
+    .art-menu.current-link {
+        color: mat.get-color-from-palette($primary-palette, 'default');
     }
 }
 

@@ -1,7 +1,11 @@
 .art-menu {
     height: 48px;
     font-size: 14px;
+    align-items: center;
     .art-menu-icon {
         margin-right: 8px;
+    }
+    &:hover {
+        cursor: pointer;
     }
 }

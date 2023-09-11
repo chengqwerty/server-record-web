@@ -31,21 +31,21 @@ export class MenuService {
                     icon: 'set',
                     opened: true,
                     type: 'menu',
-                    link: 'sys/area'
+                    link: '/bus/sys/area'
                 },
                 {
                     name: '部门管理',
                     icon: 'set',
                     opened: true,
                     type: 'menu',
-                    link: 'sys/depart'
+                    link: '/bus/sys/dept'
                 },
                 {
                     name: '菜单管理',
                     icon: 'set',
                     opened: true,
                     type: 'menu',
-                    link: 'sys/menu'
+                    link: '/bus/sys/menu'
                 }
 
             ]

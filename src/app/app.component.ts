@@ -10,8 +10,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class AppComponent {
 
     constructor(matIconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-        matIconRegistry.addSvgIcon('set', sanitizer.bypassSecurityTrustResourceUrl('assets/icon/set.svg'));
-        matIconRegistry.addSvgIcon('up', sanitizer.bypassSecurityTrustResourceUrl('assets/icon/up.svg'));
     }
 
 }

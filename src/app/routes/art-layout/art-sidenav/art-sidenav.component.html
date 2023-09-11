@@ -5,10 +5,10 @@
                 <mat-icon class="art-menu-icon" [svgIcon]="menu.icon"></mat-icon>
                 <span>{{menu.name}}</span>
                 <span style="flex: 1 1 auto; margin-left: 8px"></span>
-                <mat-icon *ngIf="menu.children && !menu.opened" svgIcon="up"></mat-icon>
-                <mat-icon *ngIf="menu.children && menu.opened" svgIcon="down"></mat-icon>
+                <mat-icon *ngIf="menu.children && !menu.opened" fontIcon="chevron_left"></mat-icon>
+                <mat-icon *ngIf="menu.children && menu.opened" fontIcon="expand_more"></mat-icon>
             </span>
-            <span *ngIf="menu.type === 'menu'" class="art-menu flex-row p-x-8" style="align-items: center" [routerLink]="menu.link">
+            <span *ngIf="menu.type === 'menu'" class="art-menu flex-row p-x-8" [class.current-link]="currentUrl === menu.link" (click)="navigate(menu.link)">
                 <mat-icon class="art-menu-icon" [svgIcon]="menu.icon"></mat-icon>
                 <span>{{menu.name}}</span>
                 <span style="flex: 1 1 auto; margin-left: 8px"></span>
