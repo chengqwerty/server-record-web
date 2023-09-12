@@ -22,27 +22,27 @@ export class MenuService {
     private menus: Menu[] = [
         {
             name: '系统管理',
-            icon: 'set',
+            icon: 'settings',
             opened: true,
             type: 'group',
             children: [
                 {
                     name: '区域管理',
-                    icon: 'set',
+                    icon: 'settings',
                     opened: true,
                     type: 'menu',
                     link: '/bus/sys/area'
                 },
                 {
                     name: '部门管理',
-                    icon: 'set',
+                    icon: 'settings',
                     opened: true,
                     type: 'menu',
                     link: '/bus/sys/dept'
                 },
                 {
                     name: '菜单管理',
-                    icon: 'set',
+                    icon: 'settings',
                     opened: true,
                     type: 'menu',
                     link: '/bus/sys/menu'
