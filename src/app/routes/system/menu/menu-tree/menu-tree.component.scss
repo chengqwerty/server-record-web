@@ -1,0 +1,17 @@
+//.menu-tree-invisible {
+//    display: none;
+//}
+/*
+ * This padding sets alignment of the nested nodes.
+ */
+.menu-tree .mat-nested-tree-node div[role=group] {
+    padding-left: 40px;
+}
+
+.menu-tree div[role=group] > .mat-tree-node {
+    padding-left: 40px;
+}
+
+mat-nested-tree-node, mat-tree-node {
+    cursor: pointer;
+}

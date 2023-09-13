@@ -1,7 +1,7 @@
 import { Component }                                     from '@angular/core';
 import { CollectionViewer, DataSource, SelectionChange } from '@angular/cdk/collections';
 import { BehaviorSubject, map, merge, Observable }       from 'rxjs';
-import { FlatTreeControl, NestedTreeControl }            from '@angular/cdk/tree';
+import { NestedTreeControl }                             from '@angular/cdk/tree';
 import { HttpClient }                                    from '@angular/common/http';
 import { ResultBean }                                    from '@/app/common/result.bean';
 import { HttpCollections }                               from '@/environments/environment';
@@ -9,6 +9,9 @@ import { HttpCollections }                               from '@/environments/en
 
 // tree node数据结构
 export class MenuTreeNode {
+
+    public children: BehaviorSubject<MenuTreeNode[]> = new BehaviorSubject<MenuTreeNode[]>([]);
+
     constructor(
         public menuId: string,
         public menuCode: string,
@@ -19,9 +22,10 @@ export class MenuTreeNode {
         public menuIcon: string | null,
         public parentId: string | null,
         public menuVisible: number,
-        public children: MenuTreeNode[] | null
+        public obtain: boolean
     ) {
     }
+
 }
 
 // tree datasource
@@ -39,24 +43,23 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
     }
 
     constructor(private _treeControl: NestedTreeControl<MenuTreeNode>,
-                private httpClient: HttpClient) {
+                private _httpClient: HttpClient) {
     }
 
     // 初始化数据
     initialData(): MenuTreeDataSource {
-        this.data = [new MenuTreeNode('0', '', '菜单', '', 0, null, null, null, 0, null)];
-        // this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent?parentId=' + 0).subscribe(response => {
-        //     if (response.code === 200) {
-        //         this.data = response.data;
-        //     }
-        // });
+        this.data = [new MenuTreeNode('0', '', '菜单', '', 1, null, null, null, 0, false)];
         return this;
     }
 
     connect(collectionViewer: CollectionViewer): Observable<MenuTreeNode[]> {
-        // return new Observable<any[]>();
+        this._treeControl.expansionModel.changed.subscribe(change => {
+            console.log(change);
+            if ((change as SelectionChange<MenuTreeNode>).added || (change as SelectionChange<MenuTreeNode>).removed) {
+                this.handleTreeControl(change as SelectionChange<MenuTreeNode>);
+            }
+        });
         return merge(collectionViewer.viewChange, this.dataChange).pipe(map(() => {
-            console.log(this.data);
             return this.data;
         }));
     }
@@ -64,9 +67,33 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
     disconnect(collectionViewer: CollectionViewer): void {
     }
 
-}
+    /** Handle expand/collapse behaviors */
+    handleTreeControl(change: SelectionChange<MenuTreeNode>) {
+        if (change.added) {
+            change.added.forEach(node => this.toggleNode(node, true));
+        }
+    }
 
-class DynamicDatabase {
+    toggleNode(node: MenuTreeNode, expand: boolean) {
+        console.log(node.obtain)
+        if (!node.obtain) {
+            this._httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent?parentId=' + node.menuId).subscribe(response => {
+                if (response.code === 200) {
+                    node.obtain = true;
+                    node.children.next((response.data as [any]).map(data => {
+                        return new MenuTreeNode(data.menuId, data.menuCode, data.menuName, data.menuDescription, data.menuType, data.menuLink, data.menuIcon, data.parentId, data.menuVisible, false);
+                    }));
+                } else {
+                    if (response.message) {
+                        // 等待完善
+                    } else {
+                        // 等待完善
+                    }
+                }
+            });
+        }
+    }
+
 }
 
 @Component({
@@ -80,15 +107,14 @@ export class MenuTreeComponent {
     public dataSource: MenuTreeDataSource;
 
     constructor(private httpClient: HttpClient) {
-        this.treeControl = new NestedTreeControl<MenuTreeNode>(this.getChildren);
-        this.dataSource = new MenuTreeDataSource(this.treeControl, httpClient).initialData();
-    }
+        this.treeControl = new NestedTreeControl<MenuTreeNode>(node => node.children);
+        this.dataSource = new MenuTreeDataSource(this.treeControl, this.httpClient).initialData();
 
-    getChildren(node: MenuTreeNode): Observable<MenuTreeNode[]> {
-        return new Observable<MenuTreeNode[]>();
     }
 
     hasChild(index: number, treeNode: MenuTreeNode): boolean {
-        return true;
+        return treeNode.menuType === 1;
     }
+
+
 }
