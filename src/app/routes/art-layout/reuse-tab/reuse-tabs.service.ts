@@ -453,7 +453,11 @@ export class ReuseTabService implements OnDestroy {
         return ret;
     }
 
-    // 决定路由是否可以复用
+    /**
+     * 判断路由是否可以复用
+     * @param future 将要跳转的路由
+     * @param curr 当前路由
+     */
     shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
         let ret = future.routeConfig === curr.routeConfig;
         if (!ret) {

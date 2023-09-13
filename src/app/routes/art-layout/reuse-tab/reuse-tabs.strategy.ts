@@ -14,16 +14,18 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
     }
 
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
-        console.log("==================retrieve");
         const a = this.reuseTabService.retrieve(route);
-        console.log("==================retrieve" + a);
+        console.log(route.url + "==================retrieve" + a);
         return a;
     }
 
+    /**
+     * 是否允许还原路由，如果我们之前保存过这个路由的缓存，那么可以还原
+     * @param route 要尝试还原的路由
+     */
     shouldAttach(route: ActivatedRouteSnapshot): boolean {
-        console.log(route.url + "==================shouldAttach");
         const a = this.reuseTabService.shouldAttach(route);
-        console.log(route.url + "==================shouldAttach" + a);
+        console.log(route.url + "==================shouldAttach is " + a);
         return a;
     }
 
@@ -31,21 +33,30 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
      * 是否允许复用路由
      */
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        console.log("==================shouldDetach");
         const a = this.reuseTabService.shouldDetach(route);
-        console.log("==================shouldDetach" + a);
+        console.log(route.url + "==================shouldDetach is " + a);
         return a;
     }
 
+    /**
+     * 判断路由是否可以复用
+     * @param future 将要跳转的路由
+     * @param curr 当前路由
+     */
     shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-        console.log("==================shouldReuseRoute");
         const a = this.reuseTabService.shouldReuseRoute(future, curr);
-        console.log("==================shouldReuseRoute" + a);
+        console.log(future.url + "==================shouldReuseRoute is " + a);
         return a;
     }
 
+    /**
+     * 如果一个将要离开的路由执行shouldDetach返回true，那么这个路由就需要保存。
+     * 只有保存之后下次复用才可以获取。
+     * @param route
+     * @param handle
+     */
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
-        console.log("==================store");
+        console.log(route.url + "==================store");
         this.reuseTabService.store(route, handle);
     }
 
