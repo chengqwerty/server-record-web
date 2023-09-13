@@ -42,7 +42,7 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
     initialData(): AreaFlatNodeDataSource {
         // this._treeControl.dataNodes = [new AreaFlatNode("0", null, "0", "区域", 1, true, false)];
         // this.data = this._treeControl.dataNodes;
-        this.data = [new AreaFlatNode("0", null, "0", "区域", 1, true, false)];
+        this.data = [new AreaFlatNode("0", null, "0", "区域", 0, true, false)];
         return this;
     }
 
