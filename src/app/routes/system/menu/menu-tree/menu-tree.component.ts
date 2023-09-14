@@ -1,10 +1,11 @@
-import { Component }                                     from '@angular/core';
+import { Component, EventEmitter, Output }               from '@angular/core';
 import { CollectionViewer, DataSource, SelectionChange } from '@angular/cdk/collections';
 import { BehaviorSubject, map, merge, Observable }       from 'rxjs';
 import { NestedTreeControl }                             from '@angular/cdk/tree';
 import { HttpClient }                                    from '@angular/common/http';
 import { ResultBean }                                    from '@/app/common/result.bean';
 import { HttpCollections }                               from '@/environments/environment';
+import { AreaFlatNode }                                  from '@/app/routes/system/area/area-tree/area-tree.component';
 
 
 // tree node数据结构
@@ -103,8 +104,13 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 })
 export class MenuTreeComponent {
 
+    @Output()
+    public changeSelectedNode = new EventEmitter<string>();
+
     public treeControl: NestedTreeControl<any>;
     public dataSource: MenuTreeDataSource;
+
+    public selectedNode: MenuTreeNode | null = null;
 
     constructor(private httpClient: HttpClient) {
         this.treeControl = new NestedTreeControl<MenuTreeNode>(node => node.children);
@@ -116,5 +122,15 @@ export class MenuTreeComponent {
         return treeNode.menuType === 1;
     }
 
+    selectNode(node: MenuTreeNode) {
+        if (this.selectedNode === null || this.selectedNode.menuId !== node.menuId) {
+            this.selectedNode = node;
+            this.changeSelectedNode.emit(node.menuId);
+        }
+    }
+
+    public assertNodeType(item: MenuTreeNode): MenuTreeNode {
+        return item;
+    }
 
 }

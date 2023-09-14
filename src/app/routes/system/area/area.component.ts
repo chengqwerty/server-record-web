@@ -54,7 +54,7 @@ export class AreaComponent implements OnInit {
 
     public selectedNode: AreaFlatNode | null = null;
     public dataSource: SysAreaDataSource;
-    public displayedColumns: ['areaCode', 'areaName', 'areaDescription'] = ['areaCode', 'areaName', 'areaDescription'];
+    public displayedColumns = ['areaCode', 'areaName', 'areaDescription'];
 
     constructor(private formBuilder: FormBuilder,
                 private dialog: MatDialog,
