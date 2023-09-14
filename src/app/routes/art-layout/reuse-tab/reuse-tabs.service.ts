@@ -145,12 +145,13 @@ export class ReuseTabService implements OnDestroy {
 
     /**
      * 判断路由是否有效
+     * 如果配置了reuse false不复用，返回true
      * ---盲猜如果是中间路由不复用---
      * @param route 快照
      * @private
      */
     private hasInValidRoute(route: ActivatedRouteSnapshot): boolean {
-        return !route.routeConfig || !!route.routeConfig.loadChildren || !!route.routeConfig.children;
+        return (route.routeConfig && route.routeConfig.data && route.routeConfig.data['reuse'] === false) || (!route.routeConfig || !!route.routeConfig.loadChildren || !!route.routeConfig.children);
     }
 
     // 测试使用

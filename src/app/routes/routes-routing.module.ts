@@ -13,6 +13,7 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginPageComponent,
+        data: { reuse: false }
     },
     {
         path: 'bus',
