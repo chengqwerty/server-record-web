@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { debounceTime, Subject } from 'rxjs';
-import { FormControl }           from '@angular/forms';
+import { debounceTime, map, Subject }                  from 'rxjs';
+import { FormControl }                                 from '@angular/forms';
 import { ActivatedRoute, Router }              from '@angular/router';
 import { DomSanitizer }                        from '@angular/platform-browser';
 import { MatIconRegistry }                     from '@angular/material/icon';
@@ -28,7 +28,7 @@ export class ReuseTabsComponent implements OnInit {
     public list: ReuseItem[] = [];
 
     // tab标签位置变更通知
-    private updatePos$ = new Subject<void>();
+    private updatePos$ = new Subject<String>();
 
     // 当前选中的tab 标签页
     public selected = new FormControl(0);
@@ -39,7 +39,7 @@ export class ReuseTabsComponent implements OnInit {
                 private cdr: ChangeDetectorRef,
                 private router: Router,
                 private route: ActivatedRoute) {
-        console.log('This is reuse-tab constructor');
+        console.log("ReuseTabsComponent create!");
         this.matIconRegistry.addSvgIcon('close', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icon/close.svg'));
     }
 
@@ -48,25 +48,41 @@ export class ReuseTabsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // .pipe(debounceTime(0))
         // tab标签页位置变更通知
-        this.updatePos$.pipe(debounceTime(50)).subscribe(() => {
+        this.updatePos$.pipe(map((item) => {console.log("item is " + item);return item;})).subscribe(() => {
             const url = this.reuseTabService.getUrl(this.route.snapshot);
             const index = this.list.findIndex(w => w.url === url);
-            this.selected.setValue(index);
-            this.cdr.detectChanges();
-        });
 
+            if (!(this.selected.value === index)) {
+                console.log("this selected set value is ", index);
+                this.selected.setValue(index);
+            }
+            // this.cdr.detectChanges();
+        });
         // 订阅路由缓存变更通知
         this.reuseTabService.change.subscribe((res) => {
             switch (res?.active) {
                 case 'title':
                     return;
                 case 'override':
-                    this.updatePos$.next();
+                    this.updatePos$.next(res.url + '');
                     return;
             }
             this.genList(res);
         });
+    }
+
+    add() {
+        // this.list.push({
+        //     url: '',
+        //     title: 'tst',
+        //     closable: true,
+        //     index: this.list.length,
+        //     active: false,
+        //     last: false,
+        // });
+        // this.list = [...this.list];
     }
 
     /**
@@ -122,7 +138,8 @@ export class ReuseTabsComponent implements OnInit {
             }
             this.router.navigateByUrl(ls[toPos].url);
         }
-        if (addCurrent) { ls.push(this.genCurItem()); }
+        if (addCurrent) { ls.push(this.genCurItem());}
+
         ls.forEach((item, index) => {
             item.index = index;
         });
@@ -130,15 +147,16 @@ export class ReuseTabsComponent implements OnInit {
             ls[0].closable = false;
         }
         this.list = ls;
-        console.log(ls);
-        this.cdr.detectChanges();
-        this.updatePos$.next();
+        // this.cdr.detectChanges();
+        this.updatePos$.next(url);
     }
 
     // tab标签选择事件
-    selectedTabChange(event: MatTabChangeEvent): void {
-        const reuseItem = this.list[event.index];
-        this.router.navigate([reuseItem.url]);
+    selectedTabChange(index: number): void {
+        const reuseItem = this.list[index];
+        if (this.selected.value !== index) {
+            this.router.navigate([reuseItem.url]);
+        }
     }
 
     /**

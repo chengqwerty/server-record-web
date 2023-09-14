@@ -38,7 +38,7 @@ export class MenuService {
                     icon: 'settings',
                     opened: true,
                     type: 'menu',
-                    link: '/bus/sys/dept'
+                    link: '/bus/sys/depart'
                 },
                 {
                     name: '菜单管理',

@@ -1,10 +1,9 @@
-<mat-tab-group animationDuration="0ms">
-    <mat-tab label="First">
+<mat-tab-group mat-stretch-tabs="false" [selectedIndex]="selected.value" (selectedTabChange)="selectedTabChange($event)">
+    <mat-tab *ngFor="let item of list; let index = index">
         <ng-template mat-tab-label>
-            <mat-icon (click)="close()" class="example-tab-icon">thumb_up</mat-icon>
-            First </ng-template
-        >Content 1
+            {{ item.title }}
+        </ng-template>
     </mat-tab>
-    <mat-tab label="Second">Content 2</mat-tab>
-    <mat-tab label="Third">Content 3</mat-tab>
 </mat-tab-group>
+
+<button mat-raised-button (click)="add()">add</button>

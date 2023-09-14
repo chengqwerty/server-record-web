@@ -56,7 +56,7 @@ export class ReuseTabService implements OnDestroy {
     private _titleCached: { [url: string]: ReuseTitle } = {};
     private positionBuffer: { [url: string]: [number, number] } = {};
 
-    private debug = false;
+    private debug = true;
 
     /** 排除规则，限 `mode=URL` */
     private excludes: RegExp[] = [];

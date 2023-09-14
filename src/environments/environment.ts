@@ -8,7 +8,7 @@ export const environment = {
 
 export const HttpCollections = {
   // 系统请求
-  sysUrl: 'http://localhost:8080'
+  sysUrl: 'http://localhost:30080'
 };
 /*
  * For easier debugging in development mode, you can import the following file
