@@ -1,6 +1,10 @@
+.menu-container {
+    justify-content: space-between;
+}
 .menu-sidenav {
-    width: 420px;
+    width: 360px;
+    border-right: 1px solid;
 }
 .menu-body {
-    width: calc(100% - 436px);
+    width: calc(100% - 384px);
 }
