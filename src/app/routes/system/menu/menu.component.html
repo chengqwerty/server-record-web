@@ -4,22 +4,22 @@
             <app-menu-tree (changeSelectedNode)="changeSelectedNode($event)"></app-menu-tree>
         </div>
     </div>
-    <div *ngIf="selectedMenuId" class="h-full area-body">
+    <div *ngIf="selectedMenuId" class="h-full menu-body">
         <div class="w-full h-full p-8">
             <div>
                 <button mat-raised-button color="primary" (click)="openDialog()">新增</button>
             </div>
             <div>
                 <table mat-table [dataSource]="dataSource">
-                    <ng-container matColumnDef="areaCode">
+                    <ng-container matColumnDef="menuCode">
                         <th mat-header-cell *matHeaderCellDef>编码</th>
                         <td mat-cell *matCellDef="let element"> {{ assertMenuType(element).menuCode}} </td>
                     </ng-container>
-                    <ng-container matColumnDef="areaName">
+                    <ng-container matColumnDef="menuName">
                         <th mat-header-cell *matHeaderCellDef>名称</th>
                         <td mat-cell *matCellDef="let element"> {{ assertMenuType(element).menuName}} </td>
                     </ng-container>
-                    <ng-container matColumnDef="areaDescription">
+                    <ng-container matColumnDef="menuDescription">
                         <th mat-header-cell *matHeaderCellDef>描 述</th>
                         <td mat-cell *matCellDef="let element"> {{ assertMenuType(element).menuDescription}} </td>
                     </ng-container>

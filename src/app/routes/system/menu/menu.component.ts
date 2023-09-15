@@ -50,7 +50,7 @@ export class MenuComponent {
 
     public selectedMenuId: string | null = null;
     public dataSource: SysMenuDataSource;
-    public displayedColumns = ['menuCode', 'menuName', 'menuType', 'menuDescription'];
+    public displayedColumns = ['menuCode', 'menuName', 'menuDescription'];
 
     constructor(private formBuilder: FormBuilder,
                 private dialog: MatDialog,

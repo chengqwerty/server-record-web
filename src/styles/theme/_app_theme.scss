@@ -4,7 +4,6 @@
 @use '../../app/routes/art-layout/art-layout-theme.component' as artLayout;
 @use '../../app/routes/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
 @use '../../app/extensions/reply-dialog/reply-dialog-theme.component'  as replyDialog;
-@use '../../app/routes/system/area/area-tree/area-tree-theme.component' as areaTree;
 @use "sass:map";
 @use "@angular/material" as mat;
 
@@ -12,7 +11,6 @@
 @include artLayout.theme(official.$app-theme);
 @include artSidenav.theme(official.$app-theme);
 @include replyDialog.theme(official.$app-theme);
-@include areaTree.theme(official.$app-theme);
 
 // Get the color config from the theme.
 $color-config: mat.get-color-config(official.$app-theme);
@@ -29,6 +27,10 @@ $is-dark-theme: map.get($color-config, 'is-dark');
     padding: 8px;
 }
 
-a {
+.tree-node-select {
     color: mat.get-color-from-palette($primary-palette, 'default');
 }
+
+//a {
+//    color: mat.get-color-from-palette($primary-palette, 'default');
+//}

@@ -3,7 +3,9 @@
     <!-- There is inline padding applied to this node using styles.
       This padding value depends on the mat-icon-button width. -->
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-        <span class="tree-node-name" (click)="selectNode(node)">{{assertNodeType(node).menuName}}</span>
+        <span
+            [class.tree-node-select]="selectedNode != null && assertNodeType(node).menuId === selectedNode.menuId"
+            class="tree-node-name" (click)="selectNode(node)">{{assertNodeType(node).menuName}}</span>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
     <mat-nested-tree-node *matTreeNodeDef="let node;when hasChild">
@@ -14,7 +16,8 @@
                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                 </mat-icon>
             </button>
-            <span class="tree-node-name" (click)="selectNode(node)">{{assertNodeType(node).menuName}}</span>
+            <span [class.tree-node-select]="selectedNode != null && assertNodeType(node).menuId === selectedNode.menuId"
+                  class="tree-node-name" (click)="selectNode(node)">{{assertNodeType(node).menuName}}</span>
         </div>
         <!-- There is inline padding applied to this div using styles.
             This padding value depends on the mat-icon-button width.  -->
