@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>菜单表单</h2>
+<div>
+    <form [formGroup]="menuForm">
+        <p *ngIf="parent && parent.menuId">
+            <mat-form-field class="mat-form-field-fill" appearance="fill">
+                <mat-label>父级菜单</mat-label>
+                <input matInput [value]="parent.menuName">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="fill">
+                <mat-label>菜单编码</mat-label>
+                <input matInput formControlName="menuCode">
+                <mat-error *ngIf="menuForm.get('menuCode')?.invalid">菜单编码不能为空</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="fill">
+                <mat-label>菜单名称</mat-label>
+                <input matInput formControlName="menuName">
+                <mat-error *ngIf="menuForm.get('menuName')?.invalid">菜单名称不能为空</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="fill">
+                <mat-label>菜单描述</mat-label>
+                <input matInput formControlName="menuDescription">
+            </mat-form-field>
+        </p>
+    </form>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="createMenu()">Install</button>
+</mat-dialog-actions>

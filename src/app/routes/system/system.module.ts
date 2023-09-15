@@ -9,6 +9,7 @@ import { DepartComponent }     from './depart/depart.component';
 import { MenuComponent }       from './menu/menu.component';
 import { MenuTreeComponent }   from './menu/menu-tree/menu-tree.component';
 import { SharedModule }        from '@/app/shared/shared.module';
+import { MenuDialogComponent } from './menu/menu-dialog/menu-dialog.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SharedModule }        from '@/app/shared/shared.module';
         AreaTreeComponent,
         DepartComponent,
         MenuComponent,
-        MenuTreeComponent
+        MenuTreeComponent,
+        MenuDialogComponent
     ],
     imports: [
         SystemRoutingModule,
