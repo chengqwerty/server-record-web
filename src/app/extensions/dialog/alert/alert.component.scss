@@ -1,0 +1,12 @@
+.alert-dialog-container {
+    padding: 16px;
+    border-radius: 4px;
+    & h4 {
+        margin: 8px 0;
+    }
+}
+.modal-dialog-content {
+    min-width: 360px;
+    overflow-wrap: break-word;
+    text-indent: 2em;
+}

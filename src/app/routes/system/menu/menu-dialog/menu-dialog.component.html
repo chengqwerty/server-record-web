@@ -11,7 +11,9 @@
             <mat-form-field class="mat-form-field-fill" appearance="fill">
                 <mat-label>菜单编码</mat-label>
                 <input matInput formControlName="menuCode">
-                <mat-error *ngIf="menuForm.get('menuCode')?.invalid">菜单编码不能为空</mat-error>
+                <mat-error *ngIf="menuForm.get('menuCode')?.hasError('required')">菜单编码不能为空</mat-error>
+                <mat-error *ngIf="menuForm.get('menuCode')?.hasError('minlength')">菜单编码不能低于4个字符</mat-error>
+                <mat-error *ngIf="menuForm.get('menuCode')?.hasError('numEngUnderline')">只能包含英文数字和字符串</mat-error>
             </mat-form-field>
         </p>
         <p>
@@ -30,6 +32,6 @@
     </form>
 </div>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close="">Cancel</button>
-    <button mat-button cdkFocusInitial (click)="createMenu()">Install</button>
+    <button mat-button mat-dialog-close="">取 消</button>
+    <button mat-button cdkFocusInitial (click)="createMenu()">保 存</button>
 </mat-dialog-actions>

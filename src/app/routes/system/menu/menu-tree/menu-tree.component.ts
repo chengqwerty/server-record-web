@@ -33,6 +33,7 @@ export class MenuTreeNode {
 export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
     dataChange = new BehaviorSubject<MenuTreeNode[]>([]);
+    cache: {[propName: string]: MenuTreeNode[]} = {};
 
     get data(): MenuTreeNode[] {
         return this.dataChange.value;
@@ -73,25 +74,29 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
         if (change.added) {
             change.added.forEach(node => this.toggleNode(node, true));
         }
+        if (change.removed) {
+            change.removed.forEach(node => this.toggleNode(node, false));
+        }
     }
 
     toggleNode(node: MenuTreeNode, expand: boolean) {
-        console.log(node.obtain)
-        if (!node.obtain) {
-            this._httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent?parentId=' + node.menuId).subscribe(response => {
-                if (response.code === 200) {
-                    node.obtain = true;
-                    node.children.next((response.data as [any]).map(data => {
-                        return new MenuTreeNode(data.menuId, data.menuCode, data.menuName, data.menuDescription, data.menuType, data.menuLink, data.menuIcon, data.parentId, data.menuVisible, false);
-                    }));
-                } else {
-                    if (response.message) {
-                        // 等待完善
-                    } else {
-                        // 等待完善
+        if (expand) {
+            if (!node.obtain) {
+                this._httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent?parentId=' + node.menuId).subscribe(response => {
+                    if (response.code === 200) {
+                        const children = (response.data as [any]).map(data => {
+                            return new MenuTreeNode(data.menuId, data.menuCode, data.menuName, data.menuDescription, data.menuType, data.menuLink, data.menuIcon, data.parentId, data.menuVisible, false);
+                        });
+                        node.obtain = true;
+                        node.children.next(children);
+                        this.cache[node.menuId] = children;
                     }
-                }
-            });
+                });
+            } else {
+                node.children.next(this.cache[node.menuId]);
+            }
+        } else {
+            node.children.next([]);
         }
     }
 
@@ -105,7 +110,7 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 export class MenuTreeComponent {
 
     @Output()
-    public changeSelectedNode = new EventEmitter<string>();
+    public changeSelectedNode = new EventEmitter<MenuTreeNode>();
 
     public treeControl: NestedTreeControl<any>;
     public dataSource: MenuTreeDataSource;
@@ -125,11 +130,15 @@ export class MenuTreeComponent {
     selectNode(node: MenuTreeNode) {
         if (this.selectedNode === null || this.selectedNode.menuId !== node.menuId) {
             this.selectedNode = node;
-            this.changeSelectedNode.emit(node.menuId);
+            this.changeSelectedNode.emit(node);
         }
     }
 
-    public assertNodeType(item: MenuTreeNode): MenuTreeNode {
+    expand(menuTreeNode: MenuTreeNode) {
+        this.treeControl.expand(menuTreeNode);
+    }
+
+    assertNodeType(item: MenuTreeNode): MenuTreeNode {
         return item;
     }
 

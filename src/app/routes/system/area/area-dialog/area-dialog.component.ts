@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit }                from '@angular/core';
-import { FormBuilder, FormGroup, Validators }       from "@angular/forms";
+import { FormBuilder, FormGroup, Validators }       from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { HttpClient }                               from "@angular/common/http";
-import { MatSnackBar }                              from "@angular/material/snack-bar";
+import { HttpClient }                               from '@angular/common/http';
+import { MatSnackBar }                              from '@angular/material/snack-bar';
 import { SysArea }                                  from '../area.component';
-import { ReplyDialogService }                       from '@/app/extensions/reply-dialog/reply-dialog.service';
 import { HttpCollections }                          from '@/environments/environment';
 import { ResultBean }                               from '@/app/common/result.bean';
+import { DialogService }                            from '@/app/extensions/dialog/dialog.service';
 
 @Component({
     selector: 'app-area-dialog',
@@ -23,7 +23,7 @@ export class AreaDialogComponent implements OnInit {
                 private matDialog: MatDialog,
                 @Inject(MAT_DIALOG_DATA) public parentArea: SysArea,
                 private matSnackBar: MatSnackBar,
-                private rds: ReplyDialogService) {
+                private rds: DialogService) {
         this.areaForm = this.formBuilder.group({
             areaCode: ['', [Validators.required]],
             areaName: ['', [Validators.required]],
@@ -38,12 +38,12 @@ export class AreaDialogComponent implements OnInit {
     public createArea(): void {
         let param = {...this.areaForm.getRawValue(), areaParentCode: this.parentArea.areaCode};
         this.httpClient.post<ResultBean>(HttpCollections.sysUrl + '/sys/area/add', param)
-            .subscribe((resultBean: ResultBean) => {
+            .subscribe((resultBean) => {
                 if (resultBean.code === 200) {
                     this.matDialogRef.close(true);
-                    this.rds.open('success', '添加区域成功', {duration: 2000});
+                    this.rds.alert('success', '', {duration: 2000, message: ''});
                 } else {
-                    this.rds.open('error', resultBean.message);
+                    this.rds.alert('error', '', {duration: 2000, message: ''});
                 }
             });
     }
