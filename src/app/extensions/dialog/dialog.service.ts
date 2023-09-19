@@ -2,6 +2,7 @@ import { Injectable }                        from '@angular/core';
 import { AlertComponent, AlertDialogConfig } from '@/app/extensions/dialog/alert/alert.component';
 import { Dialog }                            from '@angular/cdk/dialog';
 import { GlobalPositionStrategy }            from '@angular/cdk/overlay';
+import { config }                            from 'rxjs';
 
 @Injectable()
 export class DialogService {
@@ -23,6 +24,18 @@ export class DialogService {
         setTimeout(() => {
             dialogRef.close(true);
         }, duration);
+    }
+
+    public success(message: string, config?: AlertDialogConfig) {
+        this.alert('success', message, config);
+    }
+
+    public warning(message: string, config?: AlertDialogConfig) {
+        this.alert('warning', message, config);
+    }
+
+    public error(message: string, config?: AlertDialogConfig) {
+        this.alert('warning', message, config);
     }
 
     public confirm() {
