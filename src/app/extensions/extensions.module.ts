@@ -4,7 +4,8 @@ import { AlertComponent }   from './dialog/alert/alert.component';
 import { ConfirmComponent } from './dialog/confirm/confirm.component';
 import { DialogModule }     from '@angular/cdk/dialog';
 import { DialogService }    from '@/app/extensions/dialog/dialog.service';
-import { ArtSvgComponent } from './icon/art-svg/art-svg.component';
+import { ArtSvgComponent }  from './icon/art-svg/art-svg.component';
+import { PropertiesPipe }   from '@/app/extensions/pipe/properties';
 
 
 @NgModule({
@@ -12,9 +13,11 @@ import { ArtSvgComponent } from './icon/art-svg/art-svg.component';
         AlertComponent,
         ConfirmComponent,
         ArtSvgComponent,
+        PropertiesPipe,
     ],
     exports: [
-        ArtSvgComponent
+        ArtSvgComponent,
+        PropertiesPipe
     ],
     providers: [DialogService],
     imports: [

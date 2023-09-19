@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AreaComponent }        from '@/app/routes/system/area/area.component';
 import { DepartComponent }      from '@/app/routes/system/depart/depart.component';
 import { MenuComponent }        from '@/app/routes/system/menu/menu.component';
+import { IconListComponent }    from '@/app/routes/system/icon-list/icon-list.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,11 @@ const routes: Routes = [
         path: 'menu',
         component: MenuComponent,
         data: { title: '菜单管理' }
+    },
+    {
+        path: 'icon',
+        component: IconListComponent,
+        data: { title: '图标管理' }
     }
 ];
 
