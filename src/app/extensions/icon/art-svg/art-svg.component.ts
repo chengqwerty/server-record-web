@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatIconRegistry }                                    from '@angular/material/icon';
-import { DomSanitizer }             from '@angular/platform-browser';
-import { icons }                    from '@/app/extensions/icon/icon';
+import { DomSanitizer }                                       from '@angular/platform-browser';
+import { icons }                                              from '@/app/extensions/icon/icon';
 
 // @ts-ignore
 @Component({
@@ -40,7 +40,6 @@ export class ArtSvgComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
         if ((changes['svgName'] && !changes['svgName']['firstChange']) || (changes['directory'] && !changes['directory']['firstChange']) || (changes['type'] && !changes['type']['firstChange'])) {
             this.registrySvg();
         }
