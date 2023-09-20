@@ -6,14 +6,15 @@
         </mat-sidenav>
         <mat-sidenav-content class="p-l-16">
             <app-art-header *ngIf="option.showHeader && (option.headerPosition === 'fixed' || option.headerPosition === 'static')"></app-art-header>
-            <div class="w-full h-full">
-                <div class="section-container reuse-tabs-container">
-                    <app-reuse-tabs></app-reuse-tabs>
-                </div>
-                <div class="section-container router-outlet-container m-t-8">
-                    <router-outlet></router-outlet>
-                </div>
+            <div class="section-container reuse-tabs-container">
+                <app-reuse-tabs></app-reuse-tabs>
             </div>
+            <div class="router-outlet-container m-t-8">
+                <router-outlet></router-outlet>
+            </div>
+            <!--<div class="w-full h-full">-->
+            <!--    -->
+            <!--</div>-->
         </mat-sidenav-content>
     </mat-sidenav-container>
  </div>

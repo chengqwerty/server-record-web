@@ -1,0 +1,25 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+.icon-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.icon-center {
+    width: 240px;
+    height: 80px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-card {
+    margin-bottom: 16px;
+}
+

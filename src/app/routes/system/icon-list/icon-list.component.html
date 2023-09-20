@@ -1,13 +1,19 @@
-<ng-container *ngFor="let directory of (icons | properties)">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>{{directory}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <ng-container *ngFor="let name of icons[directory] | properties">
-                <art-svg [svgName]="name" [directory]="directory"></art-svg>
-            </ng-container>
-        </mat-card-content>
-    </mat-card>
-</ng-container>
+<div style="display: inline-block">
+    <ng-container *ngFor="let directory of (icons | properties)">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{directory}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="icon-container">
+                    <div class="icon-center" *ngFor="let name of icons[directory] | properties">
+                        <art-svg [svgName]="name" [directory]="directory" width="36px" height="36px"></art-svg>
+                        <p>{{name}}</p>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>
+
 
