@@ -153,10 +153,15 @@ export class ReuseTabsComponent implements OnInit {
 
     // tab标签选择事件
     selectedTabChange(index: number): void {
+        console.log('=================1');
         const reuseItem = this.list[index];
         if (this.selected.value !== index) {
             this.router.navigate([reuseItem.url]);
         }
+    }
+
+    selectedTabChange2($event: any): void {
+        console.log($event);
     }
 
     /**
@@ -176,4 +181,5 @@ export class ReuseTabsComponent implements OnInit {
         return false;
     }
 
+    protected readonly indexedDB = indexedDB;
 }

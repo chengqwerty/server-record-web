@@ -4,9 +4,10 @@
 这可能导致路由重新跳回index=0 的tab
 -->
 <mat-tab-group mat-stretch-tabs="false" [selectedIndex]="selected.value">
-    <mat-tab *ngFor="let item of list; let index = index" (click)="selectedTabChange(index)">
+    <mat-tab *ngFor="let item of list; let index = index">
         <ng-template mat-tab-label>
-            {{ item.title }}
+            <!--<span (click)="selectedTabChange(index)">{{ item.title }}</span>-->
+            <span>{{ item.title }}</span>
             <mat-icon *ngIf="item.closable" class="make-reuse-icon" svgIcon="close" (click)="close($event, index)"></mat-icon>
         </ng-template>
     </mat-tab>
