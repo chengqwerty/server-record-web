@@ -1,19 +1,28 @@
-<div style="display: inline-block">
-    <ng-container *ngFor="let directory of (icons | properties)">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>{{directory}}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="icon-container">
-                    <div class="icon-center" *ngFor="let name of icons[directory] | properties">
-                        <art-svg [svgName]="name" [directory]="directory" width="36px" height="36px"></art-svg>
-                        <p>{{name}}</p>
+<ng-container *ngFor="let directory of (icons | properties)">
+    <mat-card class="m-b-16">
+        <mat-card-header>
+            <mat-card-title>{{directory}}</mat-card-title>
+        </mat-card-header>
+        <mat-divider class="m-t-16 m-b-16"></mat-divider>
+        <mat-card-content>
+            <div class="icon-container">
+                <div class="icon-center m-b-16" *ngFor="let name of icons[directory] | properties">
+                    <div class="icon-float">
+                        <div class="icon-float-panel">
+                            <button mat-icon-button color="primary" matTooltip="复制icon图标" (click)="copy(name)">
+                                <mat-icon>content_copy</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" matTooltip="复制svg图标" (click)="copy(name, directory)">
+                                <mat-icon>content_copy</mat-icon>
+                            </button>
+                        </div>
                     </div>
+                    <mat-icon style="width: 36px;height: 36px;font-size: 36px;" [fontIcon]="name"></mat-icon>
+                    <p>{{name}}</p>
                 </div>
-            </mat-card-content>
-        </mat-card>
-    </ng-container>
-</div>
-
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-container>
 

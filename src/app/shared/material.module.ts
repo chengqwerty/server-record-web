@@ -22,6 +22,8 @@ import { ScrollingModule }       from '@angular/cdk/scrolling';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatDividerModule }      from '@angular/material/divider';
+import { MatTooltipModule }      from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import { MatTabsModule } from "@angular/material/tabs";
         MatButtonToggleModule,
         MatCardModule,
         MatDialogModule,
+        MatDividerModule,
         MatFormFieldModule,
         MatGridListModule,
         MatIconModule,
@@ -51,6 +54,7 @@ import { MatTabsModule } from "@angular/material/tabs";
         MatTabsModule,
         MatTableModule,
         MatToolbarModule,
+        MatTooltipModule,
         MatTreeModule
     ]
 })

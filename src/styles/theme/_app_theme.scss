@@ -25,9 +25,9 @@ $is-dark-theme: map.get($color-config, 'is-dark');
     display: none;
 }
 
-@debug $color-config;
+//@debug $color-config;
 //@debug $primary-palette;
-//@debug $background-palette;
+@debug $background-palette;
 
 .alert-dialog-container {
     background-color: mat.get-color-from-palette($background-palette, 'card');
@@ -45,6 +45,10 @@ $is-dark-theme: map.get($color-config, 'is-dark');
 
 .alert-dialog-error {
     color: mat.get-color-from-palette($warn-palette, 'default');
+}
+
+.icon-float-panel {
+    background-color: mat.get-color-from-palette($background-palette, 'tooltip', 0.7);
 }
 
 .section-container {

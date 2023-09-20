@@ -1,25 +1,61 @@
-:host {
-    display: flex;
-    justify-content: center;
-}
+//:host {
+//    display: flex;
+//    justify-content: center;
+//}
+//
+//mat-card {
+//    margin-bottom: 16px;
+//}
+
 .icon-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
 }
+
+//.icon-container::after {
+//    content: '';
+//    flex: auto;
+//}
+
 .icon-center {
     width: 240px;
-    height: 80px;
+    height: 88px;
     margin-bottom: 16px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-mat-card {
-    margin-bottom: 16px;
+/* 和列表一样的宽度和margin值 */
+.icon-container > i {
+    width: 240px;
+    margin-right: 10px;
 }
 
+.icon-float {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    opacity: 0;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.icon-float-panel {
+    border-radius: 4px;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
