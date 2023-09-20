@@ -53,7 +53,6 @@ export class ReuseTabsComponent implements OnInit {
         this.updatePos$.pipe(map((item) => {console.log("item is " + item);return item;})).subscribe(() => {
             const url = this.reuseTabService.getUrl(this.route.snapshot);
             const index = this.list.findIndex(w => w.url === url);
-
             if (!(this.selected.value === index)) {
                 console.log("this selected set value is ", index);
                 this.selected.setValue(index);
@@ -141,24 +140,40 @@ export class ReuseTabsComponent implements OnInit {
         if (addCurrent) { ls.push(this.genCurItem());}
 
         ls.forEach((item, index) => {
-            item.index = index;
+            // item.index = index;
+            if (this.list.findIndex((li) => li.url === item.url) === -1) {
+                this.list.push(item);
+            }
         });
-        if (ls.length === 1) {
-            ls[0].closable = false;
+        // if (ls.length === 1) {
+        //     ls[0].closable = false;
+        // }
+        // this.list = ls;
+        if (this.list.length === 1) {
+            this.list[0].closable = false;
+        } else {
+            this.list[0].closable = true;
         }
-        this.list = ls;
         // this.cdr.detectChanges();
         this.updatePos$.next(url);
     }
 
     // tab标签选择事件
-    selectedTabChange(index: number): void {
-        console.log('=================1');
-        const reuseItem = this.list[index];
-        if (this.selected.value !== index) {
+    // selectedTabChange(index: number): void {
+    //     const reuseItem = this.list[index];
+    //     console.log(this.selected.value, '=============', index);
+    //     if (this.selected.value !== index) {
+    //         this.router.navigate([reuseItem.url]);
+    //     }
+    // }
+    selectedTabChange($event: MatTabChangeEvent): void {
+        const reuseItem = this.list[$event.index];
+        console.log(this.selected.value, '=============', $event.index);
+        if (this.selected.value !== $event.index) {
             this.router.navigate([reuseItem.url]);
         }
     }
+
 
     selectedTabChange2($event: any): void {
         console.log($event);
@@ -176,6 +191,7 @@ export class ReuseTabsComponent implements OnInit {
             event.stopPropagation();
         }
         const item = this.list[index];
+        this.list.splice(index, 1);
         this.reuseTabService.close(item.url, includeNonCloseable);
         this.cdr.detectChanges();
         return false;

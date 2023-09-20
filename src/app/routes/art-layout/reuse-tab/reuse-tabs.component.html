@@ -3,11 +3,11 @@
 而是在mat-tab上监听click事件，selectedTabChange会在tab重新渲染时就触发（index = 0），
 这可能导致路由重新跳回index=0 的tab
 -->
-<mat-tab-group mat-stretch-tabs="false" [selectedIndex]="selected.value">
+<mat-tab-group mat-stretch-tabs="false" [selectedIndex]="selected.value" (selectedTabChange)="selectedTabChange($event)">
     <mat-tab *ngFor="let item of list; let index = index">
         <ng-template mat-tab-label>
-            <span (click)="selectedTabChange(index)">{{ item.title }}</span>
-            <!--<span>{{ item.title }}</span>-->
+            <!--<span (click)="selectedTabChange(index)">{{ item.title }}</span>-->
+            <span>{{ item.title }}</span>
             <mat-icon *ngIf="item.closable" class="make-reuse-icon" svgIcon="close" (click)="close($event, index)"></mat-icon>
         </ng-template>
     </mat-tab>
