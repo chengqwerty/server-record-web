@@ -8,7 +8,7 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
-
+    overflow-x: hidden;
 }
 
 .router-outlet-container {
