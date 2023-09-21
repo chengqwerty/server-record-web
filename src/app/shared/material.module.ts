@@ -24,6 +24,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatDividerModule }      from '@angular/material/divider';
 import { MatTooltipModule }      from '@angular/material/tooltip';
+import { MatSelectModule }       from '@angular/material/select';
+import { MatExpansionModule }    from '@angular/material/expansion';
 
 
 @NgModule({
@@ -45,10 +47,12 @@ import { MatTooltipModule }      from '@angular/material/tooltip';
         MatCardModule,
         MatDialogModule,
         MatDividerModule,
+        MatExpansionModule,
         MatFormFieldModule,
         MatGridListModule,
         MatIconModule,
         MatInputModule,
+        MatSelectModule,
         MatSidenavModule,
         MatSnackBarModule,
         MatTabsModule,

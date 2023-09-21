@@ -23,7 +23,6 @@ export class MenuTreeNode {
         public menuIcon: string | null,
         public parentId: string | null,
         public menuVisible: number,
-        public obtain: boolean
     ) {
     }
 
@@ -33,14 +32,12 @@ export class MenuTreeNode {
 export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
     dataChange = new BehaviorSubject<MenuTreeNode[]>([]);
-    cache: {[propName: string]: MenuTreeNode[]} = {};
 
     get data(): MenuTreeNode[] {
         return this.dataChange.value;
     }
 
     set data(value: MenuTreeNode[]) {
-        // this._treeControl.dataNodes = value;
         this.dataChange.next(value);
     }
 
@@ -50,7 +47,7 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
     // 初始化数据
     initialData(): MenuTreeDataSource {
-        this.data = [new MenuTreeNode('0', '', '菜单', '', 1, null, null, null, 0, false)];
+        this.data = [new MenuTreeNode('0', '', '菜单', '', 1, null, null, null, 0)];
         return this;
     }
 
@@ -81,20 +78,14 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
     toggleNode(node: MenuTreeNode, expand: boolean) {
         if (expand) {
-            if (!node.obtain) {
-                this._httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent?parentId=' + node.menuId).subscribe(response => {
-                    if (response.code === 200) {
-                        const children = (response.data as [any]).map(data => {
-                            return new MenuTreeNode(data.menuId, data.menuCode, data.menuName, data.menuDescription, data.menuType, data.menuLink, data.menuIcon, data.parentId, data.menuVisible, false);
-                        });
-                        node.obtain = true;
-                        node.children.next(children);
-                        this.cache[node.menuId] = children;
-                    }
-                });
-            } else {
-                node.children.next(this.cache[node.menuId]);
-            }
+            this._httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent?parentId=' + node.menuId).subscribe(response => {
+                if (response.code === 200) {
+                    const children = (response.data as [any]).map(data => {
+                        return new MenuTreeNode(data.menuId, data.menuCode, data.menuName, data.menuDescription, data.menuType, data.menuLink, data.menuIcon, data.parentId, data.menuVisible);
+                    });
+                    node.children.next(children);
+                }
+            });
         } else {
             node.children.next([]);
         }
@@ -135,7 +126,9 @@ export class MenuTreeComponent {
     }
 
     expand(menuTreeNode: MenuTreeNode) {
-        this.treeControl.expand(menuTreeNode);
+        if (this.treeControl.isExpanded(menuTreeNode)) {
+            this.treeControl.expand(menuTreeNode);
+        }
     }
 
     assertNodeType(item: MenuTreeNode): MenuTreeNode {

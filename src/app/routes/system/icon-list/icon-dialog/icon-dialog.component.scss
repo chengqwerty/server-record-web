@@ -1,0 +1,23 @@
+.icon-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.icon-center {
+    width: 240px;
+    height: 88px;
+    margin-bottom: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 和列表一样的宽度和margin值 */
+.icon-container > i {
+    width: 240px;
+    margin-right: 10px;
+}

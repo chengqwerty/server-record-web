@@ -1,32 +1,55 @@
 <h2 mat-dialog-title>菜单表单</h2>
 <div>
-    <form [formGroup]="menuForm">
+    <form class="menu-form" [formGroup]="menuForm">
         <p *ngIf="parent && parent.menuId">
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
                 <mat-label>父级菜单</mat-label>
                 <input matInput [value]="parent.menuName">
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
                 <mat-label>菜单编码</mat-label>
                 <input matInput formControlName="menuCode">
                 <mat-error *ngIf="menuForm.get('menuCode')?.hasError('required')">菜单编码不能为空</mat-error>
                 <mat-error *ngIf="menuForm.get('menuCode')?.hasError('minlength')">菜单编码不能低于4个字符</mat-error>
                 <mat-error *ngIf="menuForm.get('menuCode')?.hasError('numEngUnderline')">只能包含英文数字和字符串</mat-error>
             </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
                 <mat-label>菜单名称</mat-label>
                 <input matInput formControlName="menuName">
                 <mat-error *ngIf="menuForm.get('menuName')?.invalid">菜单名称不能为空</mat-error>
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>菜单类型</mat-label>
+                <mat-select formControlName="menuType">
+                    <mat-option>None</mat-option>
+                    <mat-option [value]="0">菜单</mat-option>
+                    <mat-option [value]="1">目录</mat-option>
+                </mat-select>
+                <mat-error *ngIf="menuForm.get('menuType')?.hasError('required')">菜单类型不能为空</mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>菜单图标</mat-label>
+                <mat-icon *ngIf="menuForm.get('menuIcon')?.value" matPrefix fontIcon="add_circle"></mat-icon>
+                <input matInput formControlName="menuIcon">
+                <button matSuffix mat-icon-button (click)="openIconDialog($event)">
+                    <mat-icon matSuffix fontIcon="add_circle" ></mat-icon>
+                </button>
+            </mat-form-field>
+        </p>
+        <p *ngIf="menuForm.get('menuType')?.value === 0">
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>菜单地址</mat-label>
+                <input matInput formControlName="menuLink">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
                 <mat-label>菜单描述</mat-label>
-                <input matInput formControlName="menuDescription">
+                <textarea matInput formControlName="menuDescription" [rows]="4"></textarea>
             </mat-form-field>
         </p>
     </form>

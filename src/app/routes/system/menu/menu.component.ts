@@ -1,15 +1,13 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CollectionViewer, DataSource }               from '@angular/cdk/collections';
-import { BehaviorSubject, Observable }  from 'rxjs';
-import { HttpClient }                   from '@angular/common/http';
-import { ResultBean }                   from '@/app/common/result.bean';
-import { HttpCollections }              from '@/environments/environment';
-import { FormBuilder }                  from '@angular/forms';
-import { MatDialog }                    from '@angular/material/dialog';
-import { AreaFlatNode }                    from '@/app/routes/system/area/area-tree/area-tree.component';
-import { MenuTreeComponent, MenuTreeNode } from '@/app/routes/system/menu/menu-tree/menu-tree.component';
-import { AreaDialogComponent }             from '@/app/routes/system/area/area-dialog/area-dialog.component';
-import { MenuDialogComponent }             from '@/app/routes/system/menu/menu-dialog/menu-dialog.component';
+import { BehaviorSubject, Observable }                from 'rxjs';
+import { HttpClient }                                 from '@angular/common/http';
+import { ResultBean }                                 from '@/app/common/result.bean';
+import { HttpCollections }                            from '@/environments/environment';
+import { FormBuilder }                                from '@angular/forms';
+import { MatDialog }                                  from '@angular/material/dialog';
+import { MenuTreeComponent, MenuTreeNode }            from '@/app/routes/system/menu/menu-tree/menu-tree.component';
+import { MenuDialogComponent }                        from '@/app/routes/system/menu/menu-dialog/menu-dialog.component';
 import { DialogService }                              from '@/app/extensions/dialog/dialog.service';
 
 export interface SysMenu {
@@ -77,7 +75,6 @@ export class MenuComponent {
             return;
         }
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
-            width: '480px',
             data: {
                 menuId: this.menuTreeNode?.menuId,
                 menuCode: this.menuTreeNode?.menuCode,
