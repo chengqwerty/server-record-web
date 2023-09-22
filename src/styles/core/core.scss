@@ -1,11 +1,4 @@
 @use "normalize";
 @use "base";
 @use 'scrollbar';
-
-.scrollbar-thin {
-    @include scrollbar.thin();
-}
-
-.scrollbar-none {
-    @include scrollbar.none();
-}
+@use 'common';

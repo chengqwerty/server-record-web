@@ -9,13 +9,16 @@ import { MatDialog }                                  from '@angular/material/di
 import { MenuTreeComponent, MenuTreeNode }            from '@/app/routes/system/menu/menu-tree/menu-tree.component';
 import { MenuDialogComponent }                        from '@/app/routes/system/menu/menu-dialog/menu-dialog.component';
 import { DialogService }                              from '@/app/extensions/dialog/dialog.service';
+import { Model }                                      from '@/app/common/model';
 
 export interface SysMenu {
     menuId: string,
     menuCode: string,
     menuName: string,
     menuDescription: string | null,
-    menuType: number
+    menuType: number,
+    menuIcon: string | null,
+    menuLink: string | null
 }
 
 export class SysMenuDataSource implements DataSource<SysMenu> {
@@ -55,7 +58,7 @@ export class MenuComponent {
 
     public menuTreeNode: MenuTreeNode | null = null;
     public dataSource: SysMenuDataSource;
-    public displayedColumns = ['menuCode', 'menuName', 'menuDescription'];
+    public displayedColumns = ['menuCode', 'menuName', 'menuDescription', 'action'];
 
     constructor(private formBuilder: FormBuilder,
                 private matDialog: MatDialog,
@@ -69,16 +72,19 @@ export class MenuComponent {
         this.dataSource.changeData(this.menuTreeNode.menuId);
     }
 
-    openDialog() {
+    addMenu() {
         if (this.menuTreeNode == null) {
             this.dialogService.alert('warning', '请必须先选择一个菜单！');
             return;
         }
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
             data: {
-                menuId: this.menuTreeNode?.menuId,
-                menuCode: this.menuTreeNode?.menuCode,
-                menuName: this.menuTreeNode?.menuName
+                model: Model.Create,
+                parent: {
+                    menuId: this.menuTreeNode?.menuId,
+                    menuCode: this.menuTreeNode?.menuCode,
+                    menuName: this.menuTreeNode?.menuName
+                }
             }
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -87,6 +93,26 @@ export class MenuComponent {
                 this.menuTreeComponent.expand(this.menuTreeNode);
             }
         });
+    }
+
+    viewMenu(viewMenu: SysMenu) {
+        const dialogRef = this.matDialog.open(MenuDialogComponent, {
+            data: {
+                model: Model.Read,
+                parent: {
+                    menuId: this.menuTreeNode?.menuId,
+                    menuCode: this.menuTreeNode?.menuCode,
+                    menuName: this.menuTreeNode?.menuName
+                },
+                record: {
+                    ...viewMenu
+                }
+            }
+        });
+    }
+
+    updateMenu() {
+
     }
 
     public assertMenuType(item: SysMenu): SysMenu {
