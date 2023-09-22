@@ -6,10 +6,10 @@
             <mat-grid-list cols="6" rowHeight="100px">
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <mat-label>已选择的图标：</mat-label>
-                    <mat-icon class="m-l-16" fontIcon="add_circle"></mat-icon>
+                    <mat-icon *ngIf="iconName" class="m-l-16" [fontIcon]="iconName"></mat-icon>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <button mat-raised-button color="primary">删除选择的图标</button>
+                    <button mat-raised-button color="primary" (click)="deleteIcon()">删除选择的图标</button>
                 </mat-grid-tile>
             </mat-grid-list>
         </div>
@@ -21,7 +21,7 @@
                             <mat-panel-title>{{directory}}</mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="icon-container">
-                            <div class="icon-center m-b-16" *ngFor="let name of iconDirectory[directory]">
+                            <div *ngFor="let name of iconDirectory[directory]" class="icon-center m-b-16" (click)="selectIcon(name)">
                                 <mat-icon style="width: 36px;height: 36px;font-size: 36px;" [fontIcon]="name"></mat-icon>
                                 <p>{{name}}</p>
                             </div>
@@ -29,28 +29,12 @@
                         </div>
                     </mat-expansion-panel>
                 </ng-container>
-
             </mat-accordion>
-            <!--<mat-card class="m-b-16" style="margin: auto;">-->
-            <!--    <mat-card-header>-->
-            <!--        <mat-card-title>{{directory}}</mat-card-title>-->
-            <!--    </mat-card-header>-->
-            <!--    <mat-divider class="m-t-16 m-b-16"></mat-divider>-->
-            <!--    <mat-card-content>-->
-            <!--        <div class="icon-container">-->
-            <!--            <div class="icon-center m-b-16" *ngFor="let name of iconDirectory[directory]">-->
-            <!--                <mat-icon style="width: 36px;height: 36px;font-size: 36px;" [fontIcon]="name"></mat-icon>-->
-            <!--                <p>{{name}}</p>-->
-            <!--            </div>-->
-            <!--            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>-->
-            <!--        </div>-->
-            <!--    </mat-card-content>-->
-            <!--</mat-card>-->
         </div>
     </div>
 </mat-dialog-content>
 <mat-divider></mat-divider>
-<mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-    <button mat-button>确认</button>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>关闭</button>
+    <button mat-button (click)="closeDialog()">确认</button>
 </mat-dialog-actions>

@@ -43,10 +43,17 @@ export class MenuDialogComponent {
         // 阻止事件传播防止影响表单行为（比如触发表单检测）
         $event.preventDefault();
         const dialogRef = this.matDialog.open(IconDialogComponent, {
-            data: {
-
+            data: this.menuForm.get('menuIcon')?.value
+        });
+        dialogRef.afterClosed().subscribe((iconName: string) => {
+            if (iconName) {
+                this.menuForm.get('menuIcon')?.setValue(iconName);
             }
         });
+    }
+
+    clearIcon() {
+        this.menuForm.get('menuIcon')?.setValue(null);
     }
 
     createMenu() {

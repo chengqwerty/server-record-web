@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
-import { iconDirectory }                      from '@/app/extensions/icon/icon';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Validations }                        from '@/app/extensions/validation/validation';
+import { iconDirectory }                 from '@/app/extensions/icon/icon';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'icon-dialog',
@@ -12,11 +11,22 @@ import { Validations }                        from '@/app/extensions/validation/
 export class IconDialogComponent {
     protected readonly iconDirectory = iconDirectory;
 
-    public iconForm: FormGroup;
+    public iconName: string | null = null;
 
-    constructor(private formBuilder: FormBuilder) {
-        this.iconForm = this.formBuilder.group({
-            iconName: [null, []]
-        });
+    constructor(private matDialogRef: MatDialogRef<IconDialogComponent>, @Inject(MAT_DIALOG_DATA) iconName: string) {
+        this.iconName = iconName;
     }
+
+    selectIcon(name: string) {
+        this.iconName = name;
+    }
+
+    deleteIcon() {
+        this.iconName = null;
+    }
+
+    closeDialog() {
+        this.matDialogRef.close(this.iconName);
+    }
+
 }

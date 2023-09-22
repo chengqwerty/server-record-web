@@ -28,8 +28,13 @@ $background-palette: map.get($color-config, 'background');
 $is-dark-theme: map.get($color-config, 'is-dark');
 
 //@debug $color-config;
-//@debug $primary-palette;
-@debug $background-palette;
+@debug $primary-palette;
+//@debug $background-palette;
+
+.art-primary {
+    background-color: mat.get-color-from-palette($primary-palette, 'default');
+    color: mat.get-color-from-palette($primary-palette, 'default-contrast') !important;
+}
 
 .section-container {
     background-color: mat.get-color-from-palette($background-palette, 'card');

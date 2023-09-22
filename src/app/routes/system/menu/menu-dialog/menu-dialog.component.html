@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>菜单表单</h2>
+<h2 mat-dialog-title class="art-primary">菜单表单</h2>
+<mat-divider></mat-divider>
 <div>
     <form class="menu-form" [formGroup]="menuForm">
         <p *ngIf="parent && parent.menuId">
@@ -33,10 +34,13 @@
             </mat-form-field>
             <mat-form-field class="mat-form-field-fill" appearance="outline">
                 <mat-label>菜单图标</mat-label>
-                <mat-icon *ngIf="menuForm.get('menuIcon')?.value" matPrefix fontIcon="add_circle"></mat-icon>
+                <mat-icon *ngIf="menuForm.get('menuIcon')?.value" matPrefix [fontIcon]="menuForm.get('menuIcon')?.value"></mat-icon>
                 <input matInput formControlName="menuIcon">
+                <button matSuffix mat-icon-button (click)="clearIcon()">
+                    <mat-icon fontIcon="clear" ></mat-icon>
+                </button>
                 <button matSuffix mat-icon-button (click)="openIconDialog($event)">
-                    <mat-icon matSuffix fontIcon="add_circle" ></mat-icon>
+                    <mat-icon fontIcon="add_circle" ></mat-icon>
                 </button>
             </mat-form-field>
         </p>
@@ -54,6 +58,7 @@
         </p>
     </form>
 </div>
+<mat-divider></mat-divider>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close="">取 消</button>
     <button mat-button cdkFocusInitial (click)="createMenu()">保 存</button>
