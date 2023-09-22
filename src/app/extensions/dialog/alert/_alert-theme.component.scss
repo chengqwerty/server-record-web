@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin color($theme) {
+    // Get the color config from the theme.
+    $color-config: mat.get-color-config($theme);
+
+    // Get the primary color palette from the color-config.
+    $primary-palette: map.get($color-config, 'primary');
+    $accent-palette: map.get($color-config, 'accent');
+    $warn-palette: map.get($color-config, 'warn');
+    $foreground: map.get($color-config, 'foreground');
+    $background-palette: map.get($color-config, 'background');
+    $is-dark-theme: map.get($color-config, 'is-dark');
+
+    .alert-dialog-container {
+        background-color: mat.get-color-from-palette($background-palette, 'card');
+        border: 1px solid mat.get-color-from-palette($foreground, 'divider');
+        box-shadow: 8px 8px 8px mat.get-color-from-palette($foreground, 'divider');
+    }
+
+    .alert-dialog-success {
+        color: mat.get-color-from-palette($primary-palette, 'default');
+    }
+
+    .alert-dialog-warning {
+        color: mat.get-color-from-palette($accent-palette, 'default');
+    }
+
+    .alert-dialog-error {
+        color: mat.get-color-from-palette($warn-palette, 'default');
+    }
+}
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    @if $color-config != null {
+        @include color($theme);
+    }
+}
+

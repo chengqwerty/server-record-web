@@ -1,6 +1,8 @@
 // 使用官方主题编译自己的组件主题
 @use 'official_theme' as official;
 @use '../../app/app-theme.component' as app;
+@use '../../app/extensions/dialog/alert/alert-theme.component' as alertTheme;
+@use '../../app/routes/system/icon-list/icon-list-theme.component' as iconListTheme;
 @use '../../app/routes/art-layout/art-layout-theme.component' as artLayout;
 @use '../../app/routes/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
 @use '../../app/routes/system/icon-list/icon-dialog/icon-dialog-theme.component' as iconDialogTheme;
@@ -8,6 +10,8 @@
 @use "@angular/material" as mat;
 
 @include app.theme(official.$app-theme);
+@include alertTheme.theme(official.$app-theme);
+@include iconListTheme.theme(official.$app-theme);
 @include artLayout.theme(official.$app-theme);
 @include artSidenav.theme(official.$app-theme);
 @include iconDialogTheme.theme(official.$app-theme);
@@ -26,28 +30,6 @@ $is-dark-theme: map.get($color-config, 'is-dark');
 //@debug $color-config;
 //@debug $primary-palette;
 @debug $background-palette;
-
-.alert-dialog-container {
-    background-color: mat.get-color-from-palette($background-palette, 'card');
-    border: 1px solid mat.get-color-from-palette($foreground, 'divider');
-    box-shadow: 8px 8px 8px mat.get-color-from-palette($foreground, 'divider');
-}
-
-.alert-dialog-success {
-    color: mat.get-color-from-palette($primary-palette, 'default');
-}
-
-.alert-dialog-warning {
-    color: mat.get-color-from-palette($accent-palette, 'default');
-}
-
-.alert-dialog-error {
-    color: mat.get-color-from-palette($warn-palette, 'default');
-}
-
-.icon-float-panel {
-    background-color: mat.get-color-from-palette($background-palette, 'tooltip', 0.7);
-}
 
 .section-container {
     background-color: mat.get-color-from-palette($background-palette, 'card');
