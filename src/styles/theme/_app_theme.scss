@@ -3,12 +3,14 @@
 @use '../../app/app-theme.component' as app;
 @use '../../app/routes/art-layout/art-layout-theme.component' as artLayout;
 @use '../../app/routes/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
+@use '../../app/routes/system/icon-list/icon-dialog/icon-dialog-theme.component' as iconDialogTheme;
 @use "sass:map";
 @use "@angular/material" as mat;
 
 @include app.theme(official.$app-theme);
 @include artLayout.theme(official.$app-theme);
 @include artSidenav.theme(official.$app-theme);
+@include iconDialogTheme.theme(official.$app-theme);
 
 // Get the color config from the theme.
 $color-config: mat.get-color-config(official.$app-theme);
@@ -20,10 +22,6 @@ $warn-palette: map.get($color-config, 'warn');
 $foreground: map.get($color-config, 'foreground');
 $background-palette: map.get($color-config, 'background');
 $is-dark-theme: map.get($color-config, 'is-dark');
-
-.none {
-    display: none;
-}
 
 //@debug $color-config;
 //@debug $primary-palette;

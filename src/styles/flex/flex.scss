@@ -7,3 +7,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.flex-row-between {
+    justify-content: space-between;
+}
+
+.flex-column-center {
+    align-items: center;
+}
