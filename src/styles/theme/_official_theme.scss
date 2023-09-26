@@ -25,3 +25,5 @@ $app-theme: mat.define-light-theme((
 //@include mat.all-component-typographies($app-theme);
 //@include mat.all-component-colors($app-theme);
 @include mat.all-component-themes($app-theme);
+
+@include mat.typography-hierarchy($app-theme);

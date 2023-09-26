@@ -10,7 +10,7 @@ import { MenuComponent }       from './menu/menu.component';
 import { MenuTreeComponent }   from './menu/menu-tree/menu-tree.component';
 import { SharedModule }        from '@/app/shared/shared.module';
 import { MenuDialogComponent } from './menu/menu-dialog/menu-dialog.component';
-import { IconListComponent } from './icon-list/icon-list.component';
+import { IconListComponent }   from './icon-list/icon-list.component';
 import { IconDialogComponent } from './icon-list/icon-dialog/icon-dialog.component';
 
 

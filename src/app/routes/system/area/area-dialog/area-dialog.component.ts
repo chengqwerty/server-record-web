@@ -6,7 +6,7 @@ import { MatSnackBar }                              from '@angular/material/snac
 import { SysArea }                                  from '../area.component';
 import { HttpCollections }                          from '@/environments/environment';
 import { ResultBean }                               from '@/app/common/result.bean';
-import { DialogService }                            from '@/app/extensions/dialog/dialog.service';
+import { ArtDialogService }                         from '@think-make/art-extends/art-dialog';
 
 @Component({
     selector: 'app-area-dialog',
@@ -23,7 +23,7 @@ export class AreaDialogComponent implements OnInit {
                 private matDialog: MatDialog,
                 @Inject(MAT_DIALOG_DATA) public parentArea: SysArea,
                 private matSnackBar: MatSnackBar,
-                private rds: DialogService) {
+                private artDialogService: ArtDialogService) {
         this.areaForm = this.formBuilder.group({
             areaCode: ['', [Validators.required]],
             areaName: ['', [Validators.required]],
@@ -41,9 +41,9 @@ export class AreaDialogComponent implements OnInit {
             .subscribe((resultBean) => {
                 if (resultBean.code === 200) {
                     this.matDialogRef.close(true);
-                    this.rds.alert('success', '', {duration: 2000, message: ''});
+                    this.artDialogService.success('', {duration: 2000, message: ''});
                 } else {
-                    this.rds.alert('error', '', {duration: 2000, message: ''});
+                    this.artDialogService.error('', {duration: 2000, message: ''});
                 }
             });
     }

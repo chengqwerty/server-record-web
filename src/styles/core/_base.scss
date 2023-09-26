@@ -10,3 +10,10 @@ ul, li {
     padding: 0;
     list-style: none;
 }
+
+/**
+chrome 浏览器自带伪类，影响删除。
+ */
+:focus-visible {
+    outline: none;
+}

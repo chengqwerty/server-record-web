@@ -18,7 +18,7 @@
 
     $mm: #{$property-class-prefix-hyphen + $class-modifier};
 
-    @debug $mm, $value;
+    //@debug $mm, $value;
 
     .#{$property-class-prefix-hyphen + $class-modifier} {
       @each $property in $properties {

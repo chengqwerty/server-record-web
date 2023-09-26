@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { CollectionViewer, DataSource }               from '@angular/cdk/collections';
-import { BehaviorSubject, Observable }                from 'rxjs';
-import { HttpClient }                                 from '@angular/common/http';
-import { ResultBean }                                 from '@/app/common/result.bean';
-import { HttpCollections }                            from '@/environments/environment';
-import { FormBuilder }                                from '@angular/forms';
-import { MatDialog }                                  from '@angular/material/dialog';
-import { MenuTreeComponent, MenuTreeNode }            from '@/app/routes/system/menu/menu-tree/menu-tree.component';
-import { MenuDialogComponent }                        from '@/app/routes/system/menu/menu-dialog/menu-dialog.component';
-import { DialogService }                              from '@/app/extensions/dialog/dialog.service';
-import { Model }                                      from '@/app/common/model';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { CollectionViewer, DataSource }                       from '@angular/cdk/collections';
+import { BehaviorSubject, Observable }                        from 'rxjs';
+import { HttpClient }                                         from '@angular/common/http';
+import { ResultBean }                                         from '@/app/common/result.bean';
+import { HttpCollections }                                    from '@/environments/environment';
+import { FormBuilder }                                        from '@angular/forms';
+import { MatDialog }                                          from '@angular/material/dialog';
+import { MenuTreeComponent, MenuTreeNode }                    from '@/app/routes/system/menu/menu-tree/menu-tree.component';
+import { MenuDialogComponent }                                from '@/app/routes/system/menu/menu-dialog/menu-dialog.component';
+import { Model }                                              from '@/app/common/model';
+import { ArtDialogService }                                   from '@think-make/art-extends/art-dialog';
 
 export interface SysMenu {
     menuId: string,
@@ -50,7 +50,7 @@ export class SysMenuDataSource implements DataSource<SysMenu> {
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
 
     // @ts-ignore
     @ViewChild(MenuTreeComponent, {static: true})
@@ -63,8 +63,12 @@ export class MenuComponent {
     constructor(private formBuilder: FormBuilder,
                 private matDialog: MatDialog,
                 private httpClient: HttpClient,
-                private dialogService: DialogService) {
+                private artDialogService: ArtDialogService) {
         this.dataSource = new SysMenuDataSource(httpClient);
+    }
+
+    ngOnInit() {
+        this.artDialogService.alert('success', 'The artDialogService is success!');
     }
 
     changeSelectedNode(menu: MenuTreeNode) {
@@ -74,7 +78,7 @@ export class MenuComponent {
 
     addMenu() {
         if (this.menuTreeNode == null) {
-            this.dialogService.alert('warning', '请必须先选择一个菜单！');
+            this.artDialogService.warning('请必须先选择一个菜单！');
             return;
         }
         const dialogRef = this.matDialog.open(MenuDialogComponent, {

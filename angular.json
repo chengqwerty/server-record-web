@@ -17,6 +17,10 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                            ]
+                        },
                         "outputPath": "dist/server-record-web",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -30,7 +34,8 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                        ]
                     },
                     "configurations": {
                         "production": {

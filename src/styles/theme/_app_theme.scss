@@ -1,20 +1,23 @@
 // 使用官方主题编译自己的组件主题
 @use 'official_theme' as official;
 @use '../../app/app-theme.component' as app;
-@use '../../app/extensions/dialog/alert/alert-theme.component' as alertTheme;
 @use '../../app/routes/system/icon-list/icon-list-theme.component' as iconListTheme;
 @use '../../app/routes/art-layout/art-layout-theme.component' as artLayout;
 @use '../../app/routes/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
 @use '../../app/routes/system/icon-list/icon-dialog/icon-dialog-theme.component' as iconDialogTheme;
-@use "sass:map";
-@use "@angular/material" as mat;
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@think-make/art-extends' as thk;
 
 @include app.theme(official.$app-theme);
-@include alertTheme.theme(official.$app-theme);
+@include thk.all-component-themes(official.$app-theme);
+
 @include iconListTheme.theme(official.$app-theme);
 @include artLayout.theme(official.$app-theme);
 @include artSidenav.theme(official.$app-theme);
 @include iconDialogTheme.theme(official.$app-theme);
+
+//@include art.all-component-themes(official.$app-theme);
 
 // Get the color config from the theme.
 $color-config: mat.get-color-config(official.$app-theme);

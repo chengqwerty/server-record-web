@@ -6,9 +6,9 @@ import { HttpClient }                               from '@angular/common/http';
 import { HttpCollections }                          from '@/environments/environment';
 import { ResultBean }                               from '@/app/common/result.bean';
 import { Validations }                              from '@/app/extensions/validation/validation';
-import { DialogService }                            from '@/app/extensions/dialog/dialog.service';
 import { IconDialogComponent }                      from '@/app/routes/system/icon-list/icon-dialog/icon-dialog.component';
 import { Model }                                    from '@/app/common/model';
+import { ArtDialogService }                         from '@think-make/art-extends/art-dialog';
 
 @Component({
     selector: 'app-menu-dialog',
@@ -26,7 +26,7 @@ export class MenuDialogComponent {
                 private matDialog: MatDialog,
                 private matDialogRef: MatDialogRef<MenuDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: { model: Model, parent: SysMenu, record: SysMenu },
-                private dialogService: DialogService) {
+                private artDialogService: ArtDialogService) {
         this.parent = data.parent;
         if (data.model === Model.Create) {
             this.menuForm = this.formBuilder.group({
@@ -81,9 +81,9 @@ export class MenuDialogComponent {
             .subscribe(response => {
                 if (response.code === 200) {
                     this.matDialogRef.close(true);
-                    this.dialogService.alert('success', '菜单添加成功！', {duration: 2000});
+                    this.artDialogService.alert('success', '菜单添加成功！', {duration: 2000});
                 } else {
-                    this.dialogService.alert('error', '菜单添加失败！', {duration: 2000});
+                    this.artDialogService.alert('error', '菜单添加失败！', {duration: 2000});
                 }
             });
     }

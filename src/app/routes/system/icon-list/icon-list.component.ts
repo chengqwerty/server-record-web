@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { iconDirectory }     from '@/app/extensions/icon/icon';
-import { DialogService }     from '@/app/extensions/dialog/dialog.service';
+import { ArtDialogService }  from '@think-make/art-extends/art-dialog';
 
 @Component({
     selector: 'icon-list',
@@ -11,7 +11,7 @@ export class IconListComponent {
 
     protected readonly iconDirectory = iconDirectory;
 
-    constructor(private dialogService: DialogService) {
+    constructor(private artDialogService: ArtDialogService) {
     }
 
     copy(name: string, directory?: string) {
@@ -25,7 +25,7 @@ export class IconListComponent {
         const blob = new Blob([matIcon], {type});
         const data = [new ClipboardItem({[type]: blob})];
         navigator.clipboard.write(data).then(() => {
-            this.dialogService.success('成功复制到剪切板！');
+            this.artDialogService.success('成功复制到剪切板！');
         });
     }
 
