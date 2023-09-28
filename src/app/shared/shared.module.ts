@@ -4,6 +4,7 @@ import { MaterialModule }      from './material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 import { ArtDialogModule }     from '@think-make/art-extends/art-dialog';
+import { ArtDescriptionsModule } from '@think-make/art-extends/art-descriptions';
 
 const THIRD_MODULE = [
     MaterialModule
@@ -23,6 +24,7 @@ const THIRD_MODULE = [
         HttpClientModule,
         ReactiveFormsModule,
         ArtDialogModule,
+        ArtDescriptionsModule,
         ...THIRD_MODULE
     ]
 })

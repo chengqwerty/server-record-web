@@ -1,3 +1,22 @@
+<ng-container *ngIf="data.model === Model.Read">
+    <h2 mat-dialog-title class="art-primary">菜单详情</h2>
+    <mat-divider></mat-divider>
+    <div class="m-8">
+        <art-descriptions [column]="4" [bordered]="true">
+            <art-descriptions-item [span]="4" title="父级菜单">{{parent?.menuName}}</art-descriptions-item>
+            <art-descriptions-item [span]="2" title="菜单编码">{{menuForm.get('menuCode')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="2" title="菜单名称">{{menuForm.get('menuName')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="2" title="菜单类型">{{menuForm.get('menuType')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="2" title="菜单图标">{{menuForm.get('menuIcon')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="菜单地址">{{menuForm.get('menuLink')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="菜单描述">{{menuForm.get('menuDescription')?.value}}</art-descriptions-item>
+        </art-descriptions>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close="">取 消</button>
+    </mat-dialog-actions>
+</ng-container>
 <ng-container *ngIf="data.model === Model.Create">
     <h2 mat-dialog-title class="art-primary">菜单表单</h2>
     <mat-divider></mat-divider>
@@ -65,4 +84,5 @@
         <button mat-button cdkFocusInitial (click)="createMenu()">保 存</button>
     </mat-dialog-actions>
 </ng-container>
+
 

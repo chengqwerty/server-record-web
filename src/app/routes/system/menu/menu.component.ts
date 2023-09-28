@@ -101,6 +101,7 @@ export class MenuComponent implements OnInit {
 
     viewMenu(viewMenu: SysMenu) {
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
+            width: '640px',
             data: {
                 model: Model.Read,
                 parent: {
