@@ -1,5 +1,6 @@
 // 官方自定义主题
 @use '@angular/material' as mat;
+@use 'typography' as typography;
 
 @include mat.core();
 
@@ -26,4 +27,6 @@ $app-theme: mat.define-light-theme((
 //@include mat.all-component-colors($app-theme);
 @include mat.all-component-themes($app-theme);
 
-@include mat.typography-hierarchy($app-theme);
+//@include mat.typography-hierarchy($app-theme);
+@include typography.typography-hierarchy($app-theme);
+

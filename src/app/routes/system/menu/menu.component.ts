@@ -68,7 +68,6 @@ export class MenuComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.artDialogService.alert('success', 'The artDialogService is success!');
     }
 
     changeSelectedNode(menu: MenuTreeNode) {
@@ -78,7 +77,7 @@ export class MenuComponent implements OnInit {
 
     addMenu() {
         if (this.menuTreeNode == null) {
-            this.artDialogService.warning('请必须先选择一个菜单！');
+            this.artDialogService.warning('你必须先选择一个菜单！');
             return;
         }
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
@@ -116,8 +115,26 @@ export class MenuComponent implements OnInit {
         });
     }
 
-    updateMenu() {
-
+    updateMenu(viewMenu: SysMenu) {
+        const dialogRef = this.matDialog.open(MenuDialogComponent, {
+            data: {
+                model: Model.Update,
+                parent: {
+                    menuId: this.menuTreeNode?.menuId,
+                    menuCode: this.menuTreeNode?.menuCode,
+                    menuName: this.menuTreeNode?.menuName
+                },
+                record: {
+                    ...viewMenu
+                }
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (this.menuTreeNode != null) {
+                this.dataSource.changeData(this.menuTreeNode.menuId);
+                this.menuTreeComponent.expand(this.menuTreeNode);
+            }
+        });
     }
 
     public assertMenuType(item: SysMenu): SysMenu {

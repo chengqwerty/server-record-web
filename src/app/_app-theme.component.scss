@@ -11,8 +11,6 @@
     $warn-palette: map.get($color-config, 'warn');
     $background-palette: map.get($color-config, 'background');
     $is-dark-theme: map.get($color-config, 'is-dark');
-
-
 }
 
 @mixin theme($theme) {
