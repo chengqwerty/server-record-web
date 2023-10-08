@@ -20,8 +20,11 @@
                         <mat-expansion-panel-header>
                             <mat-panel-title>{{directory}}</mat-panel-title>
                         </mat-expansion-panel-header>
-                        <div class="icon-container">
-                            <div *ngFor="let name of iconDirectory[directory]" class="icon-center m-b-16" (click)="selectIcon(name)">
+                        <mat-divider></mat-divider>
+                        <div class="icon-container p-y-16">
+                            <div *ngFor="let name of iconDirectory[directory]" [class.icon-select]="iconName === name"
+                                 class="icon-center"
+                                 (click)="selectIcon(name)">
                                 <mat-icon style="width: 36px;height: 36px;font-size: 36px;" [fontIcon]="name"></mat-icon>
                                 <p>{{name}}</p>
                             </div>
@@ -35,6 +38,6 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>关闭</button>
-    <button mat-button (click)="closeDialog()">确认</button>
+    <button mat-raised-button mat-dialog-close>关闭</button>
+    <button mat-raised-button color="primary" (click)="closeDialog()">确认</button>
 </mat-dialog-actions>

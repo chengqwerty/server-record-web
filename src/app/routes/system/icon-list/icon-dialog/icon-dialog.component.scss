@@ -7,13 +7,13 @@
 
 .icon-center {
     width: 240px;
-    height: 88px;
+    height: 96px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 16px;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
