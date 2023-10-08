@@ -93,7 +93,7 @@ export class MenuComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (this.menuTreeNode != null) {
                 this.dataSource.changeData(this.menuTreeNode.menuId);
-                this.menuTreeComponent.expand(this.menuTreeNode);
+                this.menuTreeComponent.refreshExpand(this.menuTreeNode);
             }
         });
     }
@@ -132,7 +132,7 @@ export class MenuComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (this.menuTreeNode != null) {
                 this.dataSource.changeData(this.menuTreeNode.menuId);
-                this.menuTreeComponent.expand(this.menuTreeNode);
+                this.menuTreeComponent.refreshExpand(this.menuTreeNode);
             }
         });
     }

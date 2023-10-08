@@ -53,7 +53,6 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
     connect(collectionViewer: CollectionViewer): Observable<MenuTreeNode[]> {
         this._treeControl.expansionModel.changed.subscribe(change => {
-            console.log(change);
             if ((change as SelectionChange<MenuTreeNode>).added || (change as SelectionChange<MenuTreeNode>).removed) {
                 this.handleTreeControl(change as SelectionChange<MenuTreeNode>);
             }
@@ -125,8 +124,15 @@ export class MenuTreeComponent {
         }
     }
 
-    expand(menuTreeNode: MenuTreeNode) {
+    /**
+     * 如果某个node下的children被修改了，
+     * 这个方法负责刷新显示children
+     * @param menuTreeNode 要刷新的node
+     */
+    refreshExpand(menuTreeNode: MenuTreeNode) {
+        // 先关闭在展开，刷新children显示
         if (this.treeControl.isExpanded(menuTreeNode)) {
+            this.treeControl.collapse(menuTreeNode);
             this.treeControl.expand(menuTreeNode);
         }
     }

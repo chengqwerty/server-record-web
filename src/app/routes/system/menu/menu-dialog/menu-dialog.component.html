@@ -55,7 +55,7 @@
                 <mat-label>菜单图标</mat-label>
                 <mat-icon *ngIf="menuForm.get('menuIcon')?.value" matPrefix [fontIcon]="menuForm.get('menuIcon')?.value"></mat-icon>
                 <input matInput formControlName="menuIcon">
-                <button matSuffix mat-icon-button (click)="clearIcon()">
+                <button matSuffix mat-icon-button (click)="clearIcon()" type="button">
                     <mat-icon fontIcon="clear" ></mat-icon>
                 </button>
                 <button matSuffix mat-icon-button (click)="openIconDialog($event)">
@@ -79,8 +79,8 @@
     <mat-divider></mat-divider>
     <mat-dialog-actions align="end">
         <button mat-raised-button mat-dialog-close="">取 消</button>
-        <button *ngIf="data.model === Model.Create" mat-raised-button cdkFocusInitial type="submit" (click)="createMenu()">保 存</button>
-        <button *ngIf="data.model === Model.Update" mat-raised-button cdkFocusInitial type="submit" (click)="createMenu()">保 存</button>
+        <button *ngIf="data.model === Model.Create" color="primary" mat-raised-button cdkFocusInitial (click)="createMenu()">保 存</button>
+        <button *ngIf="data.model === Model.Update" color="primary" mat-raised-button cdkFocusInitial (click)="updateMenu()">修 改</button>
     </mat-dialog-actions>
 </ng-container>
 
