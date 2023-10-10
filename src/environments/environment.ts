@@ -3,12 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    api: {
+        baseUrl: 'http://localhost:4201/',
+        refreshTokenEnabled: false,
+        refreshTokenType: 're-request',
+        loginUrl: '',
+        refreshUrl: ''
+    }
 };
 
 export const HttpCollections = {
-  // 系统请求
-  sysUrl: 'http://localhost:30080'
+    // 系统请求
+    sysUrl: 'http://localhost:30080'
 };
 /*
  * For easier debugging in development mode, you can import the following file

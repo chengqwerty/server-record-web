@@ -8,6 +8,12 @@ import { ExtensionsModule }                 from './extensions/extensions.module
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { RoutesModule }                     from '@/app/routes/routes.module';
 import { ReuseTabStrategy }                 from '@/app/routes/art-layout/reuse-tab/reuse-tabs.strategy';
+import { HTTP_INTERCEPTORS }                from '@angular/common/http';
+import { DefaultInterceptor }               from '@/app/core/net/default.interceptor';
+
+const INTERCEPTOR_PROVIDES = [
+    { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true }
+];
 
 @NgModule({
     declarations: [
@@ -22,7 +28,8 @@ import { ReuseTabStrategy }                 from '@/app/routes/art-layout/reuse-
         RouterModule
     ],
     providers: [
-        {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
+        {provide: RouteReuseStrategy, useClass: ReuseTabStrategy},
+        ...INTERCEPTOR_PROVIDES
     ],
     bootstrap: [AppComponent]
 })
