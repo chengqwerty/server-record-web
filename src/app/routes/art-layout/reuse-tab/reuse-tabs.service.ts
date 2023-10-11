@@ -99,6 +99,10 @@ export class ReuseTabService implements OnDestroy {
         return this._cachedChange.asObservable(); // .pipe(filter(w => w !== null));
     }
 
+    clearCache() {
+        this._cached = [];
+    }
+
     /**
      * 保证每次都从最后的子路由开始获取,你去测试就会发现,
      * 两懒加载模块间跳转时，进入的ActivatedRouteSnapshot是中间的路由配置，需要找回最后的child
