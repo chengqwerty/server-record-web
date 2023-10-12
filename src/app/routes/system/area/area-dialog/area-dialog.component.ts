@@ -7,6 +7,8 @@ import { SysArea }                                  from '../area.component';
 import { HttpCollections }                          from '@/environments/environment';
 import { ResultBean }                               from '@/app/common/result.bean';
 import { ArtDialogService }                         from '@think-make/art-extends/art-dialog';
+import { Model }                                    from '@/app/common/model';
+import { Validations }                              from '@/app/extensions/validation/validation';
 
 @Component({
     selector: 'app-area-dialog',
@@ -15,20 +17,35 @@ import { ArtDialogService }                         from '@think-make/art-extend
 })
 export class AreaDialogComponent implements OnInit {
 
+    protected readonly Model = Model;
     public areaForm: FormGroup;
+    public parent: SysArea | null = null;
 
     constructor(private formBuilder: FormBuilder,
                 private httpClient: HttpClient,
                 private matDialogRef: MatDialogRef<AreaDialogComponent>,
                 private matDialog: MatDialog,
-                @Inject(MAT_DIALOG_DATA) public parentArea: SysArea,
+                @Inject(MAT_DIALOG_DATA) public data: { model: Model, parent: SysArea, record: SysArea },
                 private matSnackBar: MatSnackBar,
                 private artDialogService: ArtDialogService) {
-        this.areaForm = this.formBuilder.group({
-            areaCode: ['', [Validators.required]],
-            areaName: ['', [Validators.required]],
-            remarks: ['', []]
-        });
+        this.parent = data.parent;
+        if (data.model === Model.Create) {
+            this.areaForm = this.formBuilder.group({
+                parentId: [this.parent.areaId, [Validators.required]],
+                areaCode: ['', [Validators.required, Validators.minLength(4)]],
+                areaName: ['', [Validators.required]],
+                areaDescription: ['', []]
+            });
+        } else {
+            const record = data.record;
+            this.areaForm = this.formBuilder.group({
+                areaId: [record.areaId, [Validators.required]],
+                parentId: [this.parent.areaId, [Validators.required]],
+                areaCode: [record.areaName, [Validators.required, Validators.minLength(4)]],
+                areaName: [record.areaCode, [Validators.required]],
+                areaDescription: [record.areaDescription, [Validators.required]]
+            });
+        }
     }
 
     ngOnInit(): void {
@@ -36,7 +53,7 @@ export class AreaDialogComponent implements OnInit {
 
     // 创建区域
     public createArea(): void {
-        let param = {...this.areaForm.getRawValue(), areaParentCode: this.parentArea.areaCode};
+        let param = {...this.areaForm.getRawValue()};
         this.httpClient.post<ResultBean>(HttpCollections.sysUrl + '/sys/area/add', param)
             .subscribe((resultBean) => {
                 if (resultBean.code === 200) {
@@ -47,5 +64,4 @@ export class AreaDialogComponent implements OnInit {
                 }
             });
     }
-
 }

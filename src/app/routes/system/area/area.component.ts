@@ -8,10 +8,13 @@ import { BehaviorSubject, Observable }        from 'rxjs';
 import { HttpCollections }                    from '@/environments/environment';
 import { HttpClient }                         from '@angular/common/http';
 import { ResultBean }                         from '@/app/common/result.bean';
+import { Model }                              from '@/app/common/model';
+import { ArtDialogService }                   from '@think-make/art-extends/art-dialog';
 
 export interface SysArea {
+    areaId: string,
     areaCode: string,
-    areaParentCode: string | null,
+    parentId: string,
     expandCode: string,
     areaName: string,
     areaDescription: string
@@ -33,7 +36,7 @@ export class SysAreaDataSource implements DataSource<SysArea> {
     }
 
     changeData(areaCode: string) {
-        this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {areaParentCode: areaCode}})
+        this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {parentId: areaCode}})
             .subscribe((response) => {
                 let areas = response.data as any[];
                 this.areaSubject.next(areas);
@@ -52,12 +55,13 @@ export class AreaComponent implements OnInit {
     @ViewChild(AreaTreeComponent)
     private areaTree: AreaTreeComponent | undefined;
 
-    public selectedNode: AreaFlatNode | null = null;
+    public areaTreeNode: AreaFlatNode | null = null;
     public dataSource: SysAreaDataSource;
     public displayedColumns = ['areaCode', 'areaName', 'areaDescription'];
 
     constructor(private formBuilder: FormBuilder,
                 private dialog: MatDialog,
+                private artDialogService: ArtDialogService,
                 private httpClient: HttpClient) {
         this.dataSource = new SysAreaDataSource(httpClient);
     }
@@ -65,23 +69,32 @@ export class AreaComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    openDialog(): void {
+    addArea(): void {
+        if (this.areaTreeNode == null) {
+            this.artDialogService.warning('你必须先选择一个父区域！');
+            return;
+        }
         const dialogRef = this.dialog.open(AreaDialogComponent, {
             width: '480px',
             data: {
-                ...this.selectedNode
+                model: Model.Create,
+                parent: {
+                    areaId: this.areaTreeNode?.areaId,
+                    areaCode: this.areaTreeNode?.areaCode,
+                    areaName: this.areaTreeNode?.areaName
+                }
             }
         });
         dialogRef.afterClosed().subscribe(result => {
-            if (this.selectedNode != null) {
-                this.dataSource.changeData(this.selectedNode.areaCode);
+            if (this.areaTreeNode != null) {
+                this.dataSource.changeData(this.areaTreeNode.areaCode);
             }
         });
     }
 
     changeSelectedNode(node: AreaFlatNode) {
-        this.selectedNode = node;
-        this.dataSource.changeData(this.selectedNode.areaCode);
+        this.areaTreeNode = node;
+        this.dataSource.changeData(this.areaTreeNode.areaCode);
     }
 
     public assertAreaType(item: SysArea): SysArea {

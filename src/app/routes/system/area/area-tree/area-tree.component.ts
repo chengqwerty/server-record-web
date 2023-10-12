@@ -9,9 +9,10 @@ import { ResultBean }                                    from '@/app/common/resu
 // tree node数据结构
 export class AreaFlatNode {
     constructor(
+        public areaId: string,
         public areaCode: string,
-        public areaParentCode: string | null,
-        public expandCode: string,
+        public parentId: string | null,
+        public expandCode: string | null,
         public areaName: string,
         public level = 1,
         public expandable = false,
@@ -42,7 +43,7 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
     initialData(): AreaFlatNodeDataSource {
         // this._treeControl.dataNodes = [new AreaFlatNode("0", null, "0", "区域", 1, true, false)];
         // this.data = this._treeControl.dataNodes;
-        this.data = [new AreaFlatNode("0", null, "0", "区域", 0, true, false)];
+        this.data = [new AreaFlatNode("0", "0", "0", null, "区域", 0, true)];
         return this;
     }
 
@@ -80,14 +81,14 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
     toggleNode(node: AreaFlatNode, expand: boolean) {
         const index = this.data.indexOf(node);
         if (expand) {
-            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {areaParentCode: node.areaCode}})
+            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {parentId: node.areaCode}})
                 .subscribe((response) => {
                     let areas = response.data as any[];
                     if (areas.length === 0) {
                         node.expandable = false;
-                        this.data[index] = new AreaFlatNode(node.areaCode, node.areaParentCode, node.expandCode, node.areaName, node.level, false);
+                        this.data[index] = new AreaFlatNode(node.areaId, node.areaCode, node.parentId, node.expandCode, node.areaName, node.level, false);
                     } else {
-                        areas = areas.map((area) => new AreaFlatNode(area.areaCode, area.areaParentCode, area.expandCode, area.areaName, node.level + 1));
+                        areas = areas.map((area) => new AreaFlatNode(area.areaId, area.areaCode, area.areaParentCode, area.expandCode, area.areaName, node.level + 1, true));
                         this.data.splice(index + 1, 0, ...areas);
                     }
                     this.dataChange.next([...this.data]);

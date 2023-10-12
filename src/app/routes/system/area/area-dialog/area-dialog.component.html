@@ -1,35 +1,34 @@
-<h2 mat-dialog-title>区域表单</h2>
-<div>
-    <form [formGroup]="areaForm">
-        <p *ngIf="parentArea && parentArea.areaCode !== '0'">
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
-                <mat-label>父级区域</mat-label>
-                <input matInput [value]="parentArea.areaName">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
-                <mat-label>区域编码</mat-label>
-                <input matInput formControlName="areaCode">
-                <mat-error *ngIf="areaForm.get('areaCode')?.invalid">区域编码不能为空</mat-error>
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
-                <mat-label>区域名称</mat-label>
-                <input matInput formControlName="areaName">
-                <mat-error *ngIf="areaForm.get('areaName')?.invalid">区域名称不能为空</mat-error>
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field class="mat-form-field-fill" appearance="fill">
-                <mat-label>备注</mat-label>
-                <input matInput formControlName="remarks">
-            </mat-form-field>
-        </p>
-    </form>
-</div>
+<h2 mat-dialog-title class="art-primary">区域表单</h2>
+<form class="menu-form" [formGroup]="areaForm">
+    <p *ngIf="parent">
+        <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-label>父级区域</mat-label>
+            <input matInput [value]="parent.areaName">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-label>区域编码</mat-label>
+            <input matInput formControlName="areaCode">
+            <mat-error *ngIf="areaForm.get('areaCode')?.invalid">区域编码不能为空</mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-label>区域名称</mat-label>
+            <input matInput formControlName="areaName">
+            <mat-error *ngIf="areaForm.get('areaName')?.invalid">区域名称不能为空</mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-label>备注</mat-label>
+            <input matInput formControlName="remarks">
+        </mat-form-field>
+    </p>
+</form>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close="">Cancel</button>
-    <button mat-button cdkFocusInitial (click)="createArea()">Install</button>
+    <button mat-raised-button mat-dialog-close="">取 消</button>
+    <button *ngIf="data.model === Model.Create" color="primary" mat-raised-button cdkFocusInitial (click)="createArea()">保 存</button>
+    <button *ngIf="data.model === Model.Update" color="primary" mat-raised-button cdkFocusInitial (click)="createArea()">修 改</button>
 </mat-dialog-actions>

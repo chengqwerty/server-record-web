@@ -1,13 +1,13 @@
-<div class="w-full h-full flex-row flex-space-between">
-    <div class="h-full area-sidenav">
+<div class="flex-row area-container">
+    <div class="area-sidenav">
         <div class="section-container w-full h-full">
             <app-area-tree (changeSelectedNode)="changeSelectedNode($event)"></app-area-tree>
         </div>
     </div>
-    <div *ngIf="selectedNode" class="h-full area-body">
+    <div *ngIf="areaTreeNode" class="h-full area-body">
         <div class="section-container w-full h-full p-8">
             <div>
-                <button mat-raised-button color="primary" (click)="openDialog()">新增</button>
+                <button mat-raised-button color="primary" (click)="addArea()">新增</button>
             </div>
             <div>
                 <table mat-table [dataSource]="dataSource">
