@@ -81,11 +81,11 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
     toggleNode(node: AreaFlatNode, expand: boolean) {
         const index = this.data.indexOf(node);
         if (expand) {
-            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {parentId: node.areaCode}})
+            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {parentId: node.areaId}})
                 .subscribe((response) => {
                     let areas = response.data as any[];
                     if (areas.length === 0) {
-                        node.expandable = false;
+                        // node.expandable = false;
                         this.data[index] = new AreaFlatNode(node.areaId, node.areaCode, node.parentId, node.expandCode, node.areaName, node.level, false);
                     } else {
                         areas = areas.map((area) => new AreaFlatNode(area.areaId, area.areaCode, area.areaParentCode, area.expandCode, area.areaName, node.level + 1, true));
@@ -98,9 +98,7 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
             for (let i = index + 1; i < this.data.length && this.data[i].level > node.level; i++) {
                 count++
             }
-            console.log(this.data.length);
             this.data.splice(index + 1, count);
-            console.log(this.data.length);
             this.dataChange.next(this.data);
         }
     }
@@ -133,7 +131,6 @@ export class AreaTreeComponent implements OnInit {
     getLevel = (node: AreaFlatNode) => node.level;
 
     isExpandable = (node: AreaFlatNode) => {
-        console.log(node.expandable);
         return node.expandable;
     }
 
@@ -148,9 +145,21 @@ export class AreaTreeComponent implements OnInit {
         }
     }
 
+    /**
+     * 如果某个node下的children被修改了，
+     * 这个方法负责刷新显示children
+     * @param areaFlatNode 要刷新的node
+     */
+    refreshExpand(areaFlatNode: AreaFlatNode) {
+        // 先关闭在展开，刷新children显示
+        if (this.treeControl.isExpanded(areaFlatNode)) {
+            this.treeControl.collapse(areaFlatNode);
+            this.treeControl.expand(areaFlatNode);
+        }
+    }
+
     public assertAreaNodeType(item: AreaFlatNode): AreaFlatNode {
         return item;
     }
 
-    protected readonly AreaFlatNode = AreaFlatNode;
 }

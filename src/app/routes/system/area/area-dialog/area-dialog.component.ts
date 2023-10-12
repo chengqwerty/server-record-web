@@ -41,8 +41,8 @@ export class AreaDialogComponent implements OnInit {
             this.areaForm = this.formBuilder.group({
                 areaId: [record.areaId, [Validators.required]],
                 parentId: [this.parent.areaId, [Validators.required]],
-                areaCode: [record.areaName, [Validators.required, Validators.minLength(4)]],
-                areaName: [record.areaCode, [Validators.required]],
+                areaCode: [{value: record.areaCode, disabled: true}, [Validators.required, Validators.minLength(4)]],
+                areaName: [record.areaName, [Validators.required]],
                 areaDescription: [record.areaDescription, [Validators.required]]
             });
         }
@@ -58,9 +58,23 @@ export class AreaDialogComponent implements OnInit {
             .subscribe((resultBean) => {
                 if (resultBean.code === 200) {
                     this.matDialogRef.close(true);
-                    this.artDialogService.success('', {duration: 2000, message: ''});
+                    this.artDialogService.success('创建区域成功!', {duration: 3000});
                 } else {
-                    this.artDialogService.error('', {duration: 2000, message: ''});
+                    this.artDialogService.error('创建区域失败!', {duration: 3000});
+                }
+            });
+    }
+
+    // 修改
+    public updateArea(): void {
+        let param = {...this.areaForm.getRawValue()};
+        this.httpClient.post<ResultBean>(HttpCollections.sysUrl + '/sys/area/update', param)
+            .subscribe((resultBean) => {
+                if (resultBean.code === 200) {
+                    this.matDialogRef.close(true);
+                    this.artDialogService.success('修改区域成功!', {duration: 3000});
+                } else {
+                    this.artDialogService.error('修改区域成功!', {duration: 3000});
                 }
             });
     }

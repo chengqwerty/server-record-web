@@ -52,9 +52,8 @@ export class SysMenuDataSource implements DataSource<SysMenu> {
 })
 export class MenuComponent implements OnInit {
 
-    // @ts-ignore
     @ViewChild(MenuTreeComponent, {static: true})
-    private menuTreeComponent: MenuTreeComponent = {} as MenuTreeComponent;
+    private menuTreeComponent!: MenuTreeComponent;
 
     public menuTreeNode: MenuTreeNode | null = null;
     public dataSource: SysMenuDataSource;

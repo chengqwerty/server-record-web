@@ -1,34 +1,51 @@
-<h2 mat-dialog-title class="art-primary">区域表单</h2>
-<form class="menu-form" [formGroup]="areaForm">
-    <p *ngIf="parent">
-        <mat-form-field class="mat-form-field-fill" appearance="outline">
-            <mat-label>父级区域</mat-label>
-            <input matInput [value]="parent.areaName">
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field class="mat-form-field-fill" appearance="outline">
-            <mat-label>区域编码</mat-label>
-            <input matInput formControlName="areaCode">
-            <mat-error *ngIf="areaForm.get('areaCode')?.invalid">区域编码不能为空</mat-error>
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field class="mat-form-field-fill" appearance="outline">
-            <mat-label>区域名称</mat-label>
-            <input matInput formControlName="areaName">
-            <mat-error *ngIf="areaForm.get('areaName')?.invalid">区域名称不能为空</mat-error>
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field class="mat-form-field-fill" appearance="outline">
-            <mat-label>备注</mat-label>
-            <input matInput formControlName="remarks">
-        </mat-form-field>
-    </p>
-</form>
-<mat-dialog-actions align="end">
-    <button mat-raised-button mat-dialog-close="">取 消</button>
-    <button *ngIf="data.model === Model.Create" color="primary" mat-raised-button cdkFocusInitial (click)="createArea()">保 存</button>
-    <button *ngIf="data.model === Model.Update" color="primary" mat-raised-button cdkFocusInitial (click)="createArea()">修 改</button>
-</mat-dialog-actions>
+<ng-container *ngIf="data.model === Model.Read">
+    <h2 mat-dialog-title class="art-primary">区域详情</h2>
+    <div class="m-8">
+        <art-descriptions [column]="4" [bordered]="true">
+            <art-descriptions-item [span]="4" title="父级区域">{{parent?.areaName}}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="区域编码">{{areaForm.get('areaCode')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="区域名称">{{areaForm.get('areaName')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="备注">{{areaForm.get('areaDescription')?.value}}</art-descriptions-item>
+        </art-descriptions>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close="">取 消</button>
+    </mat-dialog-actions>
+</ng-container>
+<ng-container *ngIf="data.model === Model.Create || data.model === Model.Update">
+    <h2 mat-dialog-title class="art-primary">区域表单</h2>
+    <form class="menu-form" [formGroup]="areaForm">
+        <p *ngIf="parent">
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>父级区域</mat-label>
+                <input matInput [value]="parent.areaName">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>区域编码</mat-label>
+                <input matInput formControlName="areaCode">
+                <mat-error *ngIf="areaForm.get('areaCode')?.invalid">区域编码不能为空</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>区域名称</mat-label>
+                <input matInput formControlName="areaName">
+                <mat-error *ngIf="areaForm.get('areaName')?.invalid">区域名称不能为空</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="mat-form-field-fill" appearance="outline">
+                <mat-label>备注</mat-label>
+                <input matInput formControlName="areaDescription">
+            </mat-form-field>
+        </p>
+    </form>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close="">取 消</button>
+        <button *ngIf="data.model === Model.Create" color="primary" mat-raised-button cdkFocusInitial (click)="createArea()">保 存</button>
+        <button *ngIf="data.model === Model.Update" color="primary" mat-raised-button cdkFocusInitial (click)="updateArea()">修 改</button>
+    </mat-dialog-actions>
+</ng-container>

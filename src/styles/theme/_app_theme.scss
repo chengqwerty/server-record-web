@@ -34,6 +34,10 @@ $is-dark-theme: map.get($color-config, 'is-dark');
 //@debug $primary-palette;
 //@debug $background-palette;
 
+.primary-color {
+    color: mat.get-color-from-palette($primary-palette, 'default');
+}
+
 .art-primary {
     background-color: mat.get-color-from-palette($primary-palette, 'default');
     color: mat.get-color-from-palette($primary-palette, 'default-contrast') !important;
