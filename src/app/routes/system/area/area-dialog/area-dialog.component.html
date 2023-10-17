@@ -23,21 +23,21 @@
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-form-field class="mat-form-field-fill" appearance="outline" subscriptSizing="dynamic">
                 <mat-label>区域编码</mat-label>
                 <input matInput formControlName="areaCode">
                 <mat-error *ngIf="areaForm.get('areaCode')?.invalid">区域编码不能为空</mat-error>
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-form-field class="mat-form-field-fill" appearance="outline" subscriptSizing="dynamic">
                 <mat-label>区域名称</mat-label>
                 <input matInput formControlName="areaName">
                 <mat-error *ngIf="areaForm.get('areaName')?.invalid">区域名称不能为空</mat-error>
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field class="mat-form-field-fill" appearance="outline">
+            <mat-form-field class="mat-form-field-fill" appearance="outline" subscriptSizing="dynamic">
                 <mat-label>备注</mat-label>
                 <input matInput formControlName="areaDescription">
             </mat-form-field>
