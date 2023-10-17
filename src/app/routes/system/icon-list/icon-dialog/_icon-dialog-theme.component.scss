@@ -19,8 +19,6 @@
         color: mat.get-color-from-palette($primary-palette, 'lighter-contrast');
     }
 
-    @debug $primary-palette;
-
     .icon-select {
         background: mat.get-color-from-palette($primary-palette, 'default');
         //background: mat.get-color-from-palette($primary-palette, 'lighter');

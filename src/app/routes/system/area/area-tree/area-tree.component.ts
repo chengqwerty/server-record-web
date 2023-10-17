@@ -126,6 +126,7 @@ export class AreaTreeComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.selectNode(this.dataSource.data[0]);
     }
 
     getLevel = (node: AreaFlatNode) => node.level;

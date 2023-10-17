@@ -103,7 +103,6 @@ export class AreaComponent implements OnInit {
                 }
             }
         });
-
     }
 
     updateArea(sysArea: SysArea) {
@@ -121,6 +120,23 @@ export class AreaComponent implements OnInit {
             }
         }).afterClosed().subscribe(result => {
             this.refreshEmit()
+        });
+    }
+
+    deleteArea(sysArea: SysArea) {
+        this.artDialogService.confirm('删除区域', '确认删除这个区域吗？删除后无法恢复！', {type: 'warn'})
+            .afterClosed().subscribe(result => {
+                if (result) {
+                    this.httpClient.post<ResultBean>(HttpCollections.sysUrl + '/sys/area/delete', sysArea)
+                        .subscribe((resultBean) => {
+                            if (resultBean.code === 200) {
+                                this.artDialogService.success('删除区域成功!', {duration: 3000});
+                                this.refreshEmit();
+                            } else {
+                                this.artDialogService.error('删除区域失败!', {duration: 3000});
+                            }
+                        });
+                }
         });
     }
 
