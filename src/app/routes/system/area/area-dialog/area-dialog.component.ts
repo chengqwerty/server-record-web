@@ -8,7 +8,6 @@ import { HttpCollections }                          from '@/environments/environ
 import { ResultBean }                               from '@/app/common/result.bean';
 import { ArtDialogService }                         from '@think-make/art-extends/art-dialog';
 import { Model }                                    from '@/app/common/model';
-import { Validations }                              from '@/app/extensions/validation/validation';
 
 @Component({
     selector: 'app-area-dialog',

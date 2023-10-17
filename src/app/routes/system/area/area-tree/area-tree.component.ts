@@ -79,7 +79,7 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
     }
 
     toggleNode(node: AreaFlatNode, expand: boolean) {
-        const index = this.data.indexOf(node);
+        const index = this.data.findIndex((area) => area.areaId === node.areaId);
         if (expand) {
             this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/area/get', {params: {parentId: node.areaId}})
                 .subscribe((response) => {
