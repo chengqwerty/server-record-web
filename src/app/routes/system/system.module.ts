@@ -12,6 +12,8 @@ import { SharedModule }        from '@/app/shared/shared.module';
 import { MenuDialogComponent } from './menu/menu-dialog/menu-dialog.component';
 import { IconListComponent }   from './icon-list/icon-list.component';
 import { IconDialogComponent } from './icon-list/icon-dialog/icon-dialog.component';
+import { DepartTreeComponent } from './depart/depart-tree/depart-tree.component';
+import { DepartDialogComponent } from './depart/depart-dialog/depart-dialog.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { IconDialogComponent } from './icon-list/icon-dialog/icon-dialog.compone
         MenuTreeComponent,
         MenuDialogComponent,
         IconListComponent,
-        IconDialogComponent
+        IconDialogComponent,
+        DepartTreeComponent,
+        DepartDialogComponent
     ],
     imports: [
         SystemRoutingModule,

@@ -1,0 +1,15 @@
+.menu-form {
+    padding: 16px;
+}
+p {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+mat-form-field {
+    width: 360px;
+    flex: 1 0 auto;
+}
+mat-form-field + mat-form-field {
+    margin-left: 16px;
+}
