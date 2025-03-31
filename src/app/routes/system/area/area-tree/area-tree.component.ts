@@ -107,6 +107,7 @@ export class AreaFlatNodeDataSource implements DataSource<AreaFlatNode> {
 
 @Component({
     selector: 'app-area-tree',
+    standalone: false,
     templateUrl: './area-tree.component.html',
     styleUrls: ['./area-tree.component.scss']
 })

@@ -1,12 +1,14 @@
+@use 'sass:map';
+
 /**
   key和value都取负数，生成反向的map
  */
 @function reverse-map($map) {
-  $result: ();
-  @each $key, $value in $map {
-    @if $key != 0 {
-      $result: map-merge($result, ('-' + $key: (-$value)));
+    $result: ();
+    @each $key, $value in $map {
+        @if $key != 0 {
+            $result: map.merge($result, ('-' + $key: (-$value)));
+        }
     }
-  }
-  @return $result;
+    @return $result;
 }

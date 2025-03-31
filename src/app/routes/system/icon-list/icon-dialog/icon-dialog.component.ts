@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'icon-dialog',
+    standalone: false,
     templateUrl: './icon-dialog.component.html',
     styleUrls: ['./icon-dialog.component.scss']
 })

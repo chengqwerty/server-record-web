@@ -4,6 +4,7 @@ import { ArtDialogService }  from '@think-make/art-extends/art-dialog';
 
 @Component({
     selector: 'icon-list',
+    standalone: false,
     templateUrl: './icon-list.component.html',
     styleUrls: ['./icon-list.component.scss']
 })

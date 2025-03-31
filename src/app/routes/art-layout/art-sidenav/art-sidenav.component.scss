@@ -9,3 +9,10 @@
         cursor: pointer;
     }
 }
+
+.art-menu-open {
+    background-color: var(--mat-sys-body-large);
+}
+.art-menu.current-link {
+    color: var(--mat-sys-primary);
+}

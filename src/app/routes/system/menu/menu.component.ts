@@ -47,6 +47,7 @@ export class SysMenuDataSource implements DataSource<SysMenu> {
 
 @Component({
     selector: 'app-menu',
+    standalone: false,
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss']
 })

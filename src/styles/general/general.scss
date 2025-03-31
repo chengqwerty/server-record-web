@@ -1,31 +1,34 @@
-@import "size";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "size";
 
-@each $key, $schema in $schemas {
-  $values: map-get($schema, values);
+@each $key, $schema in size.$schemas {
+    $values: map.get($schema, values);
 
-  @each $class-modifier, $value in $values {
-    $properties: map-get($schema, property);
-    $property-class-prefix: map-get($schema, class);
-    $property-class-prefix-hyphen: if(
-        $property-class-prefix== '',
-        $property-class-prefix,
-        $property-class-prefix + '-'
-    );
+    @each $class-modifier, $value in $values {
+        $properties: map.get($schema, property);
+        $property-class-prefix: map.get($schema, class);
+        $property-class-prefix-hyphen: if(
+                $property-class-prefix== '',
+                $property-class-prefix,
+                $property-class-prefix + '-'
+        );
 
-    @if type-of($properties) == 'string' {
-      $properties: append((), $properties);
+        @if meta.type-of($properties) == 'string' {
+            $properties: list.append((), $properties);
+        }
+
+        $mm: #{$property-class-prefix-hyphen + $class-modifier};
+
+        //@debug $mm, $value;
+
+        .#{$property-class-prefix-hyphen + $class-modifier} {
+            @each $property in $properties {
+                #{$property}: $value !important;
+            }
+        }
     }
-
-    $mm: #{$property-class-prefix-hyphen + $class-modifier};
-
-    //@debug $mm, $value;
-
-    .#{$property-class-prefix-hyphen + $class-modifier} {
-      @each $property in $properties {
-        #{$property}: $value !important;
-      }
-    }
-  }
 
 }
 

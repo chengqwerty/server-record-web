@@ -48,6 +48,7 @@ export class SysAreaDataSource implements DataSource<SysArea> {
 @Component({
     selector: 'app-area',
     templateUrl: './area.component.html',
+    standalone: false,
     styleUrls: ['./area.component.scss']
 })
 export class AreaComponent implements OnInit {

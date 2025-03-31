@@ -94,6 +94,7 @@ export class MenuTreeDataSource implements DataSource<MenuTreeNode> {
 
 @Component({
     selector: 'app-menu-tree',
+    standalone: false,
     templateUrl: './menu-tree.component.html',
     styleUrls: ['./menu-tree.component.scss']
 })

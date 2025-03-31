@@ -106,6 +106,7 @@ export class deptFlatNodeDataSource implements DataSource<DeptFlatNode> {
 
 @Component({
     selector: 'depart-tree',
+    standalone: false,
     templateUrl: './depart-tree.component.html',
     styleUrls: ['./depart-tree.component.scss']
 })

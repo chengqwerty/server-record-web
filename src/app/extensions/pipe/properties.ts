@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Convert Object to array of keys.
  */
 @Pipe({
-    name: 'properties'
+    name: 'properties',
+    standalone: false
 })
 export class PropertiesPipe implements PipeTransform {
 

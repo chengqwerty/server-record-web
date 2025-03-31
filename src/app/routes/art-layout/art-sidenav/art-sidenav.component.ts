@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
-import { Menu, MenuService }                     from "@/app/core/service/menu.service";
+import { Component }                             from '@angular/core';
+import { Menu, MenuService }                     from '@/app/core/service/menu.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { CommonModule }                          from '@angular/common';
+import { MatIcon }                               from '@angular/material/icon';
 
 @Component({
     selector: 'app-art-sidenav',
+    standalone: true,
     templateUrl: './art-sidenav.component.html',
+    imports: [
+        MatIcon,
+        CommonModule
+    ],
     styleUrls: ['./art-sidenav.component.scss']
 })
 export class ArtSidenavComponent {
@@ -13,6 +20,7 @@ export class ArtSidenavComponent {
 
     constructor(private menuService: MenuService, private router: Router, private route: ActivatedRoute) {
         this.menus = menuService.getMenus();
+        console.log(this.menus);
         // route.url.subscribe((url) => {
         //     console.log(url);
         // });

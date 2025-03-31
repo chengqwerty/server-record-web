@@ -1,0 +1,21 @@
+.art-menu {
+  height: 48px;
+  font-size: 14px;
+  align-items: center;
+}
+.art-menu .art-menu-icon {
+  margin-right: 8px;
+}
+.art-menu:hover {
+  cursor: pointer;
+}
+
+.art-menu-open {
+  background-color: var(--mat-sys-body-large);
+}
+
+.art-menu.current-link {
+  color: var(--mat-sys-primary);
+}
+
+/*# sourceMappingURL=art-sidenav.component.css.map */

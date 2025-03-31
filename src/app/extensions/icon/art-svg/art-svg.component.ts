@@ -6,6 +6,7 @@ import { icons }                                              from '@/app/extens
 @Component({
     selector: 'art-svg',
     templateUrl: './art-svg.component.html',
+    standalone: false,
     styleUrls: ['./art-svg.component.scss']
 })
 export class ArtSvgComponent implements OnInit, OnChanges {

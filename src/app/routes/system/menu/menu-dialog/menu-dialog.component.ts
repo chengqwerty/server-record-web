@@ -12,6 +12,7 @@ import { ArtDialogService }                         from '@think-make/art-extend
 
 @Component({
     selector: 'app-menu-dialog',
+    standalone: false,
     templateUrl: './menu-dialog.component.html',
     styleUrls: ['./menu-dialog.component.scss']
 })

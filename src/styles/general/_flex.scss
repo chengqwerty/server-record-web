@@ -1,0 +1,9 @@
+// src/styles/_mixins.scss
+
+@mixin flex-style($jc: center, $ai: center, $direction: column, $fw: wrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $jc;
+    align-items: $ai;
+    flex-wrap: $fw;
+}

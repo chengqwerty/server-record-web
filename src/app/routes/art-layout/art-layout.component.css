@@ -1,0 +1,18 @@
+.art-container {
+  height: calc(100vh - 64px);
+  background-color: var(--mat-sys-background);
+}
+
+mat-sidenav {
+  width: 240px;
+  height: 100%;
+  background-color: var(--mat-sys-surface-container);
+  border-radius: 0;
+}
+
+mat-sidenav-content {
+  overflow-x: hidden;
+  padding-left: 8px;
+}
+
+/*# sourceMappingURL=art-layout.component.css.map */

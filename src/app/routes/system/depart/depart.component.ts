@@ -48,6 +48,7 @@ export class SysDeptDataSource implements DataSource<SysDept> {
 
 @Component({
     selector: 'app-depart',
+    standalone: false,
     templateUrl: './depart.component.html',
     styleUrls: ['./depart.component.scss']
 })

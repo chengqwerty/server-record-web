@@ -2,20 +2,30 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { debounceTime, map, Subject }                  from 'rxjs';
 import { FormControl }                                 from '@angular/forms';
 import { ActivatedRoute, Router }              from '@angular/router';
-import { DomSanitizer }                        from '@angular/platform-browser';
-import { MatIconRegistry }                     from '@angular/material/icon';
-import { MatTabChangeEvent }                   from '@angular/material/tabs';
-import { ReuseTabService }                       from '@/app/routes/art-layout/reuse-tab/reuse-tabs.service';
+import { DomSanitizer }                           from '@angular/platform-browser';
+import { MatIcon, MatIconRegistry }                            from '@angular/material/icon';
+import { MatTab, MatTabChangeEvent, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
+import { ReuseTabService }                                     from '@/app/routes/art-layout/reuse-tab/reuse-tabs.service';
 import {
     ReuseItem,
     ReuseTabCached,
     ReuseTabNotify,
     ReuseTitle
-} from '@/app/routes/art-layout/reuse-tab/reuse-tabs.interfaces';
+}                        from '@/app/routes/art-layout/reuse-tab/reuse-tabs.interfaces';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-reuse-tabs',
+    standalone: true,
     templateUrl: './reuse-tabs.component.html',
+    imports: [
+        MatTabGroup,
+        MatTab,
+        MatIcon,
+        NgIf,
+        NgForOf,
+        MatTabLabel
+    ],
     styleUrls: ['./reuse-tabs.component.scss']
 })
 export class ReuseTabsComponent implements OnInit {

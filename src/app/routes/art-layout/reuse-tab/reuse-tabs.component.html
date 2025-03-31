@@ -1,7 +1,7 @@
 <!--
 这里没有使用mat-tab-group自带的selectedTabChange事件，
 而是在mat-tab上监听click事件，selectedTabChange会在tab重新渲染时就触发（index = 0），
-这可能导致路由重新跳回index=0 的tab
+这可能导致路由重新跳回index=0的tab
 -->
 <mat-tab-group mat-stretch-tabs="false" [selectedIndex]="selected.value" (selectedTabChange)="selectedTabChange($event)">
     <mat-tab *ngFor="let item of list; let index = index">

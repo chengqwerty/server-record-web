@@ -11,6 +11,7 @@ import { SysDept }                                  from '@/app/routes/system/de
 
 @Component({
     selector: 'depart-dialog',
+    standalone: false,
     templateUrl: './depart-dialog.component.html',
     styleUrls: ['./depart-dialog.component.scss']
 })

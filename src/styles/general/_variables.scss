@@ -1,4 +1,5 @@
-@import "functions";
+@use "functions";
+@use "sass:map";
 
 // All Map
 $schemas: () !default;
@@ -6,7 +7,7 @@ $schemas: () !default;
 // Spacing
 $spacer: 16px !default;
 $spacers: () !default;
-$spacers: map-merge(
+$spacers: map.merge(
     (
         0: 0,
         4: $spacer * .25,
@@ -18,7 +19,7 @@ $spacers: map-merge(
     ),
     $spacers
 );
-$reverse-spacers: reverse-map($spacers) !default;
+$reverse-spacers: functions.reverse-map($spacers) !default;
 
 // Size
 $size: (

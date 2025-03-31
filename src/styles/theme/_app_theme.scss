@@ -1,85 +1,52 @@
-// 使用官方主题编译自己的组件主题
-@use 'official_theme' as official;
-@use '../../app/app-theme.component' as app;
-@use '../../app/routes/system/icon-list/icon-list-theme.component' as iconListTheme;
-@use '../../app/routes/art-layout/art-layout-theme.component' as artLayout;
-@use '../../app/routes/art-layout/art-sidenav/art-sidenav-theme.component' as artSidenav;
-@use '../../app/routes/system/icon-list/icon-dialog/icon-dialog-theme.component' as iconDialogTheme;
-@use 'sass:map';
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-@use '@think-make/art-extends' as thk;
 
-@include app.theme(official.$app-theme);
-@include thk.all-component-themes(official.$app-theme);
+html {
+    @include mat.theme((
+        color: (
+            theme-type: light,
+            primary: mat.$rose-palette,
+            tertiary: mat.$green-palette,
+        ),
+        typography: (
+            plain-family: Roboto,
+            brand-family: Open Sans,
+            bold-weight: 900,
+            medium-weight: 500,
+            regular-weight: 300,
+        ),
+        density: 0,
+    ));
+}/* You can add global styles to this file, and also import other style files */
 
-@include iconListTheme.theme(official.$app-theme);
-@include artLayout.theme(official.$app-theme);
-@include artSidenav.theme(official.$app-theme);
-@include iconDialogTheme.theme(official.$app-theme);
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-//@include art.all-component-themes(official.$app-theme);
-
-// Get the color config from the theme.
-$color-config: mat.get-color-config(official.$app-theme);
-
-// Get the primary color palette from the color-config.
-$primary-palette: map.get($color-config, 'primary');
-$accent-palette: map.get($color-config, 'accent');
-$warn-palette: map.get($color-config, 'warn');
-$foreground: map.get($color-config, 'foreground');
-$background-palette: map.get($color-config, 'background');
-$is-dark-theme: map.get($color-config, 'is-dark');
-
-//@debug $color-config;
-//@debug $primary-palette;
-//@debug $background-palette;
-
-.primary-color {
-    color: mat.get-color-from-palette($primary-palette, 'default');
-}
-
-.art-primary {
-    background-color: mat.get-color-from-palette($primary-palette, 'default');
-    color: mat.get-color-from-palette($primary-palette, 'default-contrast') !important;
-}
-
-.section-container {
-    background-color: mat.get-color-from-palette($background-palette, 'card');
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.tree-node-select {
-    color: mat.get-color-from-palette($primary-palette, 'default');
-}
-
-//a {
-//    color: mat.get-color-from-palette($primary-palette, 'default');
-//}
 
 /**
     滚动条样式
  */
-/*滚动条整体部分,必须要设置*/
-::-webkit-scrollbar{
-    width: 10px;
-    height: 10px;
-    background-color: mat.get-color-from-palette($background-palette, 'background');
-}
-/*滚动条的轨道*/
-::-webkit-scrollbar-track{
-    //box-shadow: inset 0 0 5px rgba(0,0,0,.3);
-    background-color: mat.get-color-from-palette($background-palette, 'background');
-}
-/*滚动条的滑块按钮*/
-::-webkit-scrollbar-thumb{
-    border-radius: 8px;
-    height: 36px;
-    background-color: mat.get-color-from-palette($primary-palette, 'default');
-    box-shadow: inset 0 0 5px mat.get-color-from-palette($primary-palette, 'default');
-}
-/*滚动条的上下两端的按钮*/
-::-webkit-scrollbar-button {
-    height: 16px;
-    background-color: mat.get-color-from-palette($background-palette, 'tooltip', 0.7);
-}
+///*滚动条整体部分,必须要设置*/
+//::-webkit-scrollbar{
+//    width: 10px;
+//    height: 10px;
+//    background-color: mat.get-color-from-palette($background-palette, 'background');
+//}
+///*滚动条的轨道*/
+//::-webkit-scrollbar-track{
+//    //box-shadow: inset 0 0 5px rgba(0,0,0,.3);
+//    background-color: mat.get-color-from-palette($background-palette, 'background');
+//}
+///*滚动条的滑块按钮*/
+//::-webkit-scrollbar-thumb{
+//    border-radius: 8px;
+//    height: 36px;
+//    background-color: mat.get-color-from-palette($primary-palette, 'default');
+//    box-shadow: inset 0 0 5px mat.get-color-from-palette($primary-palette, 'default');
+//}
+///*滚动条的上下两端的按钮*/
+//::-webkit-scrollbar-button {
+//    height: 16px;
+//    background-color: mat.get-color-from-palette($background-palette, 'tooltip', 0.7);
+//}

@@ -11,6 +11,7 @@ import { Model }                                    from '@/app/common/model';
 
 @Component({
     selector: 'app-area-dialog',
+    standalone: false,
     templateUrl: './area-dialog.component.html',
     styleUrls: ['./area-dialog.component.scss']
 })

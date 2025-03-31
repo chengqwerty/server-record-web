@@ -1,7 +1,7 @@
-<div class="login-container w-full h-full flex-row">
-    <div class="login-form section-container">
-        <h2>欢迎回来</h2>
-        <form [formGroup]="loginForm" (submit)="login()">
+<div class="login-container w-full h-full flex-row justify-center items-center">
+    <div class="login-form section-container flex-col justify-center items-center">
+        <h1>欢迎回来</h1>
+        <form class="m-16" [formGroup]="loginForm" (submit)="login()">
             <p>
                 <mat-form-field class="mat-form-field-fill" appearance="outline">
                     <mat-label>用户名</mat-label>
