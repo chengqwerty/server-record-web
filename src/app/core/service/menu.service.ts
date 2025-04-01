@@ -9,6 +9,7 @@ export interface Menu {
     link?: string;
     closable?: boolean,
     type?: 'group' | 'menu';
+    level: number;
     opened?: boolean;
     children?: Menu[];
 }
@@ -25,27 +26,81 @@ export class MenuService {
             icon: 'settings',
             opened: true,
             type: 'group',
+            level: 1,
             children: [
                 {
                     name: '区域管理',
                     icon: 'settings',
                     opened: true,
                     type: 'menu',
-                    link: '/bus/sys/area'
+                    link: '/bus/sys/area',
+                    level: 2,
                 },
                 {
                     name: '部门管理',
                     icon: 'settings',
                     opened: true,
                     type: 'menu',
-                    link: '/bus/sys/depart'
+                    link: '/bus/sys/depart',
+                    level: 2,
                 },
                 {
                     name: '菜单管理',
                     icon: 'settings',
                     opened: true,
                     type: 'menu',
-                    link: '/bus/sys/menu'
+                    link: '/bus/sys/menu',
+                    level: 2,
+                },
+                {
+                    name: '动画管理',
+                    icon: 'settings',
+                    opened: true,
+                    type: 'menu',
+                    link: '/bus/sys/animation',
+                    level: 2,
+                }
+
+            ]
+        },
+        {
+            name: '系统管理',
+            icon: 'settings',
+            opened: true,
+            type: 'group',
+            level: 1,
+            children: [
+                {
+                    name: '区域管理',
+                    icon: 'settings',
+                    opened: true,
+                    type: 'menu',
+                    link: '/bus/sys/area',
+                    level: 2,
+                },
+                {
+                    name: '部门管理',
+                    icon: 'settings',
+                    opened: true,
+                    type: 'menu',
+                    link: '/bus/sys/depart',
+                    level: 2,
+                },
+                {
+                    name: '菜单管理',
+                    icon: 'settings',
+                    opened: true,
+                    type: 'menu',
+                    link: '/bus/sys/menu',
+                    level: 2,
+                },
+                {
+                    name: '动画管理',
+                    icon: 'settings',
+                    opened: true,
+                    type: 'menu',
+                    link: '/bus/sys/animation',
+                    level: 2,
                 }
 
             ]

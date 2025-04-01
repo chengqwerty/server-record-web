@@ -1,17 +1,18 @@
-.art-menu {
+li .art-menu {
   height: 48px;
   font-size: 14px;
   align-items: center;
 }
-.art-menu .art-menu-icon {
+li .art-menu .art-menu-icon {
   margin-right: 8px;
 }
-.art-menu:hover {
+li .art-menu:hover {
   cursor: pointer;
+  background-color: var(--mat-sys-primary-container);
 }
 
 .art-menu-open {
-  background-color: var(--mat-sys-body-large);
+  background-color: var(--mat-sys-primary-container);
 }
 
 .art-menu.current-link {

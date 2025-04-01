@@ -6,6 +6,7 @@ import { routes }                                                               
 import {
     ReuseTabStrategy
 }                                                                                         from '@/app/routes/art-layout/reuse-tab/reuse-tabs.strategy';
+import { provideAnimationsAsync }                                                         from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
             withInterceptorsFromDi(),
         ),
         provideRouter(routes),
+        provideAnimationsAsync(),
         {provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true},
         {provide: RouteReuseStrategy, useClass: ReuseTabStrategy}
     ]

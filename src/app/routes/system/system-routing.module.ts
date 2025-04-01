@@ -4,6 +4,7 @@ import { AreaComponent }        from '@/app/routes/system/area/area.component';
 import { DepartComponent }      from '@/app/routes/system/depart/depart.component';
 import { MenuComponent }        from '@/app/routes/system/menu/menu.component';
 import { IconListComponent }    from '@/app/routes/system/icon-list/icon-list.component';
+import { MyAnimationComponent } from '@/app/routes/system/my-animation/my-animation.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,11 @@ const routes: Routes = [
     {
         path: 'icon',
         component: IconListComponent,
+        data: { title: '图标管理' }
+    },
+    {
+        path: 'animation',
+        component: MyAnimationComponent,
         data: { title: '图标管理' }
     }
 ];

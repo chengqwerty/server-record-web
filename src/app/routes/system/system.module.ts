@@ -14,6 +14,7 @@ import { IconListComponent }   from './icon-list/icon-list.component';
 import { IconDialogComponent } from './icon-list/icon-dialog/icon-dialog.component';
 import { DepartTreeComponent } from './depart/depart-tree/depart-tree.component';
 import { DepartDialogComponent } from './depart/depart-dialog/depart-dialog.component';
+import { MyAnimationComponent } from '@/app/routes/system/my-animation/my-animation.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { DepartDialogComponent } from './depart/depart-dialog/depart-dialog.comp
         AreaComponent,
         AreaDialogComponent,
         AreaTreeComponent,
+        MyAnimationComponent,
         DepartComponent,
         MenuComponent,
         MenuTreeComponent,
