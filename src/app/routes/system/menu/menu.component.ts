@@ -72,6 +72,7 @@ export class MenuComponent implements OnInit {
 
     changeSelectedNode(menu: MenuTreeNode) {
         this.menuTreeNode = menu;
+        console.log(menu.menuId);
         this.dataSource.changeData(this.menuTreeNode.menuId);
     }
 

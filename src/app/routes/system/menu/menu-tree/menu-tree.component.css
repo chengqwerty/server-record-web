@@ -1,13 +1,16 @@
 .menu-tree-invisible {
-    display: none;
+  display: none;
 }
+
 /*
  * This padding sets alignment of the nested nodes.
  */
 .mat-nested-tree-node div[role=group] {
-    padding-left: 40px;
+  padding-left: 40px;
 }
 
 .tree-node-select {
-    color: var(--mat-sys-primary);
+  color: var(--mat-sys-primary);
 }
+
+/*# sourceMappingURL=menu-tree.component.css.map */

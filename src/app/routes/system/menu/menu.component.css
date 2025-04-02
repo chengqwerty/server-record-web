@@ -1,0 +1,18 @@
+.menu-container {
+  justify-content: space-between;
+}
+
+.menu-sidenav {
+  width: 320px;
+  border-right: 1px solid var(--mat-sys-outline);
+}
+
+.menu-body {
+  width: calc(100% - 336px);
+}
+
+.mat-column-action {
+  width: 360px;
+}
+
+/*# sourceMappingURL=menu.component.css.map */

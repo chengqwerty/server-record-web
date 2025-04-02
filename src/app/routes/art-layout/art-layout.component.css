@@ -15,4 +15,8 @@ mat-sidenav-content {
   padding-left: 8px;
 }
 
+.router-outlet-container {
+  height: calc(100% - 49px);
+}
+
 /*# sourceMappingURL=art-layout.component.css.map */
