@@ -82,6 +82,7 @@ export class MenuComponent implements OnInit {
             return;
         }
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
+            maxWidth: 1080,
             data: {
                 model: Model.Create,
                 parent: {
@@ -101,7 +102,8 @@ export class MenuComponent implements OnInit {
 
     viewMenu(viewMenu: SysMenu) {
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
-            width: '640px',
+            width: '1080px',
+            maxWidth: 1080,
             data: {
                 model: Model.Read,
                 parent: {
@@ -118,6 +120,7 @@ export class MenuComponent implements OnInit {
 
     updateMenu(viewMenu: SysMenu) {
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
+            minWidth: '720',
             data: {
                 model: Model.Update,
                 parent: {

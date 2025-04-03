@@ -1,8 +1,16 @@
+[mat-dialog-title] {
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+}
+
 .icon-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .icon-select {
+        background-color: var(--mat-sys-primary-container);
+    }
 }
 
 .icon-center {

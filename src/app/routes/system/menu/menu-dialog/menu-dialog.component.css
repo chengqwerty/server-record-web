@@ -1,0 +1,33 @@
+[mat-dialog-title] {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+mat-grid-list {
+  width: 720px;
+}
+
+mat-grid-tile {
+  border: solid 1px;
+}
+
+.menu-form {
+  padding: 16px;
+}
+
+p {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+mat-form-field {
+  width: 360px;
+  flex: 1 0 auto;
+}
+
+mat-form-field + mat-form-field {
+  margin-left: 16px;
+}
+
+/*# sourceMappingURL=menu-dialog.component.css.map */
