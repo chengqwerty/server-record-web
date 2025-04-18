@@ -1,23 +1,12 @@
 .art-header-container {
-  background-color: var(--mat-sys-primary);
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-body-medium);
 }
-
-.art-header-item {
-  font-size: 14px;
-  padding: 0 2px;
-  margin-left: 8px;
-  margin-top: 6px;
-  line-height: 26px;
-  align-items: center;
-}
-
-.art-header-svg-container {
-  height: 32px;
-  width: 32px;
-}
-
-.art-header-item:hover {
+.art-header-container .art-header-item:hover {
   cursor: pointer;
+  background-color: color-mix(in srgb, var(--mat-sys-primary) 40%, transparent);
+  border-radius: 8px;
 }
 
 /*# sourceMappingURL=art-header.component.css.map */

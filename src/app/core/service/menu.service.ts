@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpCollections } from '@/environments/environment';
 import { ResultBean } from '@/app/common/result.bean';
 import { SysMenu } from '@/app/routes/system/menu/menu.component';
+import { AppConfigService } from '@/app/core/service/app-config.service';
 
 export interface Menu {
     id: string;
@@ -24,16 +25,17 @@ export interface Menu {
     providedIn: 'root'
 })
 export class MenuService {
-    private menuSubject = new BehaviorSubject<Menu[] | null>(null);
+    private menusSubject = new BehaviorSubject<Menu[] | null>(null);
+    private secondMenusSubject = new BehaviorSubject<Menu[] | null>(null);
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private appConfigService: AppConfigService) {
     }
 
     refreshMenus() {
         this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getUserMenus')
             .subscribe((response) => {
                 if (response.code === 200) {
-                    this.menuSubject.next(this.generateMenus(response.data as SysMenu[]));
+                    this.menusSubject.next(this.generateMenus(response.data as SysMenu[]));
                 } else {
                     console.log('获取菜单失败!');
                 }
@@ -41,7 +43,15 @@ export class MenuService {
     }
 
     getMenus(): BehaviorSubject<Menu[] | null> {
-        return this.menuSubject;
+        return this.menusSubject;
+    }
+
+    getSecondMenus(): BehaviorSubject<Menu[] | null> {
+        return this.secondMenusSubject;
+    }
+
+    setSecondMenus(menus: Menu[]) {
+        this.secondMenusSubject.next(menus);
     }
 
     generateMenus(menuList: SysMenu[]) {

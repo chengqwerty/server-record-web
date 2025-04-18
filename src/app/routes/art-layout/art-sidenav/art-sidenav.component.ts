@@ -4,6 +4,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CommonModule }                          from '@angular/common';
 import { MatIcon }                                    from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { defaults } from '@/app/core/setting';
+import { AppConfigService } from '@/app/core/service/app-config.service';
 
 @Component({
     selector: 'app-art-sidenav',
@@ -28,24 +30,23 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
                 animate('0.4s ease-in-out')
             ]),
         ]),
-        // trigger('openClose', [
-        //     state('open', style({
-        //         backgroundColor: 'red',
-        //     })),
-        //     state('closed', style({
-        //         backgroundColor: 'blue',
-        //     })),
-        //     transition('open => closed', [animate('1s')]),
-        // ])
     ],
 })
 export class ArtSidenavComponent {
-    public menus: Menu[] = [];
+    public menus: Menu[] | null = [];
     public currentUrl: string = '';
 
-    constructor(private menuService: MenuService, private router: Router, private route: ActivatedRoute) {
-        menuService.getMenus().subscribe((menus) => {
-            this.menus = menus == null ? [] : menus;
+    constructor(private menuService: MenuService, private appConfigService: AppConfigService, private router: Router, private route: ActivatedRoute) {
+        this.menuService.getSecondMenus().subscribe((menus) => {
+            this.menus = menus;
+            let value = this.appConfigService.config.value;
+            if (menus == null && value.showSidenav) {
+                value.showSidenav = false;
+                this.appConfigService.config.next({...value});
+            } else if (menus != null && !value.showSidenav) {
+                value.showSidenav = true;
+                this.appConfigService.config.next({...value});
+            }
             console.log('art sidenav menus', this.menus);
         });
         // console.log(this.menus);
