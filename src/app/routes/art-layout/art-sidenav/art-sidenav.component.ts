@@ -40,12 +40,15 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ],
 })
 export class ArtSidenavComponent {
-    public menus: Menu[];
+    public menus: Menu[] = [];
     public currentUrl: string = '';
 
     constructor(private menuService: MenuService, private router: Router, private route: ActivatedRoute) {
-        this.menus = menuService.getMenus();
-        console.log(this.menus);
+        menuService.getMenus().subscribe((menus) => {
+            this.menus = menus == null ? [] : menus;
+            console.log('art sidenav menus', this.menus);
+        });
+        // console.log(this.menus);
         // route.url.subscribe((url) => {
         //     console.log(url);
         // });

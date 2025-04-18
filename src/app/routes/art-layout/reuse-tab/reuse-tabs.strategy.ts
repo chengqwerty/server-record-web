@@ -15,7 +15,7 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
 
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
         const a = this.reuseTabService.retrieve(route);
-        console.log(route.url + "==================retrieve" + a);
+        // console.log(route.url + "==================retrieve" + a);
         return a;
     }
 
@@ -25,7 +25,7 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
      */
     shouldAttach(route: ActivatedRouteSnapshot): boolean {
         const a = this.reuseTabService.shouldAttach(route);
-        console.log(route.url + "==================shouldAttach is " + a);
+        // console.log(route.url + "==================shouldAttach is " + a);
         return a;
     }
 
@@ -34,7 +34,7 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
      */
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
         const a = this.reuseTabService.shouldDetach(route);
-        console.log(route.url + "==================shouldDetach is " + a);
+        // console.log(route.url + "==================shouldDetach is " + a);
         return a;
     }
 
@@ -45,7 +45,7 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
      */
     shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
         const a = this.reuseTabService.shouldReuseRoute(future, curr);
-        console.log(future.url + "==================shouldReuseRoute is " + a);
+        // console.log(future.url + "==================shouldReuseRoute is " + a);
         return a;
     }
 
@@ -56,7 +56,7 @@ export class ReuseTabStrategy implements RouteReuseStrategy {
      * @param handle
      */
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
-        console.log(route.url + "==================store");
+        // console.log(route.url + "==================store");
         this.reuseTabService.store(route, handle);
     }
 

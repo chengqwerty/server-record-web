@@ -5,8 +5,15 @@
 /*
  * This padding sets alignment of the nested nodes.
  */
-.mat-nested-tree-node div[role=group] {
+mat-nested-tree-node div[role=group] {
   padding-left: 40px;
+}
+
+.mat-tree-node span {
+  cursor: pointer;
+}
+.mat-tree-node span:hover {
+  color: var(--mat-sys-secondary);
 }
 
 .tree-node-select {

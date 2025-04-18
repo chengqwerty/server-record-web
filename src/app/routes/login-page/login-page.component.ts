@@ -4,7 +4,6 @@ import { HttpClient }                                                           
 import { HttpCollections }                                                      from '@/environments/environment';
 import { ResultBean }                                                           from '@/app/common/result.bean';
 import { Router }                                                               from '@angular/router';
-import { STORE_SERVICE_TOKEN, StoreService }                                    from '@/app/core/store/store-dynamic.interface';
 import { ReuseTabService }                                                      from '@/app/routes/art-layout/reuse-tab/reuse-tabs.service';
 import { TOKEN_SERVICE_TOKEN, TokenModel }                                      from '@/app/core/net/token-dynamic.interface';
 import { LocalTokenService }                                                    from '@/app/core/net/local-token.service';
@@ -38,7 +37,7 @@ export class LoginPageComponent {
 
     login(): void {
         this.loginForm.getRawValue();
-        this._httpClient.post<ResultBean>(HttpCollections.sysUrl + '/auth/userLogin', this.loginForm.getRawValue()).subscribe({
+        this._httpClient.post<ResultBean>(HttpCollections.sysUrl + '/auth/login', this.loginForm.getRawValue()).subscribe({
             next: (response) => {
                 if (response.code === 200) {
                     this.tokenService.setTokenModel(response.data as TokenModel);

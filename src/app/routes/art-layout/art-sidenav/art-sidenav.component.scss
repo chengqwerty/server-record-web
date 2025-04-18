@@ -12,13 +12,13 @@ li {
 
     & .art-menu:hover {
         cursor: pointer;
-        background-color: var(--mat-sys-primary-container);
+        background-color: var(--mat-sys-secondary-container);
     }
 }
 
 
 .art-menu-open {
-    background-color: var(--mat-sys-primary-container);
+    background-color: var(--mat-sys-secondary-container);
 }
 
 .art-menu.current-link {

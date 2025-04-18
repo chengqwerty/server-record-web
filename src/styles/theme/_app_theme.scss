@@ -6,19 +6,49 @@ html {
     @include mat.theme((
         color: (
             theme-type: light,
-            primary: mat.$rose-palette,
+            primary: mat.$azure-palette,
             tertiary: mat.$green-palette,
         ),
         typography: (
             plain-family: Roboto,
             brand-family: Open Sans,
             bold-weight: 900,
-            medium-weight: 500,
-            regular-weight: 300,
+            medium-weight: 600,
+            regular-weight: 400,
         ),
         density: 0,
     ));
-}/* You can add global styles to this file, and also import other style files */
+
+    .accent {
+        @include mat.theme((
+            color: (
+                theme-type: light,
+                primary: mat.$magenta-palette,
+            )
+        ));
+    }
+
+    .warning {
+        @include mat.theme((
+            color: (
+                theme-type: light,
+                primary: mat.$orange-palette,
+            )
+        ));
+    }
+
+    .error {
+        @include mat.theme((
+            color: (
+                theme-type: light,
+                primary: mat.$red-palette,
+            )
+        ));
+    }
+
+}
+
+/* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

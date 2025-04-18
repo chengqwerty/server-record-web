@@ -1,7 +1,7 @@
 import { Routes }             from '@angular/router';
 import { LoginPageComponent } from '@/app/routes/login-page/login-page.component';
-import { ArtLayoutComponent } from '@/app/routes/art-layout/art-layout.component';
-import { authGuard }          from '@/app/routes/guard/auth.guard';
+import { ArtLayoutComponent }   from '@/app/routes/art-layout/art-layout.component';
+import { AuthGuard } from '@/app/routes/guard/auth.guard';
 
 export const routes: Routes = [
     {
@@ -17,7 +17,7 @@ export const routes: Routes = [
     {
         path: 'bus',
         component: ArtLayoutComponent,
-        canActivate: [authGuard],
+        canActivate: [AuthGuard],
         children:[
             {
                 path: '',

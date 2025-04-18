@@ -18,7 +18,9 @@ export interface SysMenu {
     menuDescription: string | null,
     menuType: number,
     menuIcon: string | null,
-    menuLink: string | null
+    menuLink: string | null,
+    menuLevel: number,
+    parentId: string
 }
 
 export class SysMenuDataSource implements DataSource<SysMenu> {
@@ -39,6 +41,7 @@ export class SysMenuDataSource implements DataSource<SysMenu> {
     changeData(menuId: string) {
         this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent', {params: {parentId: menuId}})
             .subscribe((response) => {
+                console.log(response.data);
                 this.menuSubject.next(response.data as SysMenu[]);
             });
     }
@@ -120,7 +123,7 @@ export class MenuComponent implements OnInit {
 
     updateMenu(viewMenu: SysMenu) {
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
-            minWidth: '720',
+            maxWidth: 1080,
             data: {
                 model: Model.Update,
                 parent: {
@@ -137,6 +140,20 @@ export class MenuComponent implements OnInit {
             if (this.menuTreeNode != null) {
                 this.dataSource.changeData(this.menuTreeNode.menuId);
                 this.menuTreeComponent.refreshExpand(this.menuTreeNode);
+            }
+        });
+    }
+
+    deleteMenu(menu: SysMenu) {
+        this.artDialogService.confirm('确定要删除吗？', '删除后无法恢复，请谨慎操作！').afterClosed().subscribe(result => {
+            if (result) {
+                this.httpClient.post<ResultBean>(HttpCollections.sysUrl + '/sys/menu/delete', {menuId: menu.menuId})
+                    .subscribe((response: ResultBean) => {
+                        if (response.code === 200) {
+                            this.artDialogService.primary('删除成功！');
+                            this.dataSource.changeData(this.menuTreeNode?.menuId ?? '');
+                        }
+                    });
             }
         });
     }

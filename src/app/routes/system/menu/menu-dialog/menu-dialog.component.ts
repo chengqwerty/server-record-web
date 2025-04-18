@@ -84,7 +84,7 @@ export class MenuDialogComponent {
             .subscribe(response => {
                 if (response.code === 200) {
                     this.matDialogRef.close(true);
-                    this.artDialogService.alert('success', '菜单添加成功！', {duration: 2000});
+                    this.artDialogService.alert('primary', '菜单添加成功！', {duration: 2000});
                 } else {
                     this.artDialogService.alert('error', '菜单添加失败！', {duration: 2000});
                 }

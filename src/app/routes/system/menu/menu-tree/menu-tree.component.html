@@ -1,6 +1,7 @@
 <mat-tree #tree class="menu-tree" [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
     <mat-nested-tree-node *matTreeNodeDef="let node">
         <div class="mat-tree-node">
+            <button mat-icon-button disabled></button>
             <span [class.tree-node-select]="selectedNode != null && node.menuId === selectedNode.menuId"
                   class="tree-node-name" (click)="selectNode(node, $event)">{{ node.menuName }}</span>
         </div>

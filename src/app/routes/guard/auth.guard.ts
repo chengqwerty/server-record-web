@@ -1,4 +1,8 @@
-import { CanActivateFn } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Inject, Injectable }                                               from '@angular/core';
+import { MenuService }                                                      from '@/app/core/service/menu.service';
+import { TOKEN_SERVICE_TOKEN }                                              from '@/app/core/net/token-dynamic.interface';
+import { LocalTokenService }                                                from '@/app/core/net/local-token.service';
 
 /**
  * 用户登录路由守卫
@@ -8,8 +12,21 @@ import { CanActivateFn } from '@angular/router';
  * @param route
  * @param state
  */
-export const authGuard: CanActivateFn = (route, state) => {
-    const token = localStorage.getItem("Auth-Token");
+@Injectable({providedIn: 'root'})
+export class AuthGuard implements CanActivate {
 
-    return true;
-};
+    constructor(private menuService: MenuService, private router: Router, @Inject(TOKEN_SERVICE_TOKEN) private tokenService: LocalTokenService,) {
+    }
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const token = this.tokenService.getToken();
+        console.log(token);
+        if (!token) {
+            return this.router.navigate(['/login']);
+        } else if (this.menuService.getMenus().value == null) {
+            this.menuService.refreshMenus();
+        }
+        return true;
+    }
+
+}

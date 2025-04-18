@@ -1,7 +1,7 @@
 <ng-container *ngIf="data.model === Model.Read">
     <h2 mat-dialog-title>菜单详情</h2>
     <mat-dialog-content class="mat-typography">
-        <div class="m-8">
+        <div class="m-8 p-8">
             <art-descriptions [column]="4" [bordered]="true">
                 <art-descriptions-item [span]="4" title="父级菜单">{{ parent?.menuName }}</art-descriptions-item>
                 <art-descriptions-item [span]="2" title="菜单编码">{{ menuForm.get('menuCode')?.value }}</art-descriptions-item>
@@ -26,7 +26,7 @@
         <p *ngIf="parent && parent.menuId">
             <mat-form-field class="mat-form-field-fill" appearance="outline">
                 <mat-label>父级菜单</mat-label>
-                <input matInput [value]="parent.menuName">
+                <input matInput [value]="parent.menuName" disabled>
             </mat-form-field>
         </p>
         <p>

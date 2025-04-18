@@ -1,16 +1,22 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { HttpCollections } from '@/environments/environment';
+import { ResultBean } from '@/app/common/result.bean';
+import { SysMenu } from '@/app/routes/system/menu/menu.component';
 
 export interface Menu {
+    id: string;
     name: string;
-    description?: string;
-    target?: string;
-    icon?: string;
-    link?: string;
+    description?: string | null;
+    target?: string | null;
+    icon?: string | null;
+    link?: string | null;
     closable?: boolean,
-    type?: 'group' | 'menu';
+    type: 'group' | 'menu';
     level: number;
     opened?: boolean;
+    parentId: string;
     children?: Menu[];
 }
 
@@ -18,101 +24,60 @@ export interface Menu {
     providedIn: 'root'
 })
 export class MenuService {
-    private menuSub = new BehaviorSubject<boolean>(true);
+    private menuSubject = new BehaviorSubject<Menu[] | null>(null);
 
-    private menus: Menu[] = [
-        {
-            name: '系统管理',
-            icon: 'settings',
-            opened: true,
-            type: 'group',
-            level: 1,
-            children: [
-                {
-                    name: '区域管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/area',
-                    level: 2,
-                },
-                {
-                    name: '部门管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/depart',
-                    level: 2,
-                },
-                {
-                    name: '菜单管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/menu',
-                    level: 2,
-                },
-                {
-                    name: '动画管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/animation',
-                    level: 2,
-                }
-
-            ]
-        },
-        {
-            name: '系统管理',
-            icon: 'settings',
-            opened: true,
-            type: 'group',
-            level: 1,
-            children: [
-                {
-                    name: '区域管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/area',
-                    level: 2,
-                },
-                {
-                    name: '部门管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/depart',
-                    level: 2,
-                },
-                {
-                    name: '菜单管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/menu',
-                    level: 2,
-                },
-                {
-                    name: '动画管理',
-                    icon: 'settings',
-                    opened: true,
-                    type: 'menu',
-                    link: '/bus/sys/animation',
-                    level: 2,
-                }
-
-            ]
-        }
-    ];
-
-    getMenus(): Menu[] {
-        return this.menus;
+    constructor(private httpClient: HttpClient) {
     }
 
-    setMenus(menus: Menu[]) {
-        this.menus = menus;
-        this.menuSub.next(true);
+    refreshMenus() {
+        this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getUserMenus')
+            .subscribe((response) => {
+                if (response.code === 200) {
+                    this.menuSubject.next(this.generateMenus(response.data as SysMenu[]));
+                } else {
+                    console.log('获取菜单失败!');
+                }
+            });
     }
+
+    getMenus(): BehaviorSubject<Menu[] | null> {
+        return this.menuSubject;
+    }
+
+    generateMenus(menuList: SysMenu[]) {
+        const menuMap = new Map<string, Menu>();
+        const rootMenus: Menu[] = [];
+
+        // 首先将所有菜单存入 Map 中
+        menuList.forEach(menu => {
+            menuMap.set(menu.menuId, {
+                id: menu.menuId,
+                name: menu.menuName,
+                description: menu.menuDescription,
+                target: '',
+                icon: menu.menuIcon,
+                link: menu.menuLink,
+                closable: true,
+                type: menu.menuType === 1 ? 'group' : 'menu',
+                level: menu.menuLevel,
+                parentId: menu.parentId,
+                children: []
+            });
+        });
+
+        // 构建菜单树
+        menuList.forEach(menu => {
+            if (menu.parentId === '0') {
+                rootMenus.push(menuMap.get(menu.menuId)!);
+            } else {
+                const parentMenu = menuMap.get(menu.parentId!);
+                if (parentMenu) {
+                    parentMenu.children?.push(menuMap.get(menu.menuId)!);
+                }
+            }
+        });
+
+        return rootMenus;
+    }
+
 }

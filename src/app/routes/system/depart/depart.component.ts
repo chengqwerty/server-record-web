@@ -126,7 +126,7 @@ export class DepartComponent {
     }
 
     deleteDept(sysDept: SysDept) {
-        this.artDialogService.confirm('删除部门', '确认删除这个部门吗？删除后无法恢复！', {type: 'warn'})
+        this.artDialogService.confirm('删除部门', '确认删除这个部门吗？删除后无法恢复！', {type: 'warning'})
             .afterClosed().subscribe(result => {
             if (result) {
                 this.httpClient.post<ResultBean>(HttpCollections.sysUrl + '/sys/dept/delete', sysDept)

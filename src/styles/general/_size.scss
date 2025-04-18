@@ -1,8 +1,9 @@
 // ==================================================
 // WIDTH & HEIGHT
 // ==================================================
-@use "variables";
 @use "sass:map";
+@use "variables";
+@use "spacing";
 
 $size: (
     'width': (
@@ -17,4 +18,4 @@ $size: (
     )
 );
 
-$schemas: map.merge($size, variables.$schemas)
+$schemas: map.merge($size, spacing.$schemas)

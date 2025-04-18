@@ -15,8 +15,8 @@ export const environment = {
 
 export const HttpCollections = {
     // 系统请求
-    // sysUrl: 'http://localhost:30080'
-    sysUrl: 'http://172.16.0.208:7051/serd'
+    sysUrl: 'http://localhost:30080'
+    // sysUrl: 'http://172.16.0.208:7051/serd'
 };
 /*
  * For easier debugging in development mode, you can import the following file
