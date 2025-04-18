@@ -1,24 +1,15 @@
-<mat-toolbar class="art-header-container">
-    <ul class="flex-row">
-        <li class="art-header-item flex-col justify-center items-center h-full p-x-16 p-y-8">
-            <h4>服务管理系统</h4>
-        </li>
-    </ul>
+<div class="art-header-container flex-row justify-between items-center">
+    <nav>
+        <button mat-button>服务管理系统</button>
+    </nav>
     <span style="flex: 1 1 auto"></span>
-    <ul class="flex-row h-full">
-        <li *ngFor="let menu of menus" mat-ripple class="art-header-item flex-col justify-center items-center h-full p-x-16 p-y-8"
+    <nav class="flex-row h-full">
+        <a *ngFor="let menu of menus" mat-ripple class="art-header-item flex-col justify-center items-center h-full p-x-16 p-y-8"
             (click)="goToSidenav(menu)">
             <div class="art-header-svg-container flex-row">
                 <art-svg *ngIf="menu.icon" [svgName]="menu.icon"></art-svg>
             </div>
             <span>{{menu.name}}</span>
-        </li>
-    </ul>
-    <!--<ul class="flex-row">-->
-    <!--    <li class="art-header-item flex-col">-->
-    <!--        <div class="art-header-svg-container flex-row">-->
-    <!--            <art-svg [svgName]="'user'" width="36px" height="36px"></art-svg>-->
-    <!--        </div>-->
-    <!--    </li>-->
-    <!--</ul>-->
-</mat-toolbar>
+        </a>
+    </nav>
+</div>

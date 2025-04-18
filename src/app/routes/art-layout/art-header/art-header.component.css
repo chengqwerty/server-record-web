@@ -1,4 +1,5 @@
 .art-header-container {
+  max-height: 64px;
   background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-primary);
   font: var(--mat-sys-body-medium);

@@ -6,12 +6,14 @@ import { Menu, MenuService }      from '@/app/core/service/menu.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule }           from '@angular/common';
 import { MatRippleModule }        from '@angular/material/core';
+import { MatButtonModule }        from '@angular/material/button';
 
 @Component({
     selector: 'app-art-header',
     standalone: true,
     imports: [
         CommonModule,
+        MatButtonModule,
         MatIconModule,
         MatToolbarModule,
         ExtensionsModule,
