@@ -20,6 +20,8 @@ export interface SysMenu {
     menuIcon: string | null,
     menuLink: string | null,
     menuLevel: number,
+    menuSort: number | null,
+    menuVisible: number | null,
     parentId: string
 }
 
@@ -41,9 +43,12 @@ export class SysMenuDataSource implements DataSource<SysMenu> {
     changeData(menuId: string) {
         this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getListByParent', {params: {parentId: menuId}})
             .subscribe((response) => {
-                console.log(response.data);
                 this.menuSubject.next(response.data as SysMenu[]);
             });
+    }
+
+    getData(): SysMenu[] {
+        return this.menuSubject.value;
     }
 
 }
@@ -61,7 +66,7 @@ export class MenuComponent implements OnInit {
 
     public menuTreeNode: MenuTreeNode | null = null;
     public dataSource: SysMenuDataSource;
-    public displayedColumns = ['menuCode', 'menuName', 'menuDescription', 'action'];
+    public displayedColumns = ['menuCode', 'menuName', 'menuLink', 'menuVisible', 'menuDescription', 'action'];
 
     constructor(private formBuilder: FormBuilder,
                 private matDialog: MatDialog,
@@ -75,7 +80,6 @@ export class MenuComponent implements OnInit {
 
     changeSelectedNode(menu: MenuTreeNode) {
         this.menuTreeNode = menu;
-        console.log(menu.menuId);
         this.dataSource.changeData(this.menuTreeNode.menuId);
     }
 
@@ -83,6 +87,14 @@ export class MenuComponent implements OnInit {
         if (this.menuTreeNode == null) {
             this.artDialogService.warning('你必须先选择一个菜单！');
             return;
+        }
+        const data = this.dataSource.getData();
+        let sort = 0;
+        for (let i = 0; i < data.length; i++) {
+            const current = (data[i].menuSort == null ? 0 : data[i].menuSort) as number;
+            if (current > sort) {
+                sort = current;
+            }
         }
         const dialogRef = this.matDialog.open(MenuDialogComponent, {
             maxWidth: 1080,
@@ -92,6 +104,9 @@ export class MenuComponent implements OnInit {
                     menuId: this.menuTreeNode?.menuId,
                     menuCode: this.menuTreeNode?.menuCode,
                     menuName: this.menuTreeNode?.menuName
+                },
+                record: {
+                    menuSort: sort + 10
                 }
             }
         });

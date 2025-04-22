@@ -18,6 +18,8 @@ import { MyAnimationComponent }  from '@/app/routes/system/my-animation/my-anima
 import { ArtDialogModule }       from '@think-make/art-extends/art-dialog';
 import { MatDialogModule }       from '@angular/material/dialog';
 import { DialogModule }          from '@angular/cdk/dialog';
+import { MatSlideToggleModule }  from '@angular/material/slide-toggle';
+import { DisableToggleDirective } from '@/app/extensions/directive/DisableToggleDirective';
 
 
 @NgModule({
@@ -39,9 +41,11 @@ import { DialogModule }          from '@angular/cdk/dialog';
         SystemRoutingModule,
         SharedModule,
         MatDialogModule,
+        MatSlideToggleModule,
         ArtDialogModule,
         ExtensionsModule,
-        DialogModule
+        DialogModule,
+        DisableToggleDirective
     ]
 })
 export class SystemModule {

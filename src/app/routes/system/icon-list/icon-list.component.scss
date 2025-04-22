@@ -1,23 +1,9 @@
-//:host {
-//    display: flex;
-//    justify-content: center;
-//}
-//
-//mat-card {
-//    margin-bottom: 16px;
-//}
-
 .icon-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
-//.icon-container::after {
-//    content: '';
-//    flex: auto;
-//}
 
 .icon-center {
     width: 240px;
@@ -38,24 +24,28 @@
 
 .icon-float {
     position: absolute;
-    width: 100%;
+    width: 60%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
+    background-color: color-mix(in srgb, var(--mat-sys-primary-container) 35%, transparent);
     opacity: 0;
     &:hover {
         opacity: 1;
     }
+    .icon-float-panel {
+        border-radius: 4px;
+        width: 60%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        mat-icon {
+            color: var(--mat-sys-primary);
+        }
+    }
 }
 
-.icon-float-panel {
-    border-radius: 4px;
-    width: 60%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+

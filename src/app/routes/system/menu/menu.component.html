@@ -16,6 +16,19 @@
                     <th mat-header-cell *matHeaderCellDef>名称</th>
                     <td mat-cell *matCellDef="let element"> {{ element.menuName}} </td>
                 </ng-container>
+                <ng-container matColumnDef="menuLink">
+                    <th mat-header-cell *matHeaderCellDef>地址</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.menuLink}} </td>
+                </ng-container>
+                <ng-container matColumnDef="menuVisible">
+                    <th mat-header-cell *matHeaderCellDef>是否可见</th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-slide-toggle [checked]="element.menuVisible === 0" [disableToggle]="element.menuVisible === 0">
+                        </mat-slide-toggle>
+                        <!--<mat-slide-toggle [checked]="element.menuVisible === 0" [ngStyle]="{ 'pointer-events': 'none', 'opacity': '0.6' }">-->
+                        <!--</mat-slide-toggle>-->
+                    </td>
+                </ng-container>
                 <ng-container matColumnDef="menuDescription">
                     <th mat-header-cell *matHeaderCellDef>描 述</th>
                     <td mat-cell *matCellDef="let element"> {{ element.menuDescription}} </td>

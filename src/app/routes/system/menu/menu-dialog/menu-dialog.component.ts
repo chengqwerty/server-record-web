@@ -29,18 +29,20 @@ export class MenuDialogComponent {
                 @Inject(MAT_DIALOG_DATA) public data: { model: Model, parent: SysMenu, record: SysMenu },
                 private artDialogService: ArtDialogService) {
         this.parent = data.parent;
+        const record = data.record;
         if (data.model === Model.Create) {
             this.menuForm = this.formBuilder.group({
                 parentId: [this.parent.menuId, [Validators.required]],
                 menuCode: [null, [Validators.required, Validators.minLength(4), Validations.numEngUnderline()]],
                 menuName: [null, [Validators.required]],
-                menuType: [null, [Validators.required]],
+                menuType: [0, [Validators.required]],
                 menuIcon: [null, []],
                 menuLink: [null, []],
+                menuSort: [record.menuSort, [Validators.min(0), Validators.max(1000)]],
+                menuVisible: [0, [Validators.required]],
                 menuDescription: [null, []]
             });
         } else {
-            const record = data.record;
             this.menuForm = this.formBuilder.group({
                 parentId: [this.parent.menuId, [Validators.required]],
                 menuId: [record.menuId, [Validators.required]],
@@ -49,6 +51,8 @@ export class MenuDialogComponent {
                 menuType: [record.menuType, [Validators.required]],
                 menuIcon: [record.menuIcon, []],
                 menuLink: [record.menuLink, []],
+                menuSort: [record.menuSort, [Validators.min(0), Validators.max(1000)]],
+                menuVisible: [record.menuVisible, [Validators.required]],
                 menuDescription: [record.menuDescription, []]
             });
         }
@@ -103,4 +107,11 @@ export class MenuDialogComponent {
             });
     }
 
+    decrementValue() {
+
+    }
+
+    incrementValue() {
+
+    }
 }

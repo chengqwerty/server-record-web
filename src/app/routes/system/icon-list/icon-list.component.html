@@ -9,11 +9,11 @@
                 <div class="icon-center m-b-16" *ngFor="let name of iconDirectory[directory]">
                     <div class="icon-float">
                         <div class="icon-float-panel">
-                            <button mat-icon-button color="primary" matTooltip="复制icon图标" (click)="copy(name)">
+                            <button mat-icon-button matTooltip="复制icon图标" (click)="copy(name)">
                                 <mat-icon>content_copy</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" matTooltip="复制svg图标" (click)="copy(name, directory)">
-                                <mat-icon>content_copy</mat-icon>
+                            <button mat-icon-button matTooltip="复制svg图标" (click)="copy(name, directory)">
+                                <mat-icon>file_copy</mat-icon>
                             </button>
                         </div>
                     </div>

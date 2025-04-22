@@ -18,7 +18,7 @@ export class IconListComponent {
     copy(name: string, directory?: string) {
         let matIcon = '';
         if (directory) {
-            matIcon = `<art-svg [svgName]="${name}"></art-svg>`;
+            matIcon = `<art-svg [svgName]="'${name}'"></art-svg>`;
         } else {
             matIcon = `<mat-icon fontIcon="${name}"></mat-icon>`;
         }
