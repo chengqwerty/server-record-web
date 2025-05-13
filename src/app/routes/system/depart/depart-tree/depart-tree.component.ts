@@ -1,13 +1,17 @@
-import { Component, EventEmitter, Output }               from '@angular/core';
-import { CollectionViewer, DataSource, SelectionChange } from '@angular/cdk/collections';
+import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { CollectionViewer, DataSource, SelectionChange }                 from '@angular/cdk/collections';
 import { BehaviorSubject, map, merge, Observable }       from 'rxjs';
-import { FlatTreeControl }                               from '@angular/cdk/tree';
 import { HttpClient }                                    from '@angular/common/http';
 import { ResultBean }                                    from '@/app/common/result.bean';
 import { HttpCollections }                               from '@/environments/environment';
+import { SysDept }              from '@/app/routes/system/depart/depart.component';
+import { MatTree, MatTreeNode } from '@angular/material/tree';
 
 // tree node数据结构
 export class DeptFlatNode {
+
+    public children: BehaviorSubject<DeptFlatNode[]> = new BehaviorSubject<DeptFlatNode[]>([]);
+
     constructor(
         public deptId: string,
         public deptCode: string,
@@ -15,90 +19,57 @@ export class DeptFlatNode {
         public expandCode: string | null,
         public deptName: string,
         public level = 1,
-        public expandable = false,
-        public isLoading = false,
+        public expandable = true,
+        public expanded = false
     ) {
     }
+
 }
 
-// tree datasource
-export class deptFlatNodeDataSource implements DataSource<DeptFlatNode> {
+export class DeptFlatNodeDataSource implements DataSource<DeptFlatNode> {
 
-    dataChange = new BehaviorSubject<DeptFlatNode[]>([]);
+    private roots: DeptFlatNode[] = [new DeptFlatNode('0', '0', null, null, '部门', 0, true, false)];
 
-    get data(): DeptFlatNode[] {
-        return this.dataChange.value;
+    private subject = new BehaviorSubject<DeptFlatNode[]>([]);
+
+    get data() {
+        return this.subject.value;
     }
 
-    set data(value: DeptFlatNode[]) {
-        // this._treeControl.dataNodes = value;
-        this.dataChange.next(value);
+    constructor(private httpClient: HttpClient) {
+        this.subject.next(this.roots);
     }
 
-    constructor(private _treeControl: FlatTreeControl<DeptFlatNode>,
-                private httpClient: HttpClient) {
-    }
-
-    // 初始化数据
-    initialData(): deptFlatNodeDataSource {
-        // this._treeControl.dataNodes = [new deptFlatNode("0", null, "0", "部门", 1, true, false)];
-        // this.data = this._treeControl.dataNodes;
-        this.data = [new DeptFlatNode('0', '0', '0', null, '部门', 0, true)];
-        return this;
-    }
-
-    connect(collectionViewer: CollectionViewer): Observable<any[]> {
-        this._treeControl.expansionModel.changed.subscribe(change => {
-            if (
-                (change as SelectionChange<DeptFlatNode>).added ||
-                (change as SelectionChange<DeptFlatNode>).removed
-            ) {
-                this.handleTreeControl(change as SelectionChange<DeptFlatNode>);
-            }
-        });
-        return merge(collectionViewer.viewChange, this.dataChange).pipe(map(() => {
-            return this.data;
-        }));
+    connect(collectionViewer: CollectionViewer): Observable<DeptFlatNode[]> {
+        return this.subject;
     }
 
     disconnect(collectionViewer: CollectionViewer): void {
     }
 
-    // 控制展开和折叠
-    handleTreeControl(change: SelectionChange<DeptFlatNode>) {
-        if (change.added) {
-            change.added.forEach(node => this.toggleNode(node, true));
-        }
-        if (change.removed) {
-            change.removed
-                .slice()
-                .reverse()
-                .forEach(node => this.toggleNode(node, false));
-        }
-    }
-
-    toggleNode(node: DeptFlatNode, expand: boolean) {
-        const index = this.data.findIndex((dept) => dept.deptId === node.deptId);
-        if (expand) {
-            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/dept/get', {params: {parentId: node.deptId}})
+    /**
+     * 展开某个节点
+     * @param tree MatTree
+     * @param node DeptFlatNode
+     * @param refresh 是否重新获取children
+     */
+    expand(tree: MatTree<DeptFlatNode>, node: DeptFlatNode, refresh: boolean = false) {
+        if (!node.expanded || refresh) {
+            this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/dept/getListByParent', {params: {parentId: node.deptId}})
                 .subscribe((response) => {
-                    let deptList = response.data as any[];
-                    if (deptList.length === 0) {
-                        // node.expandable = false;
-                        this.data[index] = new DeptFlatNode(node.deptId, node.deptCode, node.parentId, node.expandCode, node.deptName, node.level, false);
+                    if (response.code === 200) {
+                        let deptFlatNodes = (response.data as SysDept[]).map((dept) => {
+                            return new DeptFlatNode(dept.deptId, dept.deptCode, dept.parentId, dept.expandCode, dept.deptName, node.level + 1, true, false);
+                        });
+                        node.children.next(deptFlatNodes);
+                        tree.expand(node);
                     } else {
-                        deptList = deptList.map((dept) => new DeptFlatNode(dept.deptId, dept.deptCode, dept.deptParentCode, dept.expandCode, dept.deptName, node.level + 1, true));
-                        this.data.splice(index + 1, 0, ...deptList);
+                        node.children.next([]);
                     }
-                    this.dataChange.next([...this.data]);
                 });
+            node.expanded = true;
         } else {
-            let count = 0;
-            for (let i = index + 1; i < this.data.length && this.data[i].level > node.level; i++) {
-                count++
-            }
-            this.data.splice(index + 1, count);
-            this.dataChange.next(this.data);
+            tree.expand(node);
         }
     }
 
@@ -112,55 +83,65 @@ export class deptFlatNodeDataSource implements DataSource<DeptFlatNode> {
 })
 export class DepartTreeComponent {
 
-    public treeControl: FlatTreeControl<DeptFlatNode>;
-    public dataSource: deptFlatNodeDataSource;
+    @ViewChild('tree', {static: true})
+    private tree!: MatTree<DeptFlatNode>;
+
+    public dataSource: DeptFlatNodeDataSource;
 
     @Output()
     public changeSelectedNode = new EventEmitter<DeptFlatNode>();
 
     public selectedNode: DeptFlatNode | null = null;
 
-    constructor(private httpClient: HttpClient,) {
-        this.treeControl = new FlatTreeControl<DeptFlatNode>(this.getLevel, this.isExpandable);
-        this.dataSource = new deptFlatNodeDataSource(this.treeControl, httpClient).initialData();
+    constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef) {
+        this.dataSource = new DeptFlatNodeDataSource(httpClient);
     }
 
     ngOnInit(): void {
         this.selectNode(this.dataSource.data[0]);
     }
 
-    getLevel = (node: DeptFlatNode) => node.level;
-
-    isExpandable = (node: DeptFlatNode) => {
-        return node.expandable;
+    childrenAccessor = (node: DeptFlatNode) => {
+        return node.children.asObservable();
     }
 
     hasChild = (_: number, _nodeData: DeptFlatNode) => {
-        return _nodeData.expandable;
+        return true;
     };
+
+    /*
+     * 手动控制节点展开
+     */
+    expand(node: DeptFlatNode) {
+        this.dataSource.expand(this.tree, node);
+    }
+
+    /*
+     * 手动控制节点关闭
+     */
+    collapse(node: DeptFlatNode) {
+        this.tree.collapse(node);
+    }
+
+    /*
+     * 手动控制刷新节点。
+     * 如果某个节点的children被修改了，调用这个方法刷新显示children。
+     */
+    refreshNode(node: DeptFlatNode) {
+        if (node.expanded) {
+            node.expanded = false;
+            if (this.tree.isExpanded(node)) {
+                this.tree.collapse(node);
+                this.dataSource.expand(this.tree, node, true);
+            }
+        }
+    }
 
     selectNode(node: DeptFlatNode) {
         if (this.selectedNode === null || this.selectedNode.deptCode !== node.deptCode) {
             this.selectedNode = node;
             this.changeSelectedNode.emit(node);
         }
-    }
-
-    /**
-     * 如果某个node下的children被修改了，
-     * 这个方法负责刷新显示children
-     * @param deptFlatNode 要刷新的node
-     */
-    refreshExpand(deptFlatNode: DeptFlatNode) {
-        // 先关闭在展开，刷新children显示
-        if (this.treeControl.isExpanded(deptFlatNode)) {
-            this.treeControl.collapse(deptFlatNode);
-            this.treeControl.expand(deptFlatNode);
-        }
-    }
-
-    public assertDeptNodeType(item: DeptFlatNode): DeptFlatNode {
-        return item;
     }
 
 }

@@ -1,12 +1,17 @@
-li .art-menu {
+ul {
+  min-width: 200px;
+}
+ul li {
+  width: 100%;
+}
+ul li .art-menu {
   height: 48px;
   font-size: 14px;
-  align-items: center;
 }
-li .art-menu .art-menu-icon {
-  margin-right: 8px;
+ul li .art-menu .art-menu-icon {
+  margin-right: 16px;
 }
-li .art-menu:hover {
+ul li .art-menu:hover {
   cursor: pointer;
   background-color: var(--mat-sys-secondary-container);
 }

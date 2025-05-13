@@ -31,7 +31,7 @@ export class DepartDialogComponent {
         if (data.model === Model.Create) {
             this.deptForm = this.formBuilder.group({
                 parentId: [this.parent.deptId, [Validators.required]],
-                deptCode: ['', [Validators.required, Validators.minLength(4)]],
+                deptCode: [null, [Validators.required, Validators.minLength(4)]],
                 deptName: ['', [Validators.required]],
                 deptDescription: ['', []]
             });
@@ -47,7 +47,18 @@ export class DepartDialogComponent {
         }
     }
 
+    get deptCode(): any {
+        return this.deptForm.get('deptCode');
+    }
+
+    get deptName(): any {
+        return this.deptForm.get('deptName');
+    }
+
     ngOnInit(): void {
+        this.deptForm.valueChanges.subscribe((value) => {
+            console.log(this.deptForm);
+        });
     }
 
     // 创建部门

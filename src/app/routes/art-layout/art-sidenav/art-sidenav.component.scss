@@ -1,21 +1,21 @@
-li {
-    .art-menu {
-        height: 48px;
-        font-size: 14px;
-        align-items: center;
-
-        .art-menu-icon {
-            margin-right: 8px;
+ul {
+    min-width: 200px;
+    li {
+        width: 100%;
+        .art-menu {
+            height: 48px;
+            font-size: 14px;
+            .art-menu-icon {
+                margin-right: 16px;
+            }
         }
 
-    }
-
-    & .art-menu:hover {
-        cursor: pointer;
-        background-color: var(--mat-sys-secondary-container);
+        & .art-menu:hover {
+            cursor: pointer;
+            background-color: var(--mat-sys-secondary-container);
+        }
     }
 }
-
 
 .art-menu-open {
     background-color: var(--mat-sys-secondary-container);

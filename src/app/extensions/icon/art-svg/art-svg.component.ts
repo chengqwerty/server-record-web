@@ -18,12 +18,12 @@ export class ArtSvgComponent implements OnInit, OnChanges {
     public type: string = 'materialicons';
 
     @Input()
-    public width: string = '24px';
+    public width: string | null = null;
 
     @Input()
-    public height: string = '24px';
+    public height: string | null = null;
 
-    public styleExpression = {width: this.width, height: this.height};
+    public styleExpression: { [key: string]: string | null } = {};
     public fullName: string = '';
     public show: boolean = false;
 
@@ -35,7 +35,12 @@ export class ArtSvgComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.registrySvg();
-        this.styleExpression = {width: this.width, height: this.height};
+        if (this.width != null) {
+            this.styleExpression['width'] = this.width;
+        }
+        if (this.height != null) {
+            this.styleExpression['height'] = this.height;
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {

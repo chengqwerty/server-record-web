@@ -18,4 +18,4 @@ $size: (
     )
 );
 
-$schemas: map.merge($size, spacing.$schemas)
+$utilities: map.merge($size, spacing.$schemas)

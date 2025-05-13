@@ -72,7 +72,7 @@ export class ArtSidenavComponent {
     }
 
     menuPaddingLeft(menu: Menu) {
-        return (menu.level + 1) * 8 + 'px';
+        return (menu.level - 1) * 24 + 'px';
     }
 
     navigate(link: string) {

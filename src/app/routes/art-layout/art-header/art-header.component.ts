@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule }           from '@angular/common';
 import { MatRippleModule }        from '@angular/material/core';
 import { MatButtonModule }        from '@angular/material/button';
+import { ArtHeaderUserComponent } from '@/app/routes/art-layout/art-header/art-header-user/art-header-user.component';
 
 @Component({
     selector: 'app-art-header',
@@ -18,6 +19,7 @@ import { MatButtonModule }        from '@angular/material/button';
         MatToolbarModule,
         ExtensionsModule,
         MatRippleModule,
+        ArtHeaderUserComponent,
     ],
     templateUrl: './art-header.component.html',
     styleUrls: ['./art-header.component.scss']

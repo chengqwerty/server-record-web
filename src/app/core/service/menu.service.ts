@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { HttpCollections } from '@/environments/environment';
-import { ResultBean } from '@/app/common/result.bean';
-import { SysMenu } from '@/app/routes/system/menu/menu.component';
+import { Injectable }       from '@angular/core';
+import { BehaviorSubject }  from 'rxjs';
+import { HttpClient }       from '@angular/common/http';
+import { HttpCollections }  from '@/environments/environment';
+import { ResultBean }       from '@/app/common/result.bean';
+import { SysMenu }          from '@/app/routes/system/menu/menu.component';
 import { AppConfigService } from '@/app/core/service/app-config.service';
+import arrayToTree          from '@/app/utils/arrayToTree';
 
 export interface Menu {
     id: string;
@@ -35,7 +36,24 @@ export class MenuService {
         this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/menu/getUserMenus')
             .subscribe((response) => {
                 if (response.code === 200) {
-                    this.menusSubject.next(this.generateMenus(response.data as SysMenu[]));
+                    let menus = arrayToTree(response.data as SysMenu[], '0', 'menuId', 'parentId', (menu: SysMenu): Menu & {
+                        children: Menu[]
+                    } => {
+                        return {
+                            id: menu.menuId,
+                            name: menu.menuName,
+                            description: menu.menuDescription,
+                            target: '',
+                            icon: menu.menuIcon,
+                            link: menu.menuLink,
+                            closable: true,
+                            type: menu.menuType === 1 ? 'group' : 'menu',
+                            level: menu.menuLevel,
+                            parentId: menu.parentId,
+                            children: []
+                        }
+                    });
+                    this.menusSubject.next(menus);
                 } else {
                     console.log('获取菜单失败!');
                 }
@@ -52,42 +70,6 @@ export class MenuService {
 
     setSecondMenus(menus: Menu[]) {
         this.secondMenusSubject.next(menus);
-    }
-
-    generateMenus(menuList: SysMenu[]) {
-        const menuMap = new Map<string, Menu>();
-        const rootMenus: Menu[] = [];
-
-        // 首先将所有菜单存入 Map 中
-        menuList.forEach(menu => {
-            menuMap.set(menu.menuId, {
-                id: menu.menuId,
-                name: menu.menuName,
-                description: menu.menuDescription,
-                target: '',
-                icon: menu.menuIcon,
-                link: menu.menuLink,
-                closable: true,
-                type: menu.menuType === 1 ? 'group' : 'menu',
-                level: menu.menuLevel,
-                parentId: menu.parentId,
-                children: []
-            });
-        });
-
-        // 构建菜单树
-        menuList.forEach(menu => {
-            if (menu.parentId === '0') {
-                rootMenus.push(menuMap.get(menu.menuId)!);
-            } else {
-                const parentMenu = menuMap.get(menu.parentId!);
-                if (parentMenu) {
-                    parentMenu.children?.push(menuMap.get(menu.menuId)!);
-                }
-            }
-        });
-
-        return rootMenus;
     }
 
 }

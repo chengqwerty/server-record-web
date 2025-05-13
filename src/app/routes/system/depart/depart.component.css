@@ -1,0 +1,18 @@
+.dept-container {
+  justify-content: space-between;
+}
+
+.dept-sidenav {
+  width: 320px;
+  border-right: 1px solid var(--mat-sys-outline);
+}
+
+.dept-body {
+  width: calc(100% - 336px);
+}
+
+.mat-column-action {
+  width: 360px;
+}
+
+/*# sourceMappingURL=depart.component.css.map */

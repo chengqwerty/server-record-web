@@ -1,9 +1,11 @@
 .art-header-container {
-    max-height: 64px;
+    height: 64px;
     background-color: var(--mat-sys-primary-container);
     color: var(--mat-sys-primary);
     font: var(--mat-sys-body-medium);
     .art-header-item {
+        min-width: 88px;
+        color: var(--mat-sys-primary);
         &:hover {
             cursor: pointer;
             background-color: color-mix(in srgb, var(--mat-sys-primary) 40%, transparent);

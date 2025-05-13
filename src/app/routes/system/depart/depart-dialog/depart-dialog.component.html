@@ -2,10 +2,10 @@
     <h2 mat-dialog-title class="art-primary">部门详情</h2>
     <div class="m-8">
         <art-descriptions [column]="4" [bordered]="true">
-            <art-descriptions-item [span]="4" title="父级部门">{{parent?.deptName}}</art-descriptions-item>
-            <art-descriptions-item [span]="4" title="部门编码">{{deptForm.get('deptCode')?.value}}</art-descriptions-item>
-            <art-descriptions-item [span]="4" title="部门名称">{{deptForm.get('deptName')?.value}}</art-descriptions-item>
-            <art-descriptions-item [span]="4" title="备注">{{deptForm.get('deptDescription')?.value}}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="父级部门">{{ parent?.deptName }}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="部门编码">{{ deptForm.get('deptCode')?.value }}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="部门名称">{{ deptForm.get('deptName')?.value }}</art-descriptions-item>
+            <art-descriptions-item [span]="4" title="备注">{{ deptForm.get('deptDescription')?.value }}</art-descriptions-item>
         </art-descriptions>
     </div>
     <mat-divider></mat-divider>
@@ -19,21 +19,32 @@
         <p *ngIf="parent">
             <mat-form-field class="mat-form-field-fill" appearance="outline" subscriptSizing="dynamic">
                 <mat-label>父级部门</mat-label>
-                <input matInput [value]="parent.deptName">
+                <input matInput [value]="parent.deptName" disabled>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field class="mat-form-field-fill" appearance="outline" subscriptSizing="dynamic">
                 <mat-label>部门编码</mat-label>
                 <input matInput formControlName="deptCode">
-                <mat-error *ngIf="deptForm.get('deptCode')?.invalid">部门编码不能为空</mat-error>
+                @if (deptCode.invalid && (deptCode.dirty || deptCode.touched)) {
+                    @if (deptCode.hasError('required')) {
+                        <mat-error>部门编码不能为空</mat-error>
+                    }
+                    @if (deptCode.hasError('minlength')) {
+                        <mat-error>部门编码长度至少为4个字符</mat-error>
+                    }
+                }
             </mat-form-field>
         </p>
         <p>
             <mat-form-field class="mat-form-field-fill" appearance="outline" subscriptSizing="dynamic">
                 <mat-label>部门名称</mat-label>
                 <input matInput formControlName="deptName">
-                <mat-error *ngIf="deptForm.get('deptName')?.invalid">部门名称不能为空</mat-error>
+                @if (deptName.invalid && (deptName.dirty || deptName.touched)) {
+                    @if (deptName.hasError('required')) {
+                        <mat-error>部门名称不能为空</mat-error>
+                    }
+                }
             </mat-form-field>
         </p>
         <p>

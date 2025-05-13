@@ -34,3 +34,14 @@ $size: (
   auto: auto
 );
 
+// Border radius
+
+$radius-base: 4px !default;
+$radius: (
+    0: 0,
+    4: $radius-base,
+    8: $radius-base * 2,
+    12: $radius-base * 3,
+    16: $radius-base * 4,
+    full: 9999px
+) !default;

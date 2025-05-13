@@ -1,7 +1,7 @@
 <div class="art-layout-container w-full h-full">
     <app-art-header *ngIf="option.showHeader && option.headerPosition === 'above'"></app-art-header>
     <mat-sidenav-container class="art-container" autosize="true">
-        <mat-sidenav mode="side" [opened]="option.showSidenav">
+        <mat-sidenav mode="side" style="width: fit-content" [opened]="option.showSidenav">
             <app-art-sidenav></app-art-sidenav>
         </mat-sidenav>
         <mat-sidenav-content class="p-l-16">

@@ -1,12 +1,13 @@
 import { Injectable }   from '@angular/core';
 import { StoreService } from '@/app/core/store/store-dynamic.interface';
 
-export function STORE_SERVICE_FACTORY(): LocalStorageService {
+export function STORE_SERVICE_FACTORY(): StoreService {
     return new LocalStorageService();
 }
 
 @Injectable()
 export class LocalStorageService implements StoreService {
+
     get(key: string): object {
         return JSON.parse(localStorage.getItem(key) || '{}') || {};
     }
@@ -18,6 +19,9 @@ export class LocalStorageService implements StoreService {
 
     remove(key: string): void {
         localStorage.removeItem(key);
+    }
+
+    clear(): void {
     }
 
 }

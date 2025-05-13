@@ -4,12 +4,19 @@
     </nav>
     <span style="flex: 1 1 auto"></span>
     <nav class="flex-row h-full">
-        <a *ngFor="let menu of menus" mat-ripple class="art-header-item flex-col justify-center items-center h-full p-x-16 p-y-8"
+        <a *ngFor="let menu of menus" mat-ripple class="art-header-item flex-col justify-between items-center h-full p-x-16 p-y-8"
             (click)="goToSidenav(menu)">
             <div class="art-header-svg-container flex-row">
                 <art-svg *ngIf="menu.icon" [svgName]="menu.icon"></art-svg>
             </div>
             <span>{{menu.name}}</span>
         </a>
+        <app-art-header-user class="flex-row justify-center items-center p-x-16 p-y-8"></app-art-header-user>
+        <!--<a class="art-header-item flex-row justify-center items-center p-x-16 p-y-8 m-l-48">-->
+        <!--    <div class="art-header-svg-container flex-row">-->
+        <!--        <art-svg [svgName]="'person'" width="32px" height="32px"></art-svg>-->
+        <!--    </div>-->
+        <!--    &lt;!&ndash;<span>{{'管理员'}}</span>&ndash;&gt;-->
+        <!--</a>-->
     </nav>
 </div>

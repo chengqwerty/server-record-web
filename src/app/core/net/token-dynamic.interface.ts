@@ -1,7 +1,8 @@
 import { InjectionToken }                           from '@angular/core';
 import { TOKEN_SERVICE_FACTORY, LocalTokenService } from '@/app/core/net/local-token.service';
+import { User }                                     from '@/app/core/service/user.service';
 
-export const TOKEN_SERVICE_TOKEN = new InjectionToken<TokenService>('TOKEN_SERVICE_TOKEN', {
+export const USER_TOKEN_SERVICE = new InjectionToken<TokenService>('USER_TOKEN_SERVICE', {
     providedIn: 'root',
     factory: TOKEN_SERVICE_FACTORY
 });
@@ -9,6 +10,9 @@ export const TOKEN_SERVICE_TOKEN = new InjectionToken<TokenService>('TOKEN_SERVI
 export interface TokenModel {
     token: string;
     refreshToken: string;
+    user: User;
+    roles: string[];
+    authorities: string[];
     issueTime: Date
 }
 
@@ -19,5 +23,9 @@ export interface TokenService {
     getRefreshToken(): string;
 
     getToken(): string;
+
+    getTokenDetail(): TokenModel;
+
+    clear(): void;
 
 }

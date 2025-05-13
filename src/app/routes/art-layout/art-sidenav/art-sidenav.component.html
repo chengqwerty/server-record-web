@@ -1,28 +1,28 @@
 <ng-template #ulMenu let-menus="menus">
     <ul>
         <li *ngFor="let menu of menus">
-            <span *ngIf="menu.type === 'group'" class="art-menu flex flex-row flex-center p-x-8" [ngClass]="menu.opened ?
+            <p *ngIf="menu.type === 'group'" class="art-menu flex-row justify-between items-center p-r-16" [ngClass]="menu.opened ?
             'art-menu-open': ''" [style.padding-left]="menuPaddingLeft(menu)">
                 <mat-icon class="art-menu-icon" [fontIcon]="menu.icon"></mat-icon>
                 <span>{{menu.name}}</span>
-                <span style="flex: 1 1 auto; margin-left: 8px"></span>
+                <span style="flex: 1 1 auto;"></span>
                 <span (click)="menuExpand(menu)">
                     <mat-icon *ngIf="menu.children && !menu.opened" fontIcon="chevron_left"></mat-icon>
                     <mat-icon *ngIf="menu.children && menu.opened" fontIcon="expand_more"></mat-icon>
                 </span>
-            </span>
-            <span *ngIf="menu.type === 'menu'" class="art-menu flex flex-row p-x-8" [class.current-link]="currentUrl === menu.link"
+            </p>
+            <p *ngIf="menu.type === 'menu'" class="art-menu flex-row justify-between items-center" [class.current-link]="currentUrl === menu.link"
                   (click)="navigate(menu.link)" [style.padding-left]="menuPaddingLeft(menu)">
                 <mat-icon class="art-menu-icon" [fontIcon]="menu.icon"></mat-icon>
                 <span>{{menu.name}}</span>
                 <span style="flex: 1 1 auto; margin-left: 8px"></span>
-                <mat-icon *ngIf="menu.children" svgIcon="up"></mat-icon>
-            </span>
-            <div class="p-l-32" [@openClose]="menu.opened ? 'open' : 'closed'">
-                <ng-container *ngIf="menu.children && menu.opened" >
-                    <ng-template [ngTemplateOutlet]="ulMenu" [ngTemplateOutletContext]="{menus: menu.children}"></ng-template>
-                </ng-container>
-            </div>
+            </p>
+            <ng-container *ngIf="menu.children && menu.opened" >
+                <ng-template [ngTemplateOutlet]="ulMenu" [ngTemplateOutletContext]="{menus: menu.children}"></ng-template>
+            </ng-container>
+            <!--<div class="p-l-32" [@openClose]="menu.opened ? 'open' : 'closed'">-->
+            <!--    -->
+            <!--</div>-->
         </li>
     </ul>
 </ng-template>

@@ -4,7 +4,6 @@
 }
 
 mat-sidenav {
-  width: 240px;
   height: 100%;
   background-color: var(--mat-sys-surface-container);
   border-radius: 0;

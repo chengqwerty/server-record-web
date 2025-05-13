@@ -1,9 +1,16 @@
 @use "sass:map";
 @use "sass:list";
 @use "sass:meta";
+@use "functions";
+@use 'rounded';
 @use "size";
 
-@each $key, $schema in size.$schemas {
+$utilities: functions.map-collect(
+        rounded.$utilities,
+        size.$utilities
+);
+
+@each $key, $schema in $utilities {
     $values: map.get($schema, values);
 
     @each $class-modifier, $value in $values {

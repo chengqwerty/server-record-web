@@ -36,10 +36,12 @@ export class SysDeptDataSource implements DataSource<SysDept> {
     }
 
     changeData(deptId: string) {
-        this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/dept/get', {params: {parentId: deptId}})
+        this.httpClient.get<ResultBean>(HttpCollections.sysUrl + '/sys/dept/getListByParent', {params: {parentId: deptId}})
             .subscribe((response) => {
-                let deptList = response.data as any[];
-                this.subject.next(deptList);
+                if (response.code === 200) {
+                    let deptList = response.data as SysDept[];
+                    this.subject.next(deptList);
+                }
             });
     }
 
@@ -121,6 +123,7 @@ export class DepartComponent {
                 }
             }
         }).afterClosed().subscribe(result => {
+            console.log('update dept result', result);
             this.refreshEmit()
         });
     }
@@ -145,7 +148,7 @@ export class DepartComponent {
     refreshEmit() {
         if (this.deptTreeNode != null) {
             this.dataSource.changeData(this.deptTreeNode.deptId);
-            this.deptTreeComponent.refreshExpand(this.deptTreeNode);
+            this.deptTreeComponent.refreshNode(this.deptTreeNode);
         }
     }
 

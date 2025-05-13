@@ -4,9 +4,9 @@ import { HttpClient }                                                           
 import { HttpCollections }                                                      from '@/environments/environment';
 import { ResultBean }                                                           from '@/app/common/result.bean';
 import { Router }                                                               from '@angular/router';
-import { ReuseTabService }                                                      from '@/app/routes/art-layout/reuse-tab/reuse-tabs.service';
-import { TOKEN_SERVICE_TOKEN, TokenModel }                                      from '@/app/core/net/token-dynamic.interface';
-import { LocalTokenService }                                                    from '@/app/core/net/local-token.service';
+import { ReuseTabService }                from '@/app/routes/art-layout/reuse-tab/reuse-tabs.service';
+import { USER_TOKEN_SERVICE, TokenModel } from '@/app/core/net/token-dynamic.interface';
+import { LocalTokenService }              from '@/app/core/net/local-token.service';
 import { MatIconModule }                                                        from '@angular/material/icon';
 import { CommonModule }                                                         from '@angular/common';
 import { MatFormFieldModule }                                                   from '@angular/material/form-field';
@@ -27,7 +27,7 @@ export class LoginPageComponent {
     constructor(formBuilder: FormBuilder,
                 private _httpClient: HttpClient,
                 private router: Router,
-                @Inject(TOKEN_SERVICE_TOKEN) private tokenService: LocalTokenService,
+                @Inject(USER_TOKEN_SERVICE) private tokenService: LocalTokenService,
                 private reuseTabService: ReuseTabService) {
         this.loginForm = formBuilder.group({
             loginName: ['admin', [Validators.required]],
@@ -48,6 +48,5 @@ export class LoginPageComponent {
                 this.router.navigateByUrl('/bus/sys/menu');
             }
         });
-
     }
 }

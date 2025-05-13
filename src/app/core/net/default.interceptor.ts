@@ -13,7 +13,7 @@ import { Router }                                                               
 import { BehaviorSubject, Observable, of, throwError, catchError, filter, mergeMap, switchMap, take } from 'rxjs';
 import { environment }                                                                                from '@/environments/environment';
 import {
-    TOKEN_SERVICE_TOKEN,
+    USER_TOKEN_SERVICE,
     TokenService
 }                                                                                                     from '@/app/core/net/token-dynamic.interface';
 import {
@@ -64,7 +64,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     }
 
     private get tokenService(): TokenService {
-        return this.injector.get(TOKEN_SERVICE_TOKEN);
+        return this.injector.get(USER_TOKEN_SERVICE);
     }
 
     private get http(): HttpClient {

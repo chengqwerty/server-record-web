@@ -1,0 +1,12 @@
+mat-tree-node .tree-node-name {
+  cursor: pointer;
+}
+mat-tree-node .tree-node-name:hover {
+  color: var(--mat-sys-secondary);
+}
+
+.tree-node-select {
+  color: var(--mat-sys-primary);
+}
+
+/*# sourceMappingURL=depart-tree.component.css.map */
